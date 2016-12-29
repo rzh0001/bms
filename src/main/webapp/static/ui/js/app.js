@@ -13,27 +13,6 @@ $(function() {
         autoLeftNav();
         console.log($(window).width());
     });
-    
-/*    $.ajax({
-        type : "GET",
-        url : "/getMenu",
-        data : {},
-        dataType : "json",
-        beforeSend : function() {
-            index = layer.load();
-        },
-        success : function(resultdata) {
-            layer.close(index);
-            console.log(resultdata);
-
-        },
-        error : function(data, errorMsg) {
-            layer.close(index);
-            layer.msg("系统错误，请联系管理员！", {
-                icon : 2
-            });
-        }
-    });*/
 
 })
 
@@ -102,7 +81,17 @@ $('.sidebar-nav-sub-title').on('click', function() {
 function loadPage(url){
 	$(".tpl-content-wrapper").load(url);
 }
-
+function menuLoad(url,obj){
+	$("a[class='active']").removeClass('active');
+	$(obj).addClass("active");
+	$(obj).parent().parent().parent().find('a:first').addClass("active");
+	if(url.indexOf("druid")!=-1){
+		 window.open(url);
+	}else{
+		loadPage(url);
+	}
+	
+}
 function commit(formId, commitUrl, jumpUrl) {
     //组装表单数据
     var index;
@@ -147,14 +136,14 @@ function del(nav,jumpUrl){
             url :  nav,
             dataType : "json",
             success : function(resultdata) {
-                if (resultdata.status) {
+                if (resultdata.status=="0") {
                     layer.msg(resultdata.message, {
                         icon : 1
                     });
                     loadPage(jumpUrl);
                 } else {
                     layer.msg(resultdata.message, {
-                        icon : 5
+                        icon : 0
                     });
                 }
             },
@@ -180,3 +169,36 @@ function edit(nav){
           }
       });
 }
+
+function getCheck(){
+	var checkId = $('input[name="checkId"]:checked').val();
+	if(checkId == null){
+		 layer.msg("你没有选择行", {
+             icon : 0
+         });
+		 return '';
+	}else{
+		return checkId;
+	}
+}
+
+function initPage(pages,current,jumpUrl,params){
+
+	var pagination = new Pagination({
+		  wrap: $('.am-pagination'), // 存放分页内容的容器
+		  count: pages, // 总页数
+		  current: current, // 当前的页数（默认为1）
+		  prevText: '上一页', // prev 按钮的文本内容
+		  nextText: '下一页', // next 按钮的文本内容
+		  callback: function(page) { // 每一个页数按钮的回调事件
+				var par='';
+				if(params!=null && params.length>0){
+					for(x in params){
+						par +='&'+params[x]+'='+$('#'+params[x]).val();
+					}
+				}
+			  loadPage(jumpUrl+"?page="+page+par);
+		  }
+		});
+}
+	  

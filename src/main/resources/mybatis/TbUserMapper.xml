@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xj.cms.base.user.mapper.TbUserMapper">
+<mapper namespace="com.xj.bms.base.user.mapper.TbUserMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.xj.cms.base.user.entity.TbUser">
+	<resultMap id="BaseResultMap" type="com.xj.bms.base.user.entity.TbUser">
 		<id column="u_id" property="id" />
 		<result column="u_name" property="userName" />
 		<result column="u_account_name" property="accountName" />
@@ -15,7 +15,7 @@
 		<result column="u_creator_name" property="creatorName" />
 		<result column="u_create_time" property="createTime" />
 		<result column="u_update_time" property="updateTime" />
- 		<association property="role" column="id" javaType="com.xj.cms.base.role.entity.TbRole">
+ 		<association property="role" column="id" javaType="com.xj.bms.base.role.entity.TbRole">
 			<id property="id" column="r_id"/>
 			<result property="name" column="r_name"/>
 			<result property="key" column="r_key"/>
@@ -51,8 +51,9 @@
 				 u.u_name LIKE CONCAT('%',#{name},'%' ) OR u.u_account_name LIKE CONCAT('%',#{name},'%' )
 			</if>
 		</where>
+		order by r.r_update_time desc,r.r_create_time desc
 	</select>
-	<select id="selectUserRole" resultMap="BaseResultMap">
+	<select id="selectUserRole" resultMap="BaseResultMap" parameterType="map">
 		SELECT u.u_id,
 		u.u_name,
 		u.u_account_name,
@@ -75,6 +76,9 @@
 		<where>
 			<if test="userId != null and userId != ''">
 				u.u_id=#{userId}
+			</if>
+			<if test="accountName != null and accountName != ''">
+				u.u_account_name=#{accountName}
 			</if>
 		</where>
 	</select>

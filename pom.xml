@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.xj</groupId>
-  <artifactId>cms</artifactId>
+  <artifactId>bms</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
 
@@ -24,6 +24,7 @@
                 </exclusion>
             </exclusions>
     </dependency>  
+    
     <!-- mybatis -->
     <dependency>
 	    <groupId>org.mybatis.spring.boot</groupId>
@@ -46,6 +47,11 @@
 	    <groupId>com.baomidou</groupId>
 	    <artifactId>mybatis-plus</artifactId>
 	    <version>2.0</version>
+	</dependency>
+	<dependency>
+		<groupId>org.mybatis.caches</groupId>
+		<artifactId>mybatis-ehcache</artifactId>
+		<version>1.0.3</version>
 	</dependency>
 	<!-- 模板引擎  mybatis plus生产代码 -->
 	<dependency>
@@ -73,6 +79,12 @@
 	    <artifactId>shiro-ehcache</artifactId>  
 	    <version>${shiro.version}</version>  
 	</dependency>  
+	<!-- 包含支持UI模版（Velocity，FreeMarker，JasperReports）， 邮件服务， 脚本服务(JRuby)， 缓存Cache（EHCache），   
+            任务计划Scheduling（uartz）。 -->  
+    <dependency>  
+        <groupId>org.springframework</groupId>  
+        <artifactId>spring-context-support</artifactId>  
+    </dependency>  
 	<!-- thmleaf模板依赖. -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -87,9 +99,26 @@
      <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
       </dependency>
+     <!-- 工具类 -->
+      <dependency>
+          <groupId>com.feilong.platform</groupId>
+          <artifactId>feilong-core</artifactId>
+          <version>1.10.0</version>
+      </dependency>
+      <!-- thymeleaf模板shiro标签 -->
+      <dependency>  
+	    <groupId>com.github.theborakompanioni</groupId>  
+	    <artifactId>thymeleaf-extras-shiro</artifactId>  
+	    <version>1.0.2</version>  
+	</dependency>  
   </dependencies>
+   <repositories>
+       <repository>
+           <id>feilong-repository</id>
+           <url>https://raw.github.com/venusdrogon/feilong-platform/repository</url>
+       </repository>
+   </repositories>
   <properties>
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	<java.version>1.7</java.version>
@@ -101,10 +130,6 @@
 		<plugin>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-maven-plugin</artifactId>
-			 <configuration>
-                   <!--fork :  如果没有该项配置，肯呢个devtools不会起作用，即应用不会restart -->
-                    <fork>true</fork>
-             </configuration>
 		</plugin>
 	</plugins>
 	</build>

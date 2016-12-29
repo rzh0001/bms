@@ -12,7 +12,7 @@
 						<div class="am-form-group">
 							<div class="am-btn-toolbar">
 								<div class="am-btn-group am-btn-group-xs">
-									<button type="button" class="am-btn am-btn-default am-btn-success" onclick="loadPage('/user/form')">
+									<button shiro:hasPermission="user:add" type="button" class="am-btn am-btn-default am-btn-success" onclick="loadPage('/user/form')">
 										<span class="am-icon-plus" ></span> 新增
 									</button>
 									<!-- <button type="button"
@@ -44,7 +44,7 @@
 							</select>
 						</div>
 					</div> -->
-					<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+					<div class="am-u-sm-12 am-u-md-12 am-u-lg-3 am-u-sm-push-3">
 						<div
 							class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 							<input type="text" class="am-form-field " placeholder="姓名、账户名..." id="name" th:value="${name}" /> <span
@@ -85,10 +85,8 @@
 									<td th:text="${#dates.format(record.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
 									<td>
 										<div class="tpl-table-black-operation">
-											<a href="#" th:onclick="'javascript:editUser('+${record.id}+');'"> <i class="am-icon-pencil"></i> 编辑
-											</a> <a href="#" th:onclick="'javascript:delUser('+${record.id}+');'" class="tpl-table-black-operation-del del-btn">
-												<i class="am-icon-trash"></i> 删除
-											</a>
+											<a href="#" th:onclick="'javascript:loadPage(\'user/'+${record.id}+'/select\');'" shiro:hasPermission="user:edit"> <i class="am-icon-pencil"></i> 编辑</a> 
+											<a href="#" th:onclick="'javascript:del(\'user/'+${record.id}+'/delete\',\'user/listUI\');'" class="tpl-table-black-operation-del del-btn" shiro:hasPermission="user:delete"><i class="am-icon-trash"></i> 删除</a>
 										</div>
 									</td>
 								</tr>
@@ -111,29 +109,15 @@
 </div>
 <script th:inline="javascript">
 	<![CDATA[
-	function delUser(userId){
-		del('user/'+userId+'/delete','user/listUI');
-	}
+
 /* 	$('select').selected(); */
-		var pagination = new Pagination({
-			  wrap: $('.am-pagination'), // 存放分页内容的容器
-			  count: [[${page.pages}]], // 总页数
-			  current: [[${page.current}]], // 当前的页数（默认为1）
-			  prevText: '上一页', // prev 按钮的文本内容
-			  nextText: '下一页', // next 按钮的文本内容
-			  callback: function(page) { // 每一个页数按钮的回调事件
-				  loadPage('/user/listUI?page='+page);
-			  }
-			});
-			
+	var params =['name'];
+    initPage([[${page.pages}]],[[${page.current}]],'/user/listUI',params);		
 	function searchUser(){
 		var name = $('#name').val();
 		loadPage('user/listUI?name='+name);
 	}
 	
-	function editUser(userId){
-		loadPage('user/'+userId+'/select');
-	}
 		]]>
 	</script>
 
