@@ -1,0 +1,122 @@
+
+<div class="row-content am-cf">
+	<div class="row">
+		<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+			<div class="widget am-cf">
+				<div class="widget-head am-cf">
+					<div class="widget-title  am-cf">角色列表</div>
+				</div>
+				<div class="widget-body  am-fr">
+
+					<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+						<div class="am-form-group">
+							<div class="am-btn-toolbar">
+								<div class="am-btn-group am-btn-group-xs">
+									<button type="button" class="am-btn am-btn-default am-btn-success" onclick="loadPage('/role/form')" shiro:hasPermission="role:add">
+										<span class="am-icon-plus" ></span> 新增
+									</button>
+									<button type="button"
+										class="am-btn am-btn-default am-btn-warning" onclick="permission()" shiro:hasPermission="role:permission">
+										<span class="am-icon-archive"></span> 分配权限
+									</button>
+									<!-- <button type="button"
+										class="am-btn am-btn-default am-btn-secondary">
+										<span class="am-icon-save"></span> 保存
+									</button>
+									
+									<button type="button"
+										class="am-btn am-btn-default am-btn-danger">
+										<span class="am-icon-trash-o"></span> 删除
+									</button> -->
+								</div>
+							</div>
+						</div>
+					</div>
+<!-- 					<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+						<div class="am-form-group tpl-table-list-select">
+							<select data-am-selected="{btnSize: 'sm'}">
+								<option value="option1">所有类别</option>
+								<option value="option2">IT业界</option>
+								<option value="option3">数码产品</option>
+								<option value="option3">笔记本电脑</option>
+								<option value="option3">平板电脑</option>
+								<option value="option3">只能手机</option>
+								<option value="option3">超极本</option>
+							</select>
+						</div>
+					</div> 
+					<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+						<div
+							class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+							<input type="text" class="am-form-field " placeholder="姓名、账户名..." id="name" th:value="${name}" /> <span
+								class="am-input-group-btn">
+								<button
+									class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+									type="button" onclick="searchUser()"></button>
+							</span>
+						</div>
+					</div>
+-->
+					<div class="am-u-sm-12">
+						<table width="100%"
+							class="am-table am-table-compact am-table-striped tpl-table-black "
+							id="example-r">
+							<thead>
+								<tr>
+									<th>选择</th>
+									<th>角色名称</th>
+									<th>标识</th>
+									<th>状态</th>
+									<th>描述</th>
+									<th>创建时间</th>
+									<th>更新时间</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="gradeX" th:each="record:${page.records}">
+									<td> <input type="radio" name="checkId" th:value="${record.id}"/></td>
+									<td th:text="${record.name}"></td>
+									<td th:text="${record.key}"></td>
+									<td th:text="${record.status}?'删除':'正常'"></td>
+									<td th:text="${record.description}"></td>
+									<td th:text="${#dates.format(record.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+									<td th:text="${record.updateTime!=null?#dates.format(record.updateTime, 'yyyy-MM-dd HH:mm:ss'):''}"></td>
+									<td>
+										<div class="tpl-table-black-operation">
+											<a href="#" th:onclick="'javascript:loadPage(\'role/'+${record.id}+'/select\');'" shiro:hasPermission="role:edit"> <i class="am-icon-pencil"></i> 编辑</a> 
+											<a href="#" th:onclick="'javascript:del(\'role/'+${record.id}+'/delete\',\'role/listUI\');'" class="tpl-table-black-operation-del del-btn" shiro:hasPermission="role:delete"><i class="am-icon-trash"></i> 删除</a>
+										</div>
+									</td>
+								</tr>
+								<!-- more data -->
+							</tbody>
+						</table>
+					</div>
+					<div class="am-u-lg-12 am-cf">
+
+						<div class="am-fr">
+							<ul class="am-pagination tpl-pagination">
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	<![CDATA[
+	         
+	initPage([[${page.pages}]],[[${page.current}]],'/role/listUI');
+	
+	function permission(){
+		var checkId = getCheck();
+		if(''!=checkId){
+			loadPage('role/'+checkId+'/permission');
+		}
+	}
+		]]>
+	</script>
+
