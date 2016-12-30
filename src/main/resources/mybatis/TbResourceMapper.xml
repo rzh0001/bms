@@ -75,7 +75,7 @@
 			<if test="isHide != null">
 				and t1.s_is_hide=${isHide}
 			</if>
-			<if test="type != null">
+			<if test="type != null and type!=-1">
 				and t1.s_type=${type}
 			</if>
 		</where>
