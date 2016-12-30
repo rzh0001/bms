@@ -16,7 +16,6 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xj.bms.base.resource.entity.TbResource;
 import com.xj.bms.base.resource.service.ITbResourceService;
@@ -40,19 +39,10 @@ public class IndexController {
 	@RequestMapping({"/","/index" })
 	public String index(Map<String, Object> map) {
 		TbUser userEntity = (TbUser)SecurityUtils.getSubject().getPrincipal();
-		List<TbResource> list = resourceService.findResourcesMenuByUserId(userEntity.getId());
-		map.put("menus", list);
+		List<TbResource> treeMenuList = resourceService.findResourcesMenuByUserId(userEntity.getId());
+		map.put("menus", treeMenuList);
 		map.put("user", userEntity);
 		return "index";
-	}
-	
-	@RequestMapping(value="/getMenu",method=RequestMethod.GET)
-	@ResponseBody
-	public Object getMenu(){
-		// 获取登录的bean
-		TbUser userEntity = (TbUser)SecurityUtils.getSubject().getPrincipal();
-		List<TbResource> list = resourceService.findResourcesMenuByUserId(userEntity.getId());
-		return list;
 	}
 
 	@RequestMapping(value="/login",method=RequestMethod.GET)
@@ -95,6 +85,6 @@ public class IndexController {
 	public String logout() {
 		// 注销登录
 		SecurityUtils.getSubject().logout();
-		return "redirect:login.html";
+		return "redirect:login";
 	}
 }

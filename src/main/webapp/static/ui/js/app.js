@@ -87,7 +87,9 @@ function menuLoad(url,obj){
 	$(obj).parent().parent().parent().find('a:first').addClass("active");
 	if(url.indexOf("druid")!=-1){
 		 window.open(url);
+		 console.log('open='+url);
 	}else{
+		console.log('load='+url);
 		loadPage(url);
 	}
 	
