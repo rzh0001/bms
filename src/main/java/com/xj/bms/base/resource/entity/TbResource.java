@@ -87,7 +87,7 @@ public class TbResource extends Model<TbResource> {
 	private String parentName;
 	
 	@TableField(exist=false)
-	private List<TbResource> children = new ArrayList<TbResource>();
+	private List<TbResource> children = new ArrayList<>();
 	
 
 	public Integer getId() {

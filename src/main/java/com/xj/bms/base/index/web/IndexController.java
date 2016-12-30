@@ -60,13 +60,10 @@ public class IndexController {
        return "login";
     }
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(HttpServletRequest request, Map<String, Object> map) throws Exception {
-		System.out.println("HomeController.login()");
+	public String login(HttpServletRequest request, Map<String, Object> map) {
 		// 登录失败从request中获取shiro处理的异常信息。
 		// shiroLoginFailure:就是shiro异常类的全类名.
 		String exception = (String) request.getAttribute("shiroLoginFailure");
-
-		System.out.println("exception=" + exception);
 		String msg = "";
 		if (exception != null) {
 			if (UnknownAccountException.class.getName().equals(exception)) {
@@ -87,7 +84,7 @@ public class IndexController {
 				logger.info("else -- >{}" + exception);
 			}
 		}else{
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			logger.error("LoginError:{}");
 		}
 		map.put("msg", msg);
 		// 此方法不处理登录成功,由shiro进行处理.

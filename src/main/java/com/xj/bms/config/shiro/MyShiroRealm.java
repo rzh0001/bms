@@ -1,8 +1,6 @@
 package com.xj.bms.config.shiro;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -18,6 +16,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
+import com.feilong.core.bean.ConvertUtil;
 import com.xj.bms.base.resource.entity.TbResource;
 import com.xj.bms.base.resource.service.ITbResourceService;
 import com.xj.bms.base.user.entity.TbUser;
@@ -46,19 +45,15 @@ public class MyShiroRealm extends AuthorizingRealm{
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		System.out.println("MyShiroRealm.doGetAuthenticationInfo()");
 			//获取用户的输入的账号.
 	       String userName = (String)token.getPrincipal();
-	       Map<String,Object> params = new HashMap<String,Object>();
-	       params.put("accountName", userName);
-	       TbUser userInfo = userService.selectUserRole(params);
+	       TbUser userInfo = userService.selectUserRole(ConvertUtil.toMap("accountName",(Object)userName));
 	       if(userInfo == null){
 	    	   throw new UnknownAccountException();// 没找到帐号
 	       }
 	       if (userInfo.getLocked()==2) {
 				throw new LockedAccountException(); // 帐号被锁定
 			}
-	       System.out.println(">>>>>>>>>>>>>>>>>>>>>>>"+ByteSource.Util.bytes(userName + userInfo.getCredentialsSalt()));
 			// 从数据库查询出来的账号名和密码,与用户输入的账号和密码对比
 			// 当用户执行登录时,在方法处理上要实现subject.login(token);
 			// 然后会自动进入这个类进行认证
@@ -94,7 +89,6 @@ public class MyShiroRealm extends AuthorizingRealm{
 	        * 当放到缓存中时，这样的话，doGetAuthorizationInfo就只会执行一次了，
 	        * 缓存过期之后会再次执行。
 	        */
-	       System.out.println("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
 	       TbUser user  = (TbUser)principals.getPrimaryPrincipal();
 	       if (user != null) {
 	    	   List<TbResource> resourceList = resourceService.findResourcesByUserId(user.getId());

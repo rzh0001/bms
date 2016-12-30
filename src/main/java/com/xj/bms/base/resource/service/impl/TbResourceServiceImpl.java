@@ -1,7 +1,6 @@
 package com.xj.bms.base.resource.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.feilong.core.bean.ConvertUtil;
 import com.xj.bms.base.resource.entity.TbResource;
 import com.xj.bms.base.resource.mapper.TbResourceMapper;
 import com.xj.bms.base.resource.service.ITbResourceService;
@@ -80,7 +80,7 @@ public class TbResourceServiceImpl extends ServiceImpl<TbResourceMapper, TbResou
 	 * @return
 	 */
 	private List<TbResource> getChildList(List<TbResource> list, TbResource t) {
-		List<TbResource> tlist = new ArrayList<TbResource>();
+		List<TbResource> tlist = new ArrayList<>();
 		Iterator<TbResource> it = list.iterator();
 		while (it.hasNext()) {
 			TbResource n = (TbResource) it.next();
@@ -119,9 +119,7 @@ public class TbResourceServiceImpl extends ServiceImpl<TbResourceMapper, TbResou
 	@Override
 	@Transactional
 	public void deleteRoleResource(int resourceId) {
-		Map<String, Object> parameter = new HashMap<String, Object>();
-		parameter.put("s_id", resourceId);
-		resourceRoleMapper.deleteByMap(parameter);
+		resourceRoleMapper.deleteByMap(ConvertUtil.toMap("s_id",(Object)resourceId));
 		resourceMapper.deleteById(resourceId);
 		
 	}

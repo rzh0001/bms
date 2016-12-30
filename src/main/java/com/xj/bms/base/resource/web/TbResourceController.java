@@ -1,7 +1,6 @@
 package com.xj.bms.base.resource.web;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.feilong.core.bean.ConvertUtil;
 import com.xj.bms.base.common.bean.AbstractBean;
 import com.xj.bms.base.common.exception.EnumSvrResult;
 import com.xj.bms.base.common.model.Select2Entity;
@@ -38,19 +38,8 @@ public class TbResourceController {
 	
 	@RequestMapping("listUI")
     public String listUI(Map<String,Object> map,Integer page,@RequestParam(defaultValue="") String name, Integer type) {
-		Map<String,Object> parames = new HashMap<String,Object>();
-		if(name!=null){
-			parames.put("name", name);
-		
-		}
-		if(type!=null && type!=-1){
-			parames.put("type", type);
-			
-		}
-		Page<TbResource> resources = resourceService.selectResourceList(new Page<TbResource>(null==page?0:page, 10),parames);
+		Page<TbResource> resources = resourceService.selectResourceList(new Page<TbResource>(null==page?0:page, 10),ConvertUtil.toMap("name",(Object)name,"type",(Object)type));
 		map.put("page", resources);
-		
-		
 		map.put("name", name);
 		map.put("type", type);
 		return "resource/list";
@@ -88,9 +77,7 @@ public class TbResourceController {
 	@ResponseBody
     public AbstractBean delete(@PathVariable(required=true) Integer id) {	
 		AbstractBean bean = new AbstractBean();
-		Map<String, Object> parameter = new HashMap<String, Object>();
-		parameter.put("s_parent_id", id);
-		List<TbResource> childrens = resourceService.selectByMap(parameter);
+		List<TbResource> childrens = resourceService.selectByMap(ConvertUtil.toMap("s_parent_id",(Object)id));
 		if(childrens!=null && childrens.size()>0){
 			bean.setStatus(EnumSvrResult.ERROR_RESOURCE_DELETE.getVal());
 			bean.setMessage(EnumSvrResult.ERROR_RESOURCE_DELETE.getName()); 

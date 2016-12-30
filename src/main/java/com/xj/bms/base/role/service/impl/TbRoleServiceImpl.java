@@ -2,15 +2,14 @@ package com.xj.bms.base.role.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.feilong.core.bean.ConvertUtil;
 import com.feilong.core.util.CollectionsUtil;
 import com.xj.bms.base.resourcerole.entity.TbResourcesRole;
 import com.xj.bms.base.resourcerole.mapper.TbResourcesRoleMapper;
@@ -37,11 +36,8 @@ public class TbRoleServiceImpl extends ServiceImpl<TbRoleMapper, TbRole> impleme
 	@Override
 	@Transactional
 	public void savePermission(Integer roleId, List<Integer> resourceIds) {
-		Map<String,Object> params = new HashMap<String,Object>();
-		params.put("r_id", roleId);
-		List<TbResourcesRole> roleResources = resourceRoleMapper.selectByMap(params);
-		
-		List<TbResourcesRole> newRes = new ArrayList<TbResourcesRole>();
+		List<TbResourcesRole> roleResources = resourceRoleMapper.selectByMap(ConvertUtil.toMap("r_id",(Object)roleId));
+		List<TbResourcesRole> newRes = new ArrayList<>();
 		for(Integer sid : resourceIds){
 			TbResourcesRole rr = new TbResourcesRole();
 			rr.setRid(roleId);
@@ -65,9 +61,7 @@ public class TbRoleServiceImpl extends ServiceImpl<TbRoleMapper, TbRole> impleme
 	@Override
 	@Transactional
 	public boolean deleteRoleResource(Integer roleId) {
-		Map<String,Object> params = new HashMap<String,Object>();
-		params.put("r_id", roleId);
-		resourceRoleMapper.deleteByMap(params);
+		resourceRoleMapper.deleteByMap(ConvertUtil.toMap("r_id",(Object)roleId));
 		if(roleMapper.deleteById(roleId)>0){
 			return true;
 		}

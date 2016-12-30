@@ -1,7 +1,6 @@
 package com.xj.bms.base.role.web;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.feilong.core.bean.ConvertUtil;
 import com.xj.bms.base.common.bean.AbstractBean;
 import com.xj.bms.base.common.exception.EnumSvrResult;
 import com.xj.bms.base.common.model.JSTreeEntity;
@@ -94,10 +94,7 @@ public class TbRoleController extends BaseController{
 	@RequestMapping(value="{roleId}/permission",method=RequestMethod.GET)
     public String permission(Map<String,Object> map,@PathVariable(required=true) Integer roleId) {	
 		TbRole role = roleService.selectById(roleId);
-		Map<String,Object> parameter = new HashMap<String,Object>();
-		parameter.put("isHide", 0);
-		parameter.put("roleId", roleId);
-		List<TbResource> resources = resourceService.queryResourceList(parameter);
+		List<TbResource> resources = resourceService.queryResourceList(ConvertUtil.toMap("isHide",(Object)0,"roleId",(Object)roleId));
 		List<JSTreeEntity> jstreeList = new TreeUtil().generateJSTree(resources);
 		map.put("role", role);
 		map.put("resources", jstreeList);
@@ -107,10 +104,7 @@ public class TbRoleController extends BaseController{
 	@RequestMapping(value="{roleId}/getPermission",method=RequestMethod.GET)
 	@ResponseBody
     public Object getPermission(@PathVariable(required=true) Integer roleId) {	
-		Map<String,Object> parameter = new HashMap<String,Object>();
-		parameter.put("isHide", 0);
-		parameter.put("roleId", roleId);
-		List<TbResource> resources = resourceService.queryResourceList(parameter);
+		List<TbResource> resources = resourceService.queryResourceList(ConvertUtil.toMap("isHide",(Object)0,"roleId",(Object)roleId));
 		List<JSTreeEntity> jstreeList = new TreeUtil().generateJSTree(resources);
 		return jstreeList;
     }	

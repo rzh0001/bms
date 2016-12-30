@@ -1,7 +1,6 @@
 package com.xj.bms.base.user.web;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.feilong.core.Validator;
+import com.feilong.core.bean.ConvertUtil;
 import com.xj.bms.base.common.bean.AbstractBean;
 import com.xj.bms.base.common.exception.EnumSvrResult;
 import com.xj.bms.base.index.web.BaseController;
@@ -58,9 +58,7 @@ public class TbUserController extends BaseController{
 	@RequestMapping(value="checkAccount",method=RequestMethod.GET)
 	@ResponseBody
     public boolean checkAccount(@RequestParam(required=true) String accountName) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("u_account_name", accountName);
-		List<TbUser> user = userService.selectByMap(params);
+		List<TbUser> user = userService.selectByMap(ConvertUtil.toMap("u_account_name",(Object)accountName));
 		if(!Validator.isNullOrEmpty(user)){
 			return false;
 		}
@@ -111,9 +109,7 @@ public class TbUserController extends BaseController{
 	
 	@RequestMapping(value="{userId}/select",method=RequestMethod.GET)
     public String select(Map<String,Object> map,@PathVariable(required=true) Integer userId) {	
-		Map<String, Object> parameter = new HashMap<String,Object>();
-		parameter.put("userId", userId);
-		TbUser user = userService.selectUserRole(parameter);
+		TbUser user = userService.selectUserRole(ConvertUtil.toMap("userId",(Object)userId));
 		List<TbRole> list = roleService.selectByMap(null);
 		map.put("roles", list);
 		map.put("user", user==null?new TbUser():user);

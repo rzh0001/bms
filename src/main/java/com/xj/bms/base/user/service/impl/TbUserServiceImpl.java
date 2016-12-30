@@ -1,7 +1,6 @@
 package com.xj.bms.base.user.service.impl;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.feilong.core.bean.ConvertUtil;
 import com.xj.bms.base.user.entity.TbUser;
 import com.xj.bms.base.user.mapper.TbUserMapper;
 import com.xj.bms.base.user.service.ITbUserService;
@@ -57,9 +57,7 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
 	@Override
 	@Transactional
 	public boolean delUser(Integer userId) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("u_id", userId);
-		if(roleUserMapper.deleteByMap(params)>0){
+		if(roleUserMapper.deleteByMap(ConvertUtil.toMap("u_id",(Object)userId))>0){
 			return userMapper.deleteById(userId)>0;
 		}
 		return false;
