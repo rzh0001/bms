@@ -15,14 +15,14 @@
 									<button shiro:hasPermission="user:add" type="button" class="am-btn am-btn-default am-btn-success" onclick="loadPage('user/form')">
 										<span class="am-icon-plus" ></span> 新增
 									</button>
+									<button type="button" onclick="resetPassword()" shiro:hasPermission="user:resetPassword" class="am-btn am-btn-default am-btn-warning">
+										<span class="am-icon-archive"></span> 重置密码
+									</button>
 									<!-- <button type="button"
 										class="am-btn am-btn-default am-btn-secondary">
 										<span class="am-icon-save"></span> 保存
 									</button>
-									<button type="button"
-										class="am-btn am-btn-default am-btn-warning">
-										<span class="am-icon-archive"></span> 审核
-									</button>
+
 									<button type="button"
 										class="am-btn am-btn-default am-btn-danger">
 										<span class="am-icon-trash-o"></span> 删除
@@ -62,6 +62,7 @@
 							id="example-r">
 							<thead>
 								<tr>
+									<th>选择</th>
 									<th>账户名</th>
 									<th>姓名</th>
 									<th>角色</th>
@@ -75,6 +76,7 @@
 							</thead>
 							<tbody>
 								<tr class="gradeX" th:each="record:${page.records}">
+								<td> <input type="radio" name="checkId" th:value="${record.id}"/></td>
 									<td th:text="${record.accountName}"></td>
 									<td th:text="${record.userName}"></td>
 									<td th:text="${record.role.name}"></td>
@@ -118,6 +120,12 @@
 		loadPage('user/listUI?name='+name);
 	}
 	
+	function resetPassword(){
+		var checkId = getCheck();
+		if(''!=checkId){
+			loadPage('user/'+checkId+'/toRestPassword');
+		}
+	}
 		]]>
 	</script>
 

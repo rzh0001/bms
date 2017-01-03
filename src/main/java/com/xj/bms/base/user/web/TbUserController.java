@@ -116,4 +116,27 @@ public class TbUserController extends BaseController{
 		return "user/edit";
     }	
 	
+	@RequestMapping(value="{userId}/toRestPassword",method=RequestMethod.GET)
+    public String restPassword(Map<String,Object> map,@PathVariable(required=true) Integer userId) {	
+		TbUser user = userService.selectById(userId);
+		map.put("user", user);
+		return "user/rest";
+    }	
+	
+	@RequestMapping(value = "restPassword", method = RequestMethod.POST)
+	@ResponseBody
+	public AbstractBean restPassword(Map<String,Object> map,TbUser user){
+		AbstractBean bean = new AbstractBean();
+		TbUser userEntity = userService.selectById(user.getId());
+		TbUser userFlag = EndecryptUtils.md5Password(user.getAccountName(), user.getPassword(), 2);
+		//设置添加用户的密码和加密盐
+		userEntity.setPassword(userFlag.getPassword());
+		userEntity.setCredentialsSalt(userFlag.getCredentialsSalt());
+		userEntity.setUpdateTime(new Date(System.currentTimeMillis()));
+		if(!userService.updateById(userEntity)){
+			bean.setStatus(EnumSvrResult.ERROR.getVal());
+			bean.setMessage(EnumSvrResult.ERROR.getName());
+		}
+		return bean;
+	}
 }

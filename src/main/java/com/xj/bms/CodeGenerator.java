@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 /**
@@ -53,7 +54,7 @@ public class CodeGenerator {
 		StrategyConfig strategy = new StrategyConfig();
 		//strategy.setTablePrefix("bmd_");// 此处可以修改为您的表前缀
 		strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-	    strategy.setInclude(new String[] { "tb_resources_role" }); // 需要生成的表
+	    strategy.setInclude(new String[] { "tb_ad" }); // 需要生成的表
 		// strategy.setExclude(new String[]{"test"}); // 排除生成的表
 		// 字段名生成策略
 		strategy.setFieldNaming(NamingStrategy.underline_to_camel);
@@ -78,8 +79,8 @@ public class CodeGenerator {
 		mpg.setStrategy(strategy);
 		// 包配置
 		PackageConfig pc = new PackageConfig();
-		pc.setParent("com.xj.bms.base");
-		pc.setModuleName("resourcerole");
+		pc.setParent("com.xj.bms.bussiness");
+		pc.setModuleName("ad");
 		mpg.setPackageInfo(pc);
 		// 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
 		InjectionConfig cfg = new InjectionConfig() {
@@ -93,14 +94,14 @@ public class CodeGenerator {
 		mpg.setCfg(cfg);
 		// 自定义模板配置，可以 copy 源码 mybatis-plus/src/main/resources/template 下面内容修改，
 		// 放置自己项目的 src/main/resources/template 目录下, 默认名称一下可以不配置，也可以自定义模板名称
-		// TemplateConfig tc = new TemplateConfig();
-		// tc.setController("...");
+		 TemplateConfig tc = new TemplateConfig();
+		 tc.setController("/template/controller.vm");
 		// tc.setEntity("...");
 		// tc.setMapper("...");
 		// tc.setXml("...");
 		// tc.setService("...");
 		// tc.setServiceImpl("...");
-		// mpg.setTemplate(tc);
+		 mpg.setTemplate(tc);
 		// 执行生成
 		mpg.execute();
 		// 打印注入设置

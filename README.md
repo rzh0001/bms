@@ -1,5 +1,5 @@
 #BMS基础权限开发平台
-
+	CodeGenerator自动生成Entity、Mapper、Service、Controller让开发更简单
 ## 内置功能
 
 1.    用户管理
