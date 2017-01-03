@@ -42,7 +42,7 @@
 								
 								<button type="button" onclick="javascript:$('#roleForm').submit();"
 									class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
-										<button type="button" onclick="loadPage('/role/listUI')"
+										<button type="button" onclick="loadPage('role/listUI')"
 									class="am-btn am-btn-success tpl-btn-bg-color-success ">返回</button>
 							</div>
 						</div>
@@ -81,7 +81,7 @@
 	            }
 	        },
 	        submitHandler : function(form) {
-	        	commit('roleForm', 'role/save', '/role/listUI');
+	        	commit('roleForm', 'role/save', 'role/listUI');
 	        }
 	    });
 	}

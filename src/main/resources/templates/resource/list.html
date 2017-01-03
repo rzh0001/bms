@@ -12,7 +12,7 @@
 						<div class="am-form-group">
 							<div class="am-btn-toolbar">
 								<div class="am-btn-group am-btn-group-xs">
-									<button type="button" class="am-btn am-btn-default am-btn-success" onclick="loadPage('/resource/form')" shiro:hasPermission="resource:add">
+									<button type="button" class="am-btn am-btn-default am-btn-success" onclick="loadPage('resource/form')" shiro:hasPermission="resource:add">
 										<span class="am-icon-plus" ></span> 新增
 									</button>
 								</div>
@@ -101,7 +101,7 @@
 	$('select').selected();
 	var params =['name','type'];
 	
-	initPage([[${page.pages}]],[[${page.current}]],'/resource/listUI',params);
+	initPage([[${page.pages}]],[[${page.current}]],'resource/listUI',params);
 	
 	function searchResource(){
 		var name = $('#name').val()==null?'':$('#name').val();

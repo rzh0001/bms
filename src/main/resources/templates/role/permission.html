@@ -18,7 +18,7 @@
 				   <div class="am-form-group">
 						<div class="am-u-sm-10 ">
 							<button type="button" onclick="savePermission()" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
-							<button type="button" onclick="loadPage('/role/listUI')" class="am-btn am-btn-success tpl-btn-bg-color-success ">返回</button>
+							<button type="button" onclick="loadPage('role/listUI')" class="am-btn am-btn-success tpl-btn-bg-color-success ">返回</button>
 						</div>
 					</div>
 				</div>
@@ -33,7 +33,7 @@
 	$('#tree').jstree({
              "core" : {
                  'data' : {
-                     "url" : "/role/"+[[${role.id}]]+"/getPermission",
+                     "url" : "role/"+[[${role.id}]]+"/getPermission",
                      "dataType" : "json"
                  },
                  "themes" : {

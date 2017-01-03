@@ -85,7 +85,7 @@
 								
 								<button type="button" onclick="javascript:$('#dataForm').submit();"
 									class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
-										<button type="button" onclick="loadPage('/resource/listUI')"
+										<button type="button" onclick="loadPage('resource/listUI')"
 									class="am-btn am-btn-success tpl-btn-bg-color-success ">返回</button>
 							</div>
 						</div>
@@ -105,7 +105,7 @@
 	        iconLayer = layer.open({
 	            type : 2,
 	            scrollbar: false,
-	            content : '/resource/icon',
+	            content : 'resource/icon',
 	            area : 'auto',
 	            maxmin : true,
 	            shift : 4,
@@ -143,7 +143,7 @@
 	            }
 	        },
 	        submitHandler : function(form) {
-	        	commit('dataForm', 'resource/save', '/resource/listUI');
+	        	commit('dataForm', 'resource/save', 'resource/listUI');
 	        }
 	    });
 	}

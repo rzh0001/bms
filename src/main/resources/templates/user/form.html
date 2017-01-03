@@ -72,7 +72,7 @@
 								
 								<button type="button" onclick="javascript:$('#userForm').submit();"
 									class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
-										<button type="button" onclick="loadPage('/user/listUI')"
+										<button type="button" onclick="loadPage('user/listUI')"
 									class="am-btn am-btn-success tpl-btn-bg-color-success ">返回</button>
 							</div>
 						</div>
@@ -133,7 +133,7 @@
 	            "role.id" : "请选择角色"
 	        },
 	        submitHandler : function(form) {
-	        	commit('userForm', 'user/save', '/user/listUI');
+	        	commit('userForm', 'user/save', 'user/listUI');
 	        }
 	    });
 	}
