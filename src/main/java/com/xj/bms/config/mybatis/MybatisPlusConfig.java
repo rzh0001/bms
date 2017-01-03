@@ -4,6 +4,7 @@ import javax.sql.DataSource;
 
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
+import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import org.mybatis.spring.boot.autoconfigure.SpringBootVFS;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,14 @@ import org.springframework.util.StringUtils;
 
 import com.baomidou.mybatisplus.MybatisConfiguration;
 import com.baomidou.mybatisplus.MybatisXMLLanguageDriver;
+import com.baomidou.mybatisplus.entity.GlobalConfiguration;
+import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.mapper.AutoSqlInjector;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
 
 @Configuration
+@MapperScan("com.xj.bms.**.mapper*")
 public class MybatisPlusConfig {
 	@Autowired
 	private DataSource dataSource;
@@ -79,6 +84,9 @@ public class MybatisPlusConfig {
 			mybatisPlus.setMapperLocations(this.properties.resolveMapperLocations());
 		}
 		//ID自增
+		GlobalConfiguration global = new GlobalConfiguration(new AutoSqlInjector());
+		global.setIdType(IdType.AUTO.getKey());
+		mybatisPlus.setGlobalConfig(global);
 		return mybatisPlus;
 	}
 }

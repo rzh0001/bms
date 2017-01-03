@@ -1,18 +1,22 @@
 package com.xj.bms;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 
-@MapperScan("com.xj.bms.**.mapper*")
 @SpringBootApplication
 @ServletComponentScan   //servelet注册
-public class App 
-{
+public class App extends SpringBootServletInitializer{
 
+	@Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(App.class);
+    }
+	
     public static void main( String[] args )
     {
-    	  SpringApplication.run(App.class, args);
+    	SpringApplication.run(App.class, args);
     }
 }

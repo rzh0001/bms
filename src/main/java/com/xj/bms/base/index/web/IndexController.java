@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,10 +14,13 @@ import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.feilong.core.Validator;
 import com.xj.bms.base.resource.entity.TbResource;
 import com.xj.bms.base.resource.service.ITbResourceService;
 import com.xj.bms.base.user.entity.TbUser;
@@ -46,7 +50,10 @@ public class IndexController {
 	}
 
 	@RequestMapping(value="/login",method=RequestMethod.GET)
-    public String login(){
+    public String login(HttpServletResponse response,@RequestHeader HttpHeaders header){
+		if(Validator.isNotNullOrEmpty(header.get("X-Requested-With"))){
+			response.setHeader("sessionstatus", "timeout");
+		}
        return "login";
     }
 	@RequestMapping(value = "/login", method = RequestMethod.POST)

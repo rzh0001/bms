@@ -79,7 +79,11 @@ $('.sidebar-nav-sub-title').on('click', function() {
 
 
 function loadPage(url){
-	$(".tpl-content-wrapper").load(url);
+	$(".tpl-content-wrapper").load(url,function(response,status,xhr){
+		if(xhr.getResponseHeader('sessionstatus') == 'timeout'){
+			 window.location = "/";  
+		}
+	});
 }
 function menuLoad(url,obj){
 	$("a[class='active']").removeClass('active');
@@ -87,12 +91,9 @@ function menuLoad(url,obj){
 	$(obj).parent().parent().parent().find('a:first').addClass("active");
 	if(url.indexOf("druid")!=-1){
 		 window.open(url);
-		 console.log('open='+url);
 	}else{
-		console.log('load='+url);
 		loadPage(url);
 	}
-	
 }
 function commit(formId, commitUrl, jumpUrl) {
     //组装表单数据
