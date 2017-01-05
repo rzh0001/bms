@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
@@ -14,6 +13,8 @@ import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -56,35 +57,34 @@ public class IndexController {
 		}
        return "login";
     }
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(HttpServletRequest request, Map<String, Object> map) {
-		// 登录失败从request中获取shiro处理的异常信息。
-		// shiroLoginFailure:就是shiro异常类的全类名.
-		String exception = (String) request.getAttribute("shiroLoginFailure");
+	@RequestMapping(value = "/dologin", method = RequestMethod.POST)
+	public String doLogin(String username,String password,String rememberMe, Map<String, Object> map) {
+		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{},{},{}",username,password,rememberMe);
 		String msg = "";
-		if (exception != null) {
-			if (UnknownAccountException.class.getName().equals(exception)) {
-				logger.info("UnknownAccountException -- > 账号不存在：");
-				msg = "账户不存在！";
-			} else if (IncorrectCredentialsException.class.getName().equals(exception)) {
-				logger.info("IncorrectCredentialsException -- > 密码不正确：");
-				msg = "密码错误！";
-			} else if ("kaptchaValidateFailed".equals(exception)) {
-				logger.info("kaptchaValidateFailed -- > 验证码错误");
-				msg = "验证码错误！";
-			}else if(LockedAccountException.class.getName().equals(exception)){
-				msg = "您的账户已被锁定,请与管理员联系！";
-			}else if (ExcessiveAttemptsException.class.getName().equals(exception)) {    
-				msg = "登录失败次数过多,请稍后再试！";
-            } else {
-				msg = "登录异常，请联系管理员！ ";
-				logger.info("else -- >{}" + exception);
-			}
-		}else{
-			logger.error("LoginError:{}");
-		}
+		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+		token.setRememberMe(rememberMe==null?false:true);
+        Subject subject = SecurityUtils.getSubject();
+        subject.getSession().setAttribute("account", username);
+        try{
+        	subject.login(token);
+        	logger.info("{}登陆成功!",username);
+        	  subject.getSession().removeAttribute("msg");
+        	return "redirect:/index";
+        }catch(UnknownAccountException e){
+			msg = "账户不存在！";
+        }catch(IncorrectCredentialsException e){
+			msg = "密码错误！";
+        }catch (LockedAccountException e) {
+        	msg = "您的账户已被锁定,请与管理员联系！";
+        }catch(ExcessiveAttemptsException e){
+        	msg = "登录失败次数过多,请稍后再试！";
+        }catch(Exception e){
+        	 msg="系统发生错误，请联系管理员！";
+        }
 		map.put("msg", msg);
 		// 此方法不处理登录成功,由shiro进行处理.
+		logger.info("{}登陆失败，error={}!",username,msg);
+		subject.getSession().setAttribute("msg", msg);
 		return "/login";
 	}
 	

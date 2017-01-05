@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -13,6 +14,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
@@ -64,6 +66,10 @@ public class MyShiroRealm extends AuthorizingRealm{
 				   ByteSource.Util.bytes(userName + userInfo.getCredentialsSalt()),// salt=username+salt
 				   getName() // realm name
 			);
+		    // 当验证都通过后，把用户信息放在session里
+			Session session = SecurityUtils.getSubject().getSession();
+			// 用户对象
+			session.setAttribute("userSession", userInfo);
 	       return authenticationInfo;
 	}
 

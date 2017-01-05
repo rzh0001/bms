@@ -54,7 +54,7 @@ public class CodeGenerator {
 		StrategyConfig strategy = new StrategyConfig();
 		//strategy.setTablePrefix("bmd_");// 此处可以修改为您的表前缀
 		strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-	    strategy.setInclude(new String[] { "tb_ad" }); // 需要生成的表
+	    strategy.setInclude(new String[] { "tb_login_info" }); // 需要生成的表
 		// strategy.setExclude(new String[]{"test"}); // 排除生成的表
 		// 字段名生成策略
 		strategy.setFieldNaming(NamingStrategy.underline_to_camel);
@@ -79,8 +79,8 @@ public class CodeGenerator {
 		mpg.setStrategy(strategy);
 		// 包配置
 		PackageConfig pc = new PackageConfig();
-		pc.setParent("com.xj.bms.bussiness");
-		pc.setModuleName("ad");
+		pc.setParent("com.xj.bms.base");
+		pc.setModuleName("loginlog");
 		mpg.setPackageInfo(pc);
 		// 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
 		InjectionConfig cfg = new InjectionConfig() {

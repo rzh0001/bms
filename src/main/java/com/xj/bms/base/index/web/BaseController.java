@@ -15,6 +15,6 @@ public abstract class BaseController {
 	public TbUser getUserEntity() {
 		return (TbUser)SecurityUtils.getSubject().getPrincipal();
 	}
-	
+
 }
 
