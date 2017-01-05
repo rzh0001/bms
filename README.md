@@ -6,7 +6,6 @@
 2.    角色管理
 3.    资源管理
 4.    druid监控
-——————————————————————
 5.    登录日志
 
 
@@ -35,6 +34,8 @@
 1.[webside](http://git.oschina.net/wjggwm/webside)
 2.[mybatis-plus](http://git.oschina.net/baomidou/mybatis-plus)
 3.[feilong-core](https://github.com/venusdrogon/feilong-core)
+
+## QQ讨论群：593460183
 
 ## 后台界面
 
