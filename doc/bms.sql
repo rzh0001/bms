@@ -168,3 +168,18 @@ CREATE TABLE `tb_user` (
 -- ----------------------------
 INSERT INTO `tb_user` VALUES ('23', 'Administrator', 'administrator', '55e15e1c086ef0b2f6f81b713d500e28', '0', '0', '22', '8d78869f470951332959580424d4bf4f', 'admin', '2016-12-23 11:08:55', '2016-12-29 17:32:50');
 INSERT INTO `tb_user` VALUES ('33', 'Admin', 'admin', '033f34a794bfdc00b95da2144217e490', '0', '0', 'Admin', 'dcb07895c376453a52bcf3d7903d7eaa', 'admin', '2016-12-29 17:30:08', '2016-12-29 17:30:08');
+
+
+-- ----------------------------
+-- Table structure for `tb_login_info`
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_login_info`;
+CREATE TABLE `tb_login_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `account_name` varchar(255) DEFAULT NULL,
+  `ip` varchar(255) DEFAULT NULL,
+  `login_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `remark` varchar(100) DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
