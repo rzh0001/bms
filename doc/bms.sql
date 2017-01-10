@@ -182,4 +182,26 @@ CREATE TABLE `tb_login_info` (
   `remark` varchar(100) DEFAULT NULL,
   `status` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+
+-- ----------------------------
+-- Table structure for `tb_news`
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_news`;
+CREATE TABLE `tb_news` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nav_id` int(11) DEFAULT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `key_words` varchar(255) DEFAULT NULL COMMENT '关键词',
+  `cover_img` varchar(255) DEFAULT NULL COMMENT '封面图',
+  `is_show` int(11) DEFAULT NULL COMMENT '是否显示  1是  2否',
+  `descs` varchar(500) DEFAULT NULL,
+  `content` text,
+  `create_time` timestamp NULL DEFAULT NULL,
+  `create_user` varchar(50) DEFAULT NULL,
+  `update_time` timestamp NULL DEFAULT NULL,
+  `update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='新闻管理';

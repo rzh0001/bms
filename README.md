@@ -3,19 +3,18 @@
 ## 内置功能
 
 1. 系统基础管理
-
-   1.1 用户管理 
-   1.2 角色管理 
-   1.3 资源管理 
+   - 1.1 用户管理 
+   - 1.2 角色管理 
+   - 1.3 资源管理 
    
 2. 系统监控管理
-   2.1 druid监控 
+   - 2.1 druid监控 
    
 3. 日志管理
-   3.1 用户登录日志 
+   - 3.1 用户登录日志 
    
 4. CMS管理
-   4.1 新闻管理（富文本ckeditor，上传图片bootstrap fileinput）
+   - 4.1 新闻管理（富文本ckeditor，上传图片bootstrap fileinput）
 
 
 ## 技术选型
@@ -38,6 +37,8 @@
 * 客户端验证：Jquery-validation
 * 树结构控件：JsTree
 * 弹出层：Layer
+* 富文本: ckeditor
+* 上传文件 : bootstrap fileinput
 
 3、鸣谢
 1.[webside](http://git.oschina.net/wjggwm/webside)
@@ -51,5 +52,6 @@
 ![登录](http://git.oschina.net/uploads/images/2016/1230/150126_2acd13ce_14904.jpeg "")
 ![用户列表](http://git.oschina.net/uploads/images/2016/1230/150143_538119c6_14904.jpeg "")
 ![用户编辑](http://git.oschina.net/uploads/images/2016/1230/150159_35cb953a_14904.jpeg "")
-
+![新增新闻](http://git.oschina.net/uploads/images/2017/0110/122046_1e2829a1_14904.jpeg "")
+![新闻列表](http://git.oschina.net/uploads/images/2017/0110/122111_4b376f17_14904.jpeg "")
 
