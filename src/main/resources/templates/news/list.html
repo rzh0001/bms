@@ -64,7 +64,7 @@
 									<td class="am-text-middle" th:text="${record.createUser}"></td>
 									<td class="am-text-middle" th:text="${#dates.format(record.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
 									<td class="am-text-middle" th:text="${record.updateUser}"></td>
-									<td>
+									<td class="am-text-middle">
 										<div class="tpl-table-black-operation">
 											<a href="#" th:onclick="'javascript:loadPage(\'news/'+${record.id}+'/select\');'" > <i class="am-icon-pencil" ></i> 编辑</a> 
 											<a href="#" th:onclick="'javascript:del(\'news/'+${record.id}+'/delete\',\'news/listUI\');'" class="tpl-table-black-operation-del del-btn" ><i class="am-icon-trash"></i> 删除</a>
