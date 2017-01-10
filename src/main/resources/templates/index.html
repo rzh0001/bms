@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="static/ui/css/amazeui.datatables.min.css" />
 <link rel="stylesheet" href="static/ui/css/app.css" />
 <script src="static/ui/js/jquery.min.js"></script>
+<script type="text/javascript" src="static/ckeditor/ckeditor.js"></script>	
 
 </head>
 
@@ -225,7 +226,7 @@
 	<script type="text/javascript" src="static/jquery-validation/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="static/jquery-validation/localization/messages_zh.js"></script>
 	<script src="static/ui/js/app.js"></script>
-
+	<script th:inline="javascript"> var contextRoot = /*[[@{/}]]*/ ''; </script>
 </body>
 
 </html>

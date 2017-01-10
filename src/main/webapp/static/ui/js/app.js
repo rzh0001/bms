@@ -13,7 +13,6 @@ $(function() {
         autoLeftNav();
         console.log($(window).width());
     });
-
 })
 
 
@@ -33,8 +32,9 @@ $('.tpl-skiner-toggle').on('click', function() {
 })
 
 $('.tpl-skiner-content-bar').find('span').on('click', function() {
-    $('body').attr('class', $(this).attr('data-color'))
-    saveSelectColor.Color = $(this).attr('data-color');
+	var color = $(this).attr('data-color');
+    $('body').attr('class',color )
+    saveSelectColor.Color = color;
     // 保存选择项
     storageSave(saveSelectColor);
 
@@ -44,8 +44,6 @@ $('.tpl-skiner-content-bar').find('span').on('click', function() {
 
 
 // 侧边菜单开关
-
-
 function autoLeftNav() {
     $('.tpl-header-switch-button').on('click', function() {
         if ($('.left-sidebar').is('.active')) {
@@ -85,6 +83,11 @@ function loadPage(url){
 		}
 	});
 }
+/**
+ * 菜单加载
+ * @param url
+ * @param obj
+ */
 function menuLoad(url,obj){
 	$("a[class='active']").removeClass('active');
 	$(obj).addClass("active");
@@ -95,6 +98,12 @@ function menuLoad(url,obj){
 		loadPage(url);
 	}
 }
+/**
+ * 表单提交通用
+ * @param formId
+ * @param commitUrl
+ * @param jumpUrl
+ */
 function commit(formId, commitUrl, jumpUrl) {
     //组装表单数据
     var index;
@@ -128,7 +137,11 @@ function commit(formId, commitUrl, jumpUrl) {
         }
     });
 }
-
+/**
+ * 删除通用
+ * @param nav
+ * @param jumpUrl
+ */
 function del(nav,jumpUrl){
 	layer.confirm('确认删除吗？', {
         icon : 3,
@@ -159,7 +172,10 @@ function del(nav,jumpUrl){
         layer.close(index);
     });
 }
-
+/**
+ * 编辑通用
+ * @param nav
+ */
 function edit(nav){
 	  $.ajax({
           type : "PUT",
@@ -172,7 +188,10 @@ function edit(nav){
           }
       });
 }
-
+/**
+ * 获取单选选中
+ * @returns
+ */
 function getCheck(){
 	var checkId = $('input[name="checkId"]:checked').val();
 	if(checkId == null){
@@ -184,7 +203,36 @@ function getCheck(){
 		return checkId;
 	}
 }
-
+/**
+ * 获取多选选中
+ * @returns
+ */
+function getCheckAll(){
+	 var checkIds = "";
+     $('input:checkbox[name=checkId]:checked').each(function(i){
+	      if(0==i){
+	    	  checkIds = $(this).val();
+	      }else{
+	    	  checkIds += (","+$(this).val());
+	      }
+     });
+     return checkIds;
+}
+/**
+ * 复习框 全选/全部选
+ */
+function initCheckAll(){
+	$('#checkAll').click(function(){ 
+	    $('input[name="checkId"]').prop("checked",this.checked); 
+	});
+}
+/**
+ * 分页初始化
+ * @param pages
+ * @param current
+ * @param jumpUrl
+ * @param params
+ */
 function initPage(pages,current,jumpUrl,params){
 
 	var pagination = new Pagination({
@@ -203,5 +251,4 @@ function initPage(pages,current,jumpUrl,params){
 			  loadPage(jumpUrl+"?page="+page+par);
 		  }
 		});
-}
-	  
+}  

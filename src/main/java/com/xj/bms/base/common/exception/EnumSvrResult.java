@@ -20,8 +20,9 @@ public enum EnumSvrResult {
 	
 	ERROR_INTERFACE("7","接口调用失败."),
 	
-	ERROR_RESOURCE_DELETE("8","请先删除该资源的子项.")
+	ERROR_RESOURCE_DELETE("8","请先删除该资源的子项."),
 	
+	ERROR_UPLOAD_IMG("9","图片上传失败.")
 	
 	
 	;

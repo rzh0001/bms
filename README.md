@@ -2,11 +2,18 @@
 	CodeGenerator自动生成Entity、Mapper、Service、Controller让开发更简单
 ## 内置功能
 
-1.    用户管理
-2.    角色管理
-3.    资源管理
-4.    druid监控
-5.    登录日志
+1. 系统基础管理
+   1.1 用户管理
+   1.2 角色管理
+   1.3 资源管理
+   
+2. 系统监控管理   
+   2.1 druid监控
+   
+3. 日志管理
+   3.1 用户登录日志
+4. CMS管理    
+   4.1 新闻管理（富文本ckeditor，上传图片bootstrap fileinput）
 
 
 ## 技术选型
