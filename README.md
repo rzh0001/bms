@@ -39,6 +39,7 @@
 * 弹出层：Layer
 * 富文本: ckeditor
 * 上传文件 : bootstrap fileinput
+* 表格插件：DLShouWen Grid（新版）
 
 3、鸣谢
 1.[webside](http://git.oschina.net/wjggwm/webside)
