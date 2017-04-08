@@ -1,18 +1,23 @@
 package com.xj.bms.base.role.web;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.feilong.core.Validator;
 import com.feilong.core.bean.ConvertUtil;
 import com.xj.bms.base.common.bean.AbstractBean;
 import com.xj.bms.base.common.exception.EnumSvrResult;
@@ -22,7 +27,9 @@ import com.xj.bms.base.resource.entity.TbResource;
 import com.xj.bms.base.resource.service.ITbResourceService;
 import com.xj.bms.base.role.entity.TbRole;
 import com.xj.bms.base.role.service.ITbRoleService;
+import com.xj.bms.util.JsonUtil;
 import com.xj.bms.util.TreeUtil;
+import com.xj.bms.util.dtgrid.model.Pager;
 
 /**
  * <p>
@@ -42,22 +49,41 @@ public class TbRoleController extends BaseController{
 	@Autowired
 	private ITbResourceService resourceService;
 	
-	@RequestMapping("listUI")
-    public String listUI(Map<String,Object> map,Integer page) {
-		Page<TbRole> roles = roleService.selectPage(new Page<TbRole>(null==page?0:page, 10));
-		map.put("page", roles);
+	@GetMapping("listUI")
+    public String listUI() {
 		return "role/list";
     }
 	
-	@RequestMapping("form")
+	@PostMapping("list")
+	@ResponseBody
+    public Object list(String gridPager) {
+		Pager pager = JsonUtil.getObjectFromJson(gridPager, Pager.class);
+		Map<String, Object> parameters = null;
+		if(Validator.isNullOrEmpty(pager.getParameters())){
+			parameters = new HashMap<>();
+		}else{
+			parameters = pager.getParameters();
+		}
+		Page<TbRole> list = roleService.selectPage(new Page<TbRole>(pager.getNowPage(), pager.getPageSize()), Condition.instance().allEq(parameters));
+		parameters.clear();
+		parameters.put("isSuccess", Boolean.TRUE);
+		parameters.put("nowPage", pager.getNowPage());
+		parameters.put("pageSize",pager.getPageSize());
+		parameters.put("pageCount", list.getPages());
+		parameters.put("recordCount", list.getTotal());
+		parameters.put("startRecord", list.getOffsetCurrent());
+		parameters.put("exhibitDatas",list.getRecords());
+		return parameters;
+    }
+	
+	@GetMapping("form")
     public String form(Map<String,Object> map) {
 		return "role/form";
     }
 	
-	@RequestMapping(value = "save", method = RequestMethod.POST)
+	@PostMapping("save")
 	@ResponseBody
 	public AbstractBean add(TbRole role){
-		AbstractBean bean = new AbstractBean();
 		if(role.getId()==null){
 			role.setCreateTime(new Date(System.currentTimeMillis()));
 			role.setUpdateTime(new Date(System.currentTimeMillis()));
@@ -67,31 +93,28 @@ public class TbRoleController extends BaseController{
 		}
 		
 		if(!roleService.insertOrUpdate(role)){
-			bean.setStatus(EnumSvrResult.ERROR.getVal());
-			bean.setMessage(EnumSvrResult.ERROR.getName());
+			return fail(EnumSvrResult.ERROR);
 		}
-		return bean;
+		return success();
 	}
 	
-	@RequestMapping(value="{roleId}/delete",method=RequestMethod.DELETE)
+	@DeleteMapping("{roleId}/delete")
 	@ResponseBody
     public AbstractBean delete(@PathVariable(required=true) Integer roleId) {	
-		AbstractBean bean = new AbstractBean();
 		if(!roleService.deleteRoleResource(roleId)){
-			bean.setStatus(EnumSvrResult.ERROR.getVal());
-			bean.setMessage(EnumSvrResult.ERROR.getName());
+			return fail(EnumSvrResult.ERROR);
 		}
-		return bean;
+		return success();
     }	
 	
-	@RequestMapping(value="{roleId}/select",method=RequestMethod.GET)
+	@GetMapping("{roleId}/select")
     public String select(Map<String,Object> map,@PathVariable(required=true) Integer roleId) {	
 		TbRole role = roleService.selectById(roleId);
 		map.put("role", role);
 		return "role/edit";
     }	
 	
-	@RequestMapping(value="{roleId}/permission",method=RequestMethod.GET)
+	@GetMapping("{roleId}/permission")
     public String permission(Map<String,Object> map,@PathVariable(required=true) Integer roleId) {	
 		TbRole role = roleService.selectById(roleId);
 		List<TbResource> resources = resourceService.queryResourceList(ConvertUtil.toMap("isHide",(Object)0,"roleId",(Object)roleId));
@@ -101,7 +124,7 @@ public class TbRoleController extends BaseController{
 		return "role/permission";
     }	
 	
-	@RequestMapping(value="{roleId}/getPermission",method=RequestMethod.GET)
+	@GetMapping("{roleId}/getPermission")
 	@ResponseBody
     public Object getPermission(@PathVariable(required=true) Integer roleId) {	
 		List<TbResource> resources = resourceService.queryResourceList(ConvertUtil.toMap("isHide",(Object)0,"roleId",(Object)roleId));
@@ -109,11 +132,10 @@ public class TbRoleController extends BaseController{
 		return jstreeList;
     }	
 	
-	@RequestMapping(value="savePermission",method = RequestMethod.POST)
+	@PostMapping("savePermission")
 	@ResponseBody
 	public AbstractBean permission(int roleId, @RequestParam("resourceIds[]") List<Integer> resourceIds){
-		AbstractBean bean = new AbstractBean();
 		roleService.savePermission(roleId,resourceIds);
-		return bean;
+		return success();
 	}
 }

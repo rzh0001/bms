@@ -1,14 +1,17 @@
 package com.xj.bms.base.user.web;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,6 +26,8 @@ import com.xj.bms.base.role.service.ITbRoleService;
 import com.xj.bms.base.user.entity.TbUser;
 import com.xj.bms.base.user.service.ITbUserService;
 import com.xj.bms.util.EndecryptUtils;
+import com.xj.bms.util.JsonUtil;
+import com.xj.bms.util.dtgrid.model.Pager;
 
 /**
  * <p>
@@ -40,22 +45,43 @@ public class TbUserController extends BaseController{
 	@Autowired
 	private ITbRoleService roleService;
 	
-	@RequestMapping("listUI")
-    public String listUI(Map<String,Object> map,Integer page,String name) {
-		Page<TbUser> users = userService.selectUserList(new Page<TbUser>(null==page?0:page, 10),name);
-		map.put("page", users);
-		map.put("name",name==null?"":name);
+	@GetMapping("listUI")
+    public String listUI() {
 		return "user/list";
     }
 	
-	@RequestMapping("form")
+	@PostMapping("list")
+	@ResponseBody
+    public Object list(String gridPager) {
+		Pager pager = JsonUtil.getObjectFromJson(gridPager, Pager.class);
+		Map<String, Object> parameters = null;
+		String name = "";
+		if(Validator.isNullOrEmpty(pager.getParameters())){
+			parameters = new HashMap<>();
+		}else{
+			parameters = pager.getParameters();
+			name = parameters.get("name").toString();
+		}
+		Page<TbUser> list = userService.selectUserList(new Page<TbUser>(pager.getNowPage(), pager.getPageSize()),name);
+		parameters.clear();
+		parameters.put("isSuccess", Boolean.TRUE);
+		parameters.put("nowPage", pager.getNowPage());
+		parameters.put("pageSize",pager.getPageSize());
+		parameters.put("pageCount", list.getPages());
+		parameters.put("recordCount", list.getTotal());
+		parameters.put("startRecord", list.getOffsetCurrent());
+		parameters.put("exhibitDatas",list.getRecords());
+		return parameters;
+    }
+	
+	@GetMapping("form")
     public String form(Map<String,Object> map) {
 		List<TbRole> list = roleService.selectByMap(null);
 		map.put("roles", list);
 		return "user/form";
     }
 	
-	@RequestMapping(value="checkAccount",method=RequestMethod.GET)
+	@GetMapping("checkAccount")
 	@ResponseBody
     public boolean checkAccount(@RequestParam(required=true) String accountName) {
 		List<TbUser> user = userService.selectByMap(ConvertUtil.toMap("u_account_name",(Object)accountName));
@@ -65,11 +91,9 @@ public class TbUserController extends BaseController{
 		return true;
     }
 	
-	@RequestMapping(value = "save", method = RequestMethod.POST)
+	@PostMapping("save")
 	@ResponseBody
 	public AbstractBean add(Map<String,Object> map,TbUser user){
-		AbstractBean bean = new AbstractBean();
-		
 		if(user.getId()==null){
 			// 加密用户输入的密码，得到密码和加密盐，保存到数据库
 			TbUser userEntity = EndecryptUtils.md5Password(user.getAccountName(), user.getPassword(), 2);
@@ -86,28 +110,24 @@ public class TbUserController extends BaseController{
 			boolean result = userService.insertAll(user);
 			if(!result)
 			{
-				bean.setStatus(EnumSvrResult.ERROR.getVal());
-				bean.setMessage(EnumSvrResult.ERROR.getName());
+				return fail(EnumSvrResult.ERROR);
 			}
 		}else{
 			userService.updateAll(user);
 		}
-	
-		return bean;
+		return success();
 	}
 	
-	@RequestMapping(value="{userId}/delete",method=RequestMethod.DELETE)
+	@DeleteMapping("{userId}/delete")
 	@ResponseBody
     public AbstractBean delete(@PathVariable(required=true) Integer userId) {	
-		AbstractBean bean = new AbstractBean();
 		if(!userService.delUser(userId)){
-			bean.setStatus(EnumSvrResult.ERROR.getVal());
-			bean.setMessage(EnumSvrResult.ERROR.getName());
+			return fail(EnumSvrResult.ERROR);
 		}
-		return bean;
+		return success();
     }	
 	
-	@RequestMapping(value="{userId}/select",method=RequestMethod.GET)
+	@GetMapping("{userId}/select")
     public String select(Map<String,Object> map,@PathVariable(required=true) Integer userId) {	
 		TbUser user = userService.selectUserRole(ConvertUtil.toMap("userId",(Object)userId));
 		List<TbRole> list = roleService.selectByMap(null);
@@ -116,17 +136,16 @@ public class TbUserController extends BaseController{
 		return "user/edit";
     }	
 	
-	@RequestMapping(value="{userId}/toRestPassword",method=RequestMethod.GET)
+	@GetMapping("{userId}/toRestPassword")
     public String restPassword(Map<String,Object> map,@PathVariable(required=true) Integer userId) {	
 		TbUser user = userService.selectById(userId);
 		map.put("user", user);
 		return "user/rest";
     }	
 	
-	@RequestMapping(value = "restPassword", method = RequestMethod.POST)
+	@PostMapping(value = "restPassword")
 	@ResponseBody
 	public AbstractBean restPassword(Map<String,Object> map,TbUser user){
-		AbstractBean bean = new AbstractBean();
 		TbUser userEntity = userService.selectById(user.getId());
 		TbUser userFlag = EndecryptUtils.md5Password(user.getAccountName(), user.getPassword(), 2);
 		//设置添加用户的密码和加密盐
@@ -134,9 +153,8 @@ public class TbUserController extends BaseController{
 		userEntity.setCredentialsSalt(userFlag.getCredentialsSalt());
 		userEntity.setUpdateTime(new Date(System.currentTimeMillis()));
 		if(!userService.updateById(userEntity)){
-			bean.setStatus(EnumSvrResult.ERROR.getVal());
-			bean.setMessage(EnumSvrResult.ERROR.getName());
+			return fail(EnumSvrResult.ERROR);
 		}
-		return bean;
+		return success();
 	}
 }

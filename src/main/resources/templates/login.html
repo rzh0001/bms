@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -9,16 +9,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta name="renderer" content="webkit"/>
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<link rel="icon" type="image/png" href="static/ui/i/favicon.png"/>
-<link rel="apple-touch-icon-precomposed" href="static/ui/i/app-icon72x72@2x.png"/>
+<link rel="icon" type="image/png" th:href="@{/ui/i/favicon.png}"/>
+<link rel="apple-touch-icon-precomposed" th:href="@{/ui/i/app-icon72x72@2x.png}"/>
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-<link rel="stylesheet" href="static/ui/css/amazeui.min.css" />
-<link rel="stylesheet" href="static/ui/css/amazeui.datatables.min.css" />
-<link rel="stylesheet" href="static/ui/css/app.css"/>
-<script src="static/ui/js/jquery.min.js"></script>
+<link rel="stylesheet" th:href="@{/ui/css/amazeui.min.css}" />
+<link rel="stylesheet" th:href="@{/ui/css/app.css}"/>
+<script th:src="@{/ui/js/jquery.min.js}"></script>
 </head>
 <body data-type="login">
-	<script src="static/ui/js/theme.js"></script>
+	<script th:src="@{/ui/js/theme.js}"></script>
 	<div class="am-g tpl-g">
 		<!-- 风格切换 -->
 		<div class="tpl-skiner">
@@ -54,9 +53,9 @@
 			</div>
 		</div>
 	</div>
-	<script src="static/ui/js/amazeui.min.js"></script>
-	<script src="static/layer-v2.3/layer.js"></script>	
-	<script src="static/ui/js/app.js"></script>
+	<script th:src="@{/ui/js/amazeui.min.js}"></script>
+	<script th:src="@{/plugins/layer-v2.3/layer.js}"></script>	
+	<script th:src="@{/ui/js/app.js}"></script>
 	<script th:inline="javascript">
 		var msg = [[${msg}]];
 		console.log(msg);

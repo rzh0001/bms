@@ -83,10 +83,10 @@ public class EndecryptUtils {
     
     
     
-    public static void main(String[] args) { 
+/*    public static void main(String[] args) { 
           String salt= "8d78869f470951332959580424d4bf4f"; 
           //组合username,两次迭代，对密码进行加密 
           String password_cryto = new Md5Hash("123456","administrator"+salt,2).toString(); 
           System.out.println(password_cryto);
-    } 
+    } */
 }

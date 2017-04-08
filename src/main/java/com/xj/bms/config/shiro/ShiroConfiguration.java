@@ -44,7 +44,9 @@ public class ShiroConfiguration {
 		//配置记住我或认证通过可以访问的地址
         filterChainDefinitionMap.put("/index", "user");
         filterChainDefinitionMap.put("/", "user");
-        filterChainDefinitionMap.put("/static/**", "anon");
+        filterChainDefinitionMap.put("/bootstrap/**", "anon");
+        filterChainDefinitionMap.put("/plugins/**", "anon");
+        filterChainDefinitionMap.put("/ui/**", "anon");
         filterChainDefinitionMap.put("/dologin", "anon");
         
         

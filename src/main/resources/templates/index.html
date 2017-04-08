@@ -11,24 +11,26 @@
 <meta name="renderer" content="webkit" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-<link rel="icon" type="image/png" href="static/ui/i/favicon.png" />
-<link rel="apple-touch-icon-precomposed" href="static/ui/i/app-icon72x72@2x.png" />
-<link rel="stylesheet" href="static/ui/css/amazeui.min.css" />
-<link rel="stylesheet" href="static/ui/css/amazeui.datatables.min.css" />
-<link rel="stylesheet" href="static/ui/css/app.css" />
-<script src="static/ui/js/jquery.min.js"></script>
-<script type="text/javascript" src="static/ckeditor/ckeditor.js"></script>	
+<link rel="icon" type="image/png" th:href="@{/ui/i/favicon.png}" />
+<link rel="apple-touch-icon-precomposed" th:href="@{/ui/i/app-icon72x72@2x.png}" />
+<link th:href="@{/bootstrap/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" th:href="@{/ui/css/amazeui.min.css}" />
+<link rel="stylesheet" th:href="@{/ui/css/app.css}" />
+<link th:href="@{/plugins/bootstrap-fileinput/css/fileinput.min.css}" rel="stylesheet" type="text/css"/>
+<link th:href="@{/plugins/dtGrid/dlshouwen.grid.min.css}" rel="stylesheet" type="text/css"/>
+<script th:src="@{/ui/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/plugins/ckeditor/ckeditor.js}"></script>	
 
 </head>
 
 <body data-type="index">
-	<script src="static/ui/js/theme.js"></script>
+	<script th:src="@{/ui/js/theme.js}"></script>
 	<div class="am-g tpl-g">
 		<!-- 头部 -->
 		<header>
 			<!-- logo -->
 			<div class="am-fl tpl-header-logo">
-				<a href="javascript:;"><img src="static/ui/img/logo.png" alt="" /></a>
+				<a href="javascript:;"><img th:src="@{/ui/img/logo.png}" alt="" /></a>
 			</div>
 			<!-- 右侧内容 -->
 			<div class="tpl-header-fluid">
@@ -63,7 +65,7 @@
 									href="javascript:;"
 									class="tpl-dropdown-menu-messages-item am-cf">
 										<div class="menu-messages-ico">
-											<img src="static/ui/img/user04.png" alt="" />
+											<img th:src="@{/ui/img/user04.png}" alt="" />
 										</div>
 										<div class="menu-messages-time">3小时前</div>
 										<div class="menu-messages-content">
@@ -81,7 +83,7 @@
 									href="javascript:;"
 									class="tpl-dropdown-menu-messages-item am-cf">
 										<div class="menu-messages-ico">
-											<img src="static/ui/img/user02.png" alt="" />
+											<img th:src="@{/ui/img/user02.png}" alt="" />
 										</div>
 										<div class="menu-messages-time">5天前</div>
 										<div class="menu-messages-content">
@@ -180,8 +182,20 @@
 			</div> -->
 
 			<!-- 菜单 -->
-			<ul class="sidebar-nav">
-<!-- 				<li class="sidebar-nav-heading">Components <span class="sidebar-nav-heading-info"> 附加组件</span></li> -->
+		<!-- 	<ul class="sidebar-nav">
+				<li class="sidebar-nav-heading">Components <span class="sidebar-nav-heading-info"> 附加组件</span></li>
+				<li class="sidebar-nav-link"><a href="index.html" class="active" > <i class="am-icon-home sidebar-nav-link-logo"></i>首页</a></li>
+				<li class="sidebar-nav-link" th:each="menu:${menus}" >
+					<a href="javascript:;" class="sidebar-nav-sub-title" > <i class="sidebar-nav-link-logo" th:attrappend="class=' '+${menu.icon}"></i><nb th:text="${menu.name}"></nb>
+						<span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico" th:if="${#lists.size(menu.children)>0}"></span>
+					</a>
+					<ul class="sidebar-nav sidebar-nav-sub" th:if="${#lists.size(menu.children)>0}">
+						<li class="sidebar-nav-link" th:each="child:${menu.children}"><a th:onclick="'menuLoad(\''+${child.sourceUrl}+'\',this)'"> <span class="am-icon-angle-right sidebar-nav-link-logo"></span> <nb th:text="${child.name}"></nb></a></li>
+					</ul>
+				</li>
+			</ul>
+		</div> -->
+		<ul class="sidebar-nav">
 				<li class="sidebar-nav-link"><a href="index.html" class="active" > <i class="am-icon-home sidebar-nav-link-logo"></i>首页</a></li>
 				<li class="sidebar-nav-link" th:each="menu:${menus}" >
 					<a href="javascript:;" class="sidebar-nav-sub-title" > <i class="sidebar-nav-link-logo" th:attrappend="class=' '+${menu.icon}"></i><nb th:text="${menu.name}"></nb>
@@ -194,38 +208,57 @@
 			</ul>
 		</div>
 
+	
+
 
 		<!-- 内容区域 -->
 		<div class="tpl-content-wrapper">
 
 			<div class="container-fluid am-cf">
-				<div class="row">
-					<div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-						<div class="page-header-heading">
-							<span class="am-icon-home page-header-heading-icon"></span> 部件首页
-							<small>Amaze UI</small>
+				<!-- <div class="am-tabs" data-am-tabs=""  id="doc-tab">
+				  <ul class="am-tabs-nav am-nav am-nav-tabs">
+				   
+				  </ul>
+				  <div class="am-tabs-bd">
+				   
+				  </div>
+				</div> -->
+			
+			
+			
+				   <div class="am-tabs-bd">
+				    <div class="am-tab-panel am-active">
+				      <div class="row">
+							<div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+								<div class="page-header-heading">
+									<span class="am-icon-home page-header-heading-icon"></span> 部件首页
+									<small>Amaze UI</small>
+								</div>
+								<p class="page-header-description">Amaze UI 含近 20 个 CSS 组件、20
+									余 JS 组件，更有多个包含不同主题的 Web 组件。</p>
+							</div>
+							<div class="am-u-lg-3 tpl-index-settings-button">
+								<button type="button" class="page-header-button">
+									<span class="am-icon-paint-brush"></span> 设置
+								</button>
+							</div>
 						</div>
-						<p class="page-header-description">Amaze UI 含近 20 个 CSS 组件、20
-							余 JS 组件，更有多个包含不同主题的 Web 组件。</p>
-					</div>
-					<div class="am-u-lg-3 tpl-index-settings-button">
-						<button type="button" class="page-header-button">
-							<span class="am-icon-paint-brush"></span> 设置
-						</button>
-					</div>
-				</div>
+				    </div>
+				  </div> 
+				
+				
 
 			</div>
 		</div>
 	</div>
-	<script src="static/ui/js/amazeui.min.js"></script>
-	<script src="static/ui/js/amazeui.datatables.min.js"></script>
-	<script src="static/ui/js/dataTables.responsive.min.js"></script> 
-	<script src="static/layer-v2.3/layer.js"></script>	
-	<script src="static/pagination/amazeui-pagination.min.js"></script>	
-	<script type="text/javascript" src="static/jquery-validation/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="static/jquery-validation/localization/messages_zh.js"></script>
-	<script src="static/ui/js/app.js"></script>
+	<script th:src="@{/ui/js/amazeui.min.js}"></script>
+	<script th:src="@{/plugins/dtGrid/dlshouwen.grid.js}"></script>
+	<script th:src="@{/plugins/dtGrid/i18n/zh-cn.js}"></script>
+	<script th:src="@{/plugins/layer-v2.3/layer.js}"></script>	
+	<script type="text/javascript" th:src="@{/plugins/jquery-validation/jquery.validate.min.js}"></script>
+	<script type="text/javascript" th:src="@{/plugins/jquery-validation/localization/messages_zh.js}"></script>
+	<script type="text/javascript" th:src="@{/plugins/bootstrap-fileinput/js/fileinput.js}"></script>
+	<script th:src="@{/ui/js/app.js}"></script>
 	<script th:inline="javascript"> var contextRoot = /*[[@{/}]]*/ ''; </script>
 </body>
 

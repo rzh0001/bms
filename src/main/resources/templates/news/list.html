@@ -23,64 +23,21 @@
 							</div>
 						</div>
 					</div>
-					<div class="am-u-sm-12 am-u-md-12 am-u-lg-3 am-u-sm-push-3">
-						<div
-							class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-							<input type="text" class="am-form-field " placeholder="标题..." id="accountName" th:value="${accountName}" /> <span
-								class="am-input-group-btn">
-								<button
-									class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-									type="button" onclick="search()"></button>
-							</span>
+						<div class="am-u-sm-12 am-u-md-12 am-u-lg-3 am-u-sm-push-3">
+							<div
+								class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+								<input type="text" class="am-form-field " placeholder="标题..." id="title" value="" th:value="${title}" /> <span
+									class="am-input-group-btn">
+									<button
+										class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+										type="button" onclick="search()"></button>
+								</span>
+							</div>
 						</div>
-					</div>
-
 					<div class="am-u-sm-12">
-						<table width="100%"
-							class="am-table am-table-compact am-table-striped tpl-table-black "
-							id="example-r">
-							<thead>
-								<tr>
-									<th><span><input type="checkbox" id="checkAll" /></span>选择 </th>
-									<th>标题</th>
-									<th>封面</th>
-									<th>描述</th>
-									<th>状态</th>
-									<th>创建时间</th>
-									<th>创建人</th>
-									<th>更新时间</th>
-									<th>更新人</th>
-									<th>操作</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="gradeX" th:each="record:${page.records}" >
-									<td class="am-text-middle"> <input type="checkbox" name="checkId" th:value="${record.id}"/></td>
-									<td class="am-text-middle" th:text="${record.title}"></td>
-									<td class="am-text-middle" ><img th:src="@{${record.coverImg}}" class="tpl-table-line-img" alt=""/> </td>
-									<td class="am-text-middle" th:text="${record.descs}"></td>
-									<td class="am-text-middle" th:text="${record.isShow}"></td>
-									<td class="am-text-middle" th:text="${#dates.format(record.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-									<td class="am-text-middle" th:text="${record.createUser}"></td>
-									<td class="am-text-middle" th:text="${#dates.format(record.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-									<td class="am-text-middle" th:text="${record.updateUser}"></td>
-									<td class="am-text-middle">
-										<div class="tpl-table-black-operation">
-											<a href="#" th:onclick="'javascript:loadPage(\'news/'+${record.id}+'/select\');'" > <i class="am-icon-pencil" ></i> 编辑</a> 
-											<a href="#" th:onclick="'javascript:del(\'news/'+${record.id}+'/delete\',\'news/listUI\');'" class="tpl-table-black-operation-del del-btn" ><i class="am-icon-trash"></i> 删除</a>
-										</div>
-									</td>
-								</tr>
-								<!-- more data -->
-							</tbody>
-						</table>
-					</div>
-					<div class="am-u-lg-12 am-cf">
-
-						<div class="am-fr">
-							<ul class="am-pagination tpl-pagination">
-								
-							</ul>
+						<div class="widget-main padding-6 no-padding-left no-padding-right">
+							<div id="dtGridContainer" class="dlshouwen-grid-container"></div>
+							<div id="dtGridToolBarContainer" class="dlshouwen-grid-toolbar-container"></div>
 						</div>
 					</div>
 				</div>
@@ -88,31 +45,6 @@
 		</div>
 	</div>
 </div>
-<script th:inline="javascript">
-	<![CDATA[
-	$('select').selected();
-	var params =[''];
-	
-	initCheckAll();
-	
-	initPage([[${page.pages}]],[[${page.current}]],'news/listUI',params);
-	
-	function search(){
-		var accountName = $('#accountName').val()==null?'':$('#accountName').val();
-		loadPage('loginlog/listUI?accountName='+accountName);
-	}
-	
-	function delteAll(){
-		var checkId = getCheckAll();
-		if(checkId!=''){
-			del("news/"+checkId+"/deleteBatch", "news/listUI");
-		}else{
-			 layer.msg('请选择要删除的数据', {
-                 icon : 3
-             });
-		}
-	}
-	
-	]]>
-	</script>
+<script type="text/javascript" th:src="@{/customer/news/list.js}"/>
+
 

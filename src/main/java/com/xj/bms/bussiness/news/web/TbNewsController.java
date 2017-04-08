@@ -1,22 +1,29 @@
 package com.xj.bms.bussiness.news.web;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.feilong.core.Validator;
 import com.feilong.core.bean.ConvertUtil;
 import com.xj.bms.base.common.bean.AbstractBean;
 import com.xj.bms.base.common.exception.EnumSvrResult;
 import com.xj.bms.base.index.web.BaseController;
 import com.xj.bms.bussiness.news.entity.TbNews;
 import com.xj.bms.bussiness.news.service.ITbNewsService;
+import com.xj.bms.util.JsonUtil;
+import com.xj.bms.util.dtgrid.model.Pager;
 
 /**
  * <p>
@@ -34,19 +41,39 @@ public class TbNewsController extends BaseController {
 	@Autowired
 	private ITbNewsService newsService;
 	
-	@RequestMapping("listUI")
-    public String listUI(Map<String,Object> map,Integer page) {
-		Page<TbNews> list = newsService.selectPage(new Page<TbNews>(null==page?0:page, 10));
-		map.put("page", list);
+	@GetMapping("listUI")
+    public String listUI() {
 		return "news/list";
     }
 	
-	@RequestMapping("form")
+	@PostMapping("list")
+	@ResponseBody
+    public Object list(String gridPager) {
+		Pager pager = JsonUtil.getObjectFromJson(gridPager, Pager.class);
+		Map<String, Object> parameters = null;
+		if(Validator.isNullOrEmpty(pager.getParameters())){
+			parameters = new HashMap<>();
+		}else{
+			parameters = pager.getParameters();
+		}
+		Page<TbNews> list = newsService.selectPage(new Page<TbNews>(pager.getNowPage(), pager.getPageSize()), Condition.instance().allEq(parameters));
+		parameters.clear();
+		parameters.put("isSuccess", Boolean.TRUE);
+		parameters.put("nowPage", pager.getNowPage());
+		parameters.put("pageSize",pager.getPageSize());
+		parameters.put("pageCount", list.getPages());
+		parameters.put("recordCount", list.getTotal());
+		parameters.put("startRecord", list.getOffsetCurrent());
+		parameters.put("exhibitDatas",list.getRecords());
+		return parameters;
+    }
+	
+	@GetMapping("form")
     public String form(Map<String,Object> map) {
 		return "news/form";
     }
 	
-	@RequestMapping(value = "save", method = RequestMethod.POST)
+	@PostMapping("save")
 	@ResponseBody
 	public AbstractBean add(TbNews tbnews){
 		AbstractBean bean = new AbstractBean();
@@ -66,32 +93,28 @@ public class TbNewsController extends BaseController {
 		return bean;
 	}
 	
-	@RequestMapping(value="{id}/delete",method=RequestMethod.DELETE)
+	@DeleteMapping("{id}/delete")
 	@ResponseBody
     public AbstractBean delete(@PathVariable(required=true) Integer id) {	
-		AbstractBean bean = new AbstractBean();
 		if(!newsService.deleteById(id)){
-			bean.setStatus(EnumSvrResult.ERROR.getVal());
-			bean.setMessage(EnumSvrResult.ERROR.getName());
+			return fail(EnumSvrResult.ERROR);
 		}
-		return bean;
+		return success();
     }	
 	
-	@RequestMapping(value="{id}/select",method=RequestMethod.GET)
+	@GetMapping("{id}/select")
     public String select(Map<String,Object> map,@PathVariable(required=true) Integer id) {	
 		TbNews tbnews = newsService.selectById(id);
 		map.put("record", tbnews);
 		return "news/edit";
     }	
 	
-	@RequestMapping(value="{ids}/deleteBatch",method=RequestMethod.DELETE)
+	@DeleteMapping("{ids}/deleteBatch")
 	@ResponseBody
 	public AbstractBean deleteBatch(@PathVariable(required=true) String ids) {
-		AbstractBean bean = new AbstractBean();
 		if(!newsService.deleteBatchIds(ConvertUtil.toList(ids.split(",")))){
-			bean.setStatus(EnumSvrResult.ERROR.getVal());
-			bean.setMessage(EnumSvrResult.ERROR.getName());
+			return fail(EnumSvrResult.ERROR);
 		}
-		return bean;
+		return success();
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xj.bms.base.common.bean.AbstractBean;
 import com.xj.bms.base.common.exception.EnumSvrResult;
+import com.xj.bms.base.index.web.BaseController;
 import com.xj.bms.util.ImageUploadUtil;
 
 /**
@@ -23,7 +24,7 @@ import com.xj.bms.util.ImageUploadUtil;
  */
 @Controller
 @RequestMapping("/upload/")
-public class UploadController {
+public class UploadController extends BaseController{
 	private Logger logger = LogManager.getLogger(UploadController.class.getName());
 
 	@RequestMapping("ckUploadImg")
@@ -41,16 +42,13 @@ public class UploadController {
 	@RequestMapping("uploadImg")
 	@ResponseBody
 	public AbstractBean updateImg(HttpServletRequest request){
-		AbstractBean bean = new AbstractBean();
 			String DirectoryName = "upload/other/";
 		try{	
 			String fileName = ImageUploadUtil.upload(request, DirectoryName);
-			bean.setData(DirectoryName+fileName);
+			return json(DirectoryName+fileName);
 		}catch(Exception e){
-			bean.setStatus(EnumSvrResult.ERROR_UPLOAD_IMG.getVal());
-			bean.setMessage(EnumSvrResult.ERROR_UPLOAD_IMG.getName());
 			logger.error("上傳失敗：{}",e.getMessage());
+			return fail(EnumSvrResult.ERROR_UPLOAD_IMG);
 		}
-		return bean;
 	}
 }

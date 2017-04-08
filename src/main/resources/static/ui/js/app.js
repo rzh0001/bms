@@ -1,3 +1,7 @@
+var tabCounter = 0;
+var $tab = $('#doc-tab');
+var $nav = $tab.find('.am-tabs-nav');
+var $bd = $tab.find('.am-tabs-bd');
 $(function() {
 	 $('.sidebar-nav').dropdown();
     // 读取body data-type 判断是哪个页面然后执行相应页面方法，方法在下面。
@@ -13,10 +17,34 @@ $(function() {
         autoLeftNav();
         console.log($(window).width());
     });
-})
+ // 移除标签页
+    $nav.on('click', '.am-icon-close', function() {
+      var $item = $(this).closest('li');
+      var index = $nav.children('li').index($item);
 
+      $item.remove();
+      $bd.find('.am-tab-panel').eq(index).remove();
 
+      $tab.tabs('open', index > 0 ? index - 1 : index + 1);
+      $tab.tabs('refresh');
+    });
 
+   
+});
+
+function addTab(url,title) {
+  var nav = '<li><span class="am-icon-close"></span>' +
+    '<a href="javascript: void(0)">' + title + '</a></li>';
+  var content = '<div class="am-tab-panel"></div>';
+  $nav.append(nav);
+  $bd.append(content);
+  $.get(url, 
+		  function(data, textStatus){ 
+	  		$('.am-tab-panel:last').append(data);
+   }); 
+  tabCounter++;
+  $tab.tabs('refresh');
+}
 
 // 页面数据
 var pageData = {
@@ -142,7 +170,7 @@ function commit(formId, commitUrl, jumpUrl) {
  * @param nav
  * @param jumpUrl
  */
-function del(nav,jumpUrl){
+function del(nav,callback){
 	layer.confirm('确认删除吗？', {
         icon : 3,
         title : '删除提示'
@@ -156,7 +184,9 @@ function del(nav,jumpUrl){
                     layer.msg(resultdata.message, {
                         icon : 1
                     });
-                    loadPage(jumpUrl);
+                    if (callback) {
+                        callback();
+                    }
                 } else {
                     layer.msg(resultdata.message, {
                         icon : 0
@@ -188,67 +218,20 @@ function edit(nav){
           }
       });
 }
-/**
- * 获取单选选中
- * @returns
- */
-function getCheck(){
-	var checkId = $('input[name="checkId"]:checked').val();
-	if(checkId == null){
-		 layer.msg("你没有选择行", {
-             icon : 0
-         });
-		 return '';
-	}else{
-		return checkId;
-	}
-}
+
 /**
  * 获取多选选中
  * @returns
  */
-function getCheckAll(){
+function getCheckAll(data){
 	 var checkIds = "";
-     $('input:checkbox[name=checkId]:checked').each(function(i){
+     $(data).each(function(i){
 	      if(0==i){
-	    	  checkIds = $(this).val();
+	    	  checkIds = data[i].id;
 	      }else{
-	    	  checkIds += (","+$(this).val());
+	    	  checkIds += (","+data[i].id);
 	      }
      });
      return checkIds;
 }
-/**
- * 复习框 全选/全部选
- */
-function initCheckAll(){
-	$('#checkAll').click(function(){ 
-	    $('input[name="checkId"]').prop("checked",this.checked); 
-	});
-}
-/**
- * 分页初始化
- * @param pages
- * @param current
- * @param jumpUrl
- * @param params
- */
-function initPage(pages,current,jumpUrl,params){
 
-	var pagination = new Pagination({
-		  wrap: $('.am-pagination'), // 存放分页内容的容器
-		  count: pages, // 总页数
-		  current: current, // 当前的页数（默认为1）
-		  prevText: '上一页', // prev 按钮的文本内容
-		  nextText: '下一页', // next 按钮的文本内容
-		  callback: function(page) { // 每一个页数按钮的回调事件
-				var par='';
-				if(params!=null && params.length>0){
-					for(x in params){
-						par +='&'+params[x]+'='+$('#'+params[x]).val();
-					}
-				}
-			  loadPage(jumpUrl+"?page="+page+par);
-		  }
-		});
-}  

@@ -52,6 +52,10 @@ public class IndexController {
 
 	@RequestMapping(value="/login",method=RequestMethod.GET)
     public String login(HttpServletResponse response,@RequestHeader HttpHeaders header){
+		Subject subject = SecurityUtils.getSubject();
+		if(subject.isAuthenticated()){
+			return "redirect:index";
+		}
 		if(Validator.isNotNullOrEmpty(header.get("X-Requested-With"))){
 			response.setHeader("sessionstatus", "timeout");
 		}
