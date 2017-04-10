@@ -56,7 +56,7 @@ public class TbNewsController extends BaseController {
 		}else{
 			parameters = pager.getParameters();
 		}
-		Page<TbNews> list = newsService.selectPage(new Page<TbNews>(pager.getNowPage(), pager.getPageSize()), Condition.instance().allEq(parameters));
+		Page<TbNews> list = newsService.selectPage(new Page<TbNews>(pager.getNowPage(), pager.getPageSize()), Condition.instance().allEq(parameters).orderBy("id",false));
 		parameters.clear();
 		parameters.put("isSuccess", Boolean.TRUE);
 		parameters.put("nowPage", pager.getNowPage());

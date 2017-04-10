@@ -68,3 +68,5 @@ function delteAll(){
 	del("loginlog/deleteBatch",search);
 }
 
+
+

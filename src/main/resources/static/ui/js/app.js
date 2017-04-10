@@ -235,3 +235,38 @@ function getCheckAll(data){
      return checkIds;
 }
 
+function initUpFileOne(id,showId,label,initImg){
+	$('#'+id+'').fileinput({
+		 showUpload : true,
+	     showRemove : false,
+	     showCaption: false,
+		 showPreview : true, //是否显示预览'
+	     language : 'zh',
+		 uploadUrl: 'upload/uploadImg',
+		 allowedPreviewTypes : [ 'image' ],
+	     allowedFileExtensions : [ 'jpg', 'png', 'gif' ],
+	     browseClass: "am-btn am-btn-danger am-btn-sm", //按钮样式
+	     dropZoneEnabled: false,//是否显示拖拽区域
+		 uploadAsync:false,
+		 uploadClass:'btn btn-default uploadBtnColor',
+		 browseIcon:'<i class="am-icon-cloud-upload"></i>',
+		 browseLabel:label,
+		 removeIcon: '<i class="am-icon-trash"></i>',
+		 layoutTemplates:{'footer':''},
+		 initialPreview:initImg,
+	}).on("filebatchuploadsuccess", function(event, data) {
+	    if(data.response.status==0){
+	    	$('#'+showId+'').val(data.response.data);
+	    	layer.msg('上传成功', {
+	    		  icon: 1,
+	    		  time: 2000 //2秒关闭（如果不配置，默认是3秒）
+	    		}); 
+	    } else{
+	    	layer.msg('服务器错误，请稍后重试~', {
+	    		  icon: 3,
+	    		  time: 3000 //2秒关闭（如果不配置，默认是3秒）
+	    		}); 
+	    }
+	}); 
+}
+
