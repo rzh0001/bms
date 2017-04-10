@@ -332,7 +332,7 @@
                                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
                                 beforeSend: function(xhr) {xhr.setRequestHeader("__REQUEST_TYPE", "AJAX_REQUEST");},
                                 success:function(pager){
-                                    pager = $.parseJSON(pager);
+                                    //pager = $.parseJSON(pager);
                                     //如果出错表示有可能是程序问题或高级查询方案配置有误
                                     if(!pager.isSuccess){
                                         $.fn.dlshouwen.grid.tools.toast($.fn.dlshouwen.grid.lang[gridReflectionObj.option.lang].errors.ajaxLoadError, 'error', 5000);
