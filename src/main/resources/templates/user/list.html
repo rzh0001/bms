@@ -18,15 +18,14 @@
 										<button type="button" onclick="resetPassword()" shiro:hasPermission="user:resetPassword" class="am-btn am-btn-default am-btn-warning">
 											<span class="am-icon-archive"></span> 重置密码
 										</button>
-										<!-- <button type="button"
-											class="am-btn am-btn-default am-btn-secondary">
-											<span class="am-icon-save"></span> 保存
+										<button type="button" onclick="btnEdit()" class="am-btn am-btn-default am-btn-secondary" shiro:hasPermission="user:edit">
+											<span class="am-icon-save"></span> 编辑
 										</button>
-	
-										<button type="button"
-											class="am-btn am-btn-default am-btn-danger">
+										<button type="button" onclick="btnDel()" class="am-btn am-btn-default am-btn-danger" shiro:hasPermission="user:delete">
 											<span class="am-icon-trash-o"></span> 删除
-										</button> -->
+										</button>
+										
+	
 									</div>
 								</div>
 							</div>

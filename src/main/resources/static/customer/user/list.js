@@ -69,7 +69,7 @@ var dtGridColumns = [{
     oformat:'string',
     columnClass : 'text-center',
     headerStyle : 'color:grey;'
-},{
+}/*,{
     id : 'operation',
     title : '操作',
     type : 'string',
@@ -82,7 +82,7 @@ var dtGridColumns = [{
         content += '<a href="#" onclick="delUser('+record.id+');" class="tpl-table-black-operation-del del-btn" shiro:hasPermission="user:delete"><i class="am-icon-trash"></i> 删除</a>';
         return content;
     }
-}];
+}*/];
 
 var dtGridOption = {
     lang : 'zh-cn',
@@ -122,5 +122,27 @@ function resetPassword(){
 }
 function delUser(id){
 	del("user/"+id+"/delete",search);
+}
+
+
+function btnDel(){
+	   var rows = grid.getCheckedRecords();
+    if (rows.length == 1) {
+ 	   del('user/'+rows[0].id+'/delete',search);
+    }else{
+ 	   layer.msg("你没有选择行或选择了多行数据", {
+            icon : 0
+        });
+    }
+}
+function btnEdit(){
+	   var rows = grid.getCheckedRecords();
+    if (rows.length == 1) {
+    	loadPage('user/'+rows[0].id+'/select');
+    }else{
+ 	   layer.msg("你没有选择行或选择了多行数据", {
+            icon : 0
+        });
+    }
 }
 
