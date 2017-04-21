@@ -38,6 +38,8 @@
 * 缓存框架：Ehcache
 * 日志管理：Log4j2
 * 工具类：feilong-core
+* 接口文档:Swagger2
+* 接口安全:jjwt
 
 2、前端
 
