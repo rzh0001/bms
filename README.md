@@ -1,5 +1,11 @@
 #BMS基础权限开发平台
 	CodeGenerator自动生成Entity、Mapper、Service、Controller让开发更简单
+	
+## 模块介绍
+* bms-common  公共服务模块
+* bms-admin   后台管理模块
+* bms-api     对外接口模块
+
 ## 内置功能
 
 1. 系统基础管理
@@ -15,7 +21,11 @@
    
 4. CMS管理
    - 4.1 新闻管理（富文本ckeditor，上传图片bootstrap fileinput）
-
+   
+ ----------------------------------------------------------------------
+## API服务
+  Api模块采用Swagger2做接口文档说明,实用jjwt做接口安全认证
+   
 
 ## 技术选型
 
