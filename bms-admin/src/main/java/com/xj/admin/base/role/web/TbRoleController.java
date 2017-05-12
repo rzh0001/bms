@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.feilong.core.Validator;
 import com.feilong.core.bean.ConvertUtil;
 import com.xj.admin.base.common.model.JSTreeEntity;
+import com.xj.admin.base.dept.service.ITbDeptService;
 import com.xj.admin.base.index.web.BaseController;
 import com.xj.admin.base.resource.entity.TbResource;
 import com.xj.admin.base.resource.service.ITbResourceService;
@@ -49,6 +49,9 @@ public class TbRoleController extends BaseController{
 	@Autowired
 	private ITbResourceService resourceService;
 	
+	@Autowired
+	private ITbDeptService deptService;
+	
 	@GetMapping("listUI")
     public String listUI() {
 		return "role/list";
@@ -64,7 +67,11 @@ public class TbRoleController extends BaseController{
 		}else{
 			parameters = pager.getParameters();
 		}
-		Page<TbRole> list = roleService.selectPage(new Page<TbRole>(pager.getNowPage(), pager.getPageSize()), Condition.instance().allEq(parameters));
+		Integer deptId = getUserEntity().getDeptId();
+		if(Validator.isNotNullOrEmpty(parameters.get("deptId"))){
+			deptId = Integer.parseInt(parameters.get("deptId").toString());
+		}
+		Page<TbRole> list = roleService.selectRoleList(new Page<TbRole>(pager.getNowPage(), pager.getPageSize()),deptId);
 		parameters.clear();
 		parameters.put("isSuccess", Boolean.TRUE);
 		parameters.put("nowPage", pager.getNowPage());
@@ -110,6 +117,7 @@ public class TbRoleController extends BaseController{
 	@GetMapping("{roleId}/select")
     public String select(Map<String,Object> map,@PathVariable(required=true) Integer roleId) {	
 		TbRole role = roleService.selectById(roleId);
+		role.setDept(deptService.selectById(role.getDeptId()));
 		map.put("role", role);
 		return "role/edit";
     }	

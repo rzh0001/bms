@@ -19,6 +19,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
 import com.feilong.core.bean.ConvertUtil;
+import com.xj.admin.base.dept.service.ITbDeptService;
 import com.xj.admin.base.resource.entity.TbResource;
 import com.xj.admin.base.resource.service.ITbResourceService;
 import com.xj.admin.base.user.entity.TbUser;
@@ -34,6 +35,9 @@ public class MyShiroRealm extends AuthorizingRealm{
 	
 	@Resource
 	private ITbResourceService resourceService;
+	
+	@Resource
+	private ITbDeptService deptService;
 
 	/**
 	 * 认证信息,认证回调函数,登录时调用
@@ -68,6 +72,7 @@ public class MyShiroRealm extends AuthorizingRealm{
 			);
 		    // 当验证都通过后，把用户信息放在session里
 			Session session = SecurityUtils.getSubject().getSession();
+			userInfo.setDept(deptService.selectById(userInfo.getDeptId()));
 			// 用户对象
 			session.setAttribute("userSession", userInfo);
 	       return authenticationInfo;

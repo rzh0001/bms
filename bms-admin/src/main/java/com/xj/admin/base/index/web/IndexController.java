@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
@@ -51,7 +52,7 @@ public class IndexController {
 	}
 
 	@RequestMapping(value="/login",method=RequestMethod.GET)
-    public String login(HttpServletResponse response,@RequestHeader HttpHeaders header){
+    public String login(HttpServletResponse response,ServletRequest request,@RequestHeader HttpHeaders header,Map<String, Object> map,String msg){
 		Subject subject = SecurityUtils.getSubject();
 		if(subject.isAuthenticated()){
 			return "redirect:index";

@@ -11,6 +11,12 @@ var dtGridColumns = [{
     columnClass : 'text-center',
     headerStyle : 'color:grey;'
 },{
+    id : 'deptName',
+    title : '所属部门',
+    type : 'string',
+    columnClass : 'text-center',
+    headerStyle : 'color:grey;'
+},{
     id : 'status',
     title : '状态',
     type : 'string',
@@ -75,9 +81,28 @@ var grid = $.fn.dlshouwen.grid.init(dtGridOption);
 $(function() {
 	grid.load();
 	$('select').selected();
+	var setting = {
+			data: {
+				simpleData: {
+					enable: true,
+					pIdKey: "pid",
+				}
+			},
+			callback: {
+				onClick: zTreeOnClick
+			}
+	};
+	initDeptTree(setting);
 });
 
-function search(){
+
+function zTreeOnClick(event, treeId, treeNode) {
+	console.log(treeNode.id);
+	search(treeNode.id);
+};
+function search(deptId){
+	  grid.parameters = new Object();
+	  grid.parameters['deptId'] = deptId;
 	  grid.refresh(true);
 }
 

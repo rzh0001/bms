@@ -3,16 +3,24 @@ package com.xj.admin.config.shiro;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.servlet.Filter;
+
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
+import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
+import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.xj.admin.config.filter.KickoutSessionControlFilter;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 
@@ -34,7 +42,11 @@ public class ShiroConfiguration {
 
 		// 必须设置 SecurityManager
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
-
+		
+		Map<String, Filter> filtersMap = new LinkedHashMap<String, Filter>();
+		//限制同一帐号同时在线的个数。
+		filtersMap.put("kickout", kickoutSessionControlFilter());
+		shiroFilterFactoryBean.setFilters(filtersMap);
 		// 拦截器.
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 
@@ -51,7 +63,7 @@ public class ShiroConfiguration {
         
         
 		// <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
-		filterChainDefinitionMap.put("/**", "authc");
+		filterChainDefinitionMap.put("/**", "authc,kickout");
 		// 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
 		shiroFilterFactoryBean.setLoginUrl("/login");
 		// 登录成功后要跳转的链接
@@ -60,6 +72,8 @@ public class ShiroConfiguration {
 		shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+		
+	
 		return shiroFilterFactoryBean;
 	}
 
@@ -72,6 +86,7 @@ public class ShiroConfiguration {
 	    securityManager.setCacheManager(ehCacheManager());//这个如果执行多次，也是同样的一个对象;
 	    //注入记住我管理器;
 	    securityManager.setRememberMeManager(rememberMeManager());
+	    securityManager.setSessionManager(sessionManager());
 		return securityManager;
 	}
 	
@@ -112,6 +127,24 @@ public class ShiroConfiguration {
        cacheManager.setCacheManagerConfigFile("classpath:config/ehcache-shiro.xml");
        return cacheManager;
     }
+    
+    @Bean
+	public DefaultWebSessionManager sessionManager() {
+    	 DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();  
+       /*  sessionManager.setGlobalSessionTimeout(1800000);  
+         sessionManager.setDeleteInvalidSessions(true);  
+         sessionManager.setSessionValidationSchedulerEnabled(true);  
+         sessionManager.setDeleteInvalidSessions(true);  
+         sessionManager.setSessionDAO(sessionDAO());*/
+         return sessionManager;  
+	}
+    
+    public SessionDAO sessionDAO(){
+    	EnterpriseCacheSessionDAO  sessionDao = new EnterpriseCacheSessionDAO();
+    	sessionDao.setActiveSessionsCacheName("shiro-activeSessionCache");
+    	sessionDao.setSessionIdGenerator(new JavaUuidSessionIdGenerator());
+    	return sessionDao;
+    }
 
     /**
      * cookie对象;
@@ -145,4 +178,22 @@ public class ShiroConfiguration {
     public ShiroDialect shiroDialect(){  
     	return new ShiroDialect();  
     }
+    
+    @Bean
+    public KickoutSessionControlFilter 	kickoutSessionControlFilter(){
+     	KickoutSessionControlFilter kickoutSessionControlFilter = new KickoutSessionControlFilter();
+     	//使用cacheManager获取相应的cache来缓存用户登录的会话；用于保存用户—会话之间的关系的；
+     	//这里我们还是用之前shiro使用的redisManager()实现的cacheManager()缓存管理
+     	//也可以重新另写一个，重新配置缓存时间之类的自定义缓存属性
+     	kickoutSessionControlFilter.setCacheManager(ehCacheManager());
+     	//用于根据会话ID，获取会话进行踢出操作的；
+     	kickoutSessionControlFilter.setSessionManager(sessionManager());
+     	//是否踢出后来登录的，默认是false；即后者登录的用户踢出前者登录的用户；踢出顺序。
+     	kickoutSessionControlFilter.setKickoutAfter(false);
+     	//同一个用户最大的会话数，默认1；比如2的意思是同一个用户允许最多同时两个人登录；
+     	kickoutSessionControlFilter.setMaxSession(1);
+     	//被踢出后重定向到的地址；
+     	kickoutSessionControlFilter.setKickoutUrl("/login");
+         return kickoutSessionControlFilter;
+      }
 }

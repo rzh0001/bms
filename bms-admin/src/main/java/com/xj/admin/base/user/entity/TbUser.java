@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.xj.admin.base.dept.entity.TbDept;
 import com.xj.admin.base.role.entity.TbRole;
 
 /**
@@ -79,8 +80,18 @@ public class TbUser extends Model<TbUser> {
 	@TableField(value="u_update_time")
 	private Date updateTime;
 	
+	
+	@TableField(value="u_dept_id")
+	private Integer deptId;
+	
+	@TableField(exist=false)
+	private String deptName;
+	
 	@TableField(exist=false)
 	private TbRole role;
+	
+	@TableField(exist=false)
+	private TbDept dept;
 
 
 	public Integer getId() {
@@ -206,12 +217,35 @@ public class TbUser extends Model<TbUser> {
 		this.accountName = accountName;
 	}
 
+	public Integer getDeptId() {
+		return deptId;
+	}
+
+
+	public void setDeptId(Integer deptId) {
+		this.deptId = deptId;
+	}
 	
+	public TbDept getDept() {
+		return dept;
+	}
+
+
+	public void setDept(TbDept dept) {
+		this.dept = dept;
+	}
+
+	public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
 
 	public TbUser() {
 		super();
 	}
-
 
 	@Override
 	protected Serializable pkVal() {

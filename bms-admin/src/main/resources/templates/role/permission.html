@@ -103,7 +103,7 @@
 	function getParents(treeObj,nodeObj)
 	{
 	    var parentId = treeObj.get_parent(nodeObj);
-	    if(parentId != "#")
+	    if(parentId != '#')
 	    {
 	        ids.push(parentId);
 	        getParents(treeObj,treeObj.get_node(parentId));

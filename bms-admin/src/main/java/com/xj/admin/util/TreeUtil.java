@@ -29,7 +29,7 @@ public class TreeUtil {
 		for (TbResource resource : resourceList) {
 			JSTreeEntity jstree = new JSTreeEntity();
 			jstree.setId(resource.getId().toString());
-			jstree.setParent(resource.getParentId()==null ? "#" : resource.getParentId().toString());
+			jstree.setParent(resource.getParentId()==0?"#":resource.getParentId().toString());
 			jstree.setText(resource.getName());
 			jstree.setIcon(StringUtils.isBlank(resource.getIcon()) ? "am-icon-cog" : resource.getIcon());
 			JSTreeEntity.State state = new JSTreeEntity().new State();
@@ -41,7 +41,6 @@ public class TreeUtil {
 		}
 		return jstreeList;
 	}
-	
 	/**
 	 * 根据父节点的ID获取所有子节点
 	 * @param list	具有树形结构特点的集合

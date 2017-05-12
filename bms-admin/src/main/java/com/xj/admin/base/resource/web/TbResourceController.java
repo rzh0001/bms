@@ -59,6 +59,12 @@ public class TbResourceController extends BaseController{
 		}else{
 			parameters = pager.getParameters();
 		}
+		if(Validator.isNotNullOrEmpty(parameters.get("parentId"))){
+			parameters.put("s_parent_id", parameters.get("parentId"));
+		}else{
+			parameters.put("s_parent_id", 0);
+		}
+		parameters.remove("parentId");
 		Page<TbResource> list = resourceService.selectPage(new Page<TbResource>(pager.getNowPage(), pager.getPageSize()), Condition.instance().allEq(parameters));
 		parameters.clear();
 		parameters.put("isSuccess", Boolean.TRUE);
@@ -71,10 +77,11 @@ public class TbResourceController extends BaseController{
 		return parameters;
     }
 	
+	
 	@GetMapping("form")
     public String form(Map<String,Object> map) {
 		List<TbResource> list = resourceService.selectByMap(null);
-		List<Select2Entity> select2List = new TreeUtil().getSelectTree(list, null);
+		List<Select2Entity> select2List = new TreeUtil().getSelectTree(list, 0);
 		map.put("resources", select2List);
 		return "resource/form";
     }
@@ -113,7 +120,7 @@ public class TbResourceController extends BaseController{
     public String select(Map<String,Object> map,@PathVariable(required=true) Integer id) {	
 		TbResource resource = resourceService.selectById(id);
 		List<TbResource> list = resourceService.selectByMap(null);
-		List<Select2Entity> select2List = new TreeUtil().getSelectTree(list, null);
+		List<Select2Entity> select2List = new TreeUtil().getSelectTree(list, 0);
 		map.put("resources", select2List);
 		map.put("resource", resource);
 		return "resource/edit";

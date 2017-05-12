@@ -17,7 +17,11 @@
 		},
 		extraColumn : {
 			open : '<i class="am-icon-plus"></i>',
-			close : '<i class="am-icon-minus"></i>'
+			close : '<i class="am-icon-minus"></i>',
+			carent_right : '<i style="cursor:pointer;font-size:18px;" class="treegrid am-icon-caret-right">&nbsp;</i>',
+			carent_down : '<i style="cursor:pointer;font-size:18px;" class="treegrid am-icon-caret-down">&nbsp;</i>',
+			carent_right_class : 'am-icon-caret-right',
+			carent_down_class : 'am-icon-caret-down'
 		},
 		sortColumn : {
 			asc : '<i class="am-icon-sort-asc"></i>',

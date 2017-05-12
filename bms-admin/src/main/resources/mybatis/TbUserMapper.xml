@@ -17,6 +17,8 @@
 		<result column="u_creator_name" property="creatorName" />
 		<result column="u_create_time" property="createTime" />
 		<result column="u_update_time" property="updateTime" />
+		<result column="u_dept_id" property="deptId" />
+		<result column="deptName" property="deptName" />
  		<association property="role" column="id" javaType="com.xj.admin.base.role.entity.TbRole">
 			<id property="id" column="r_id"/>
 			<result property="name" column="r_name"/>
@@ -40,20 +42,24 @@
 		u.u_creator_name,
 		u.u_create_time,
 		u.u_update_time,
+		u.u_dept_id,
 		r.r_id,
 		r.r_name,
 		r.r_key,
 		r.r_status,
 		r.r_description,
 		r.r_create_time,
-		r.r_update_time
+		r.r_update_time,
+		b.simplename as deptName
 		FROM tb_user u LEFT JOIN tb_role_user ru ON u.u_id = ru.u_id LEFT JOIN tb_role r ON ru.r_id = r.r_id 
+		LEFT JOIN tb_dept b on u.u_dept_id = b.id
 		<where>
-			<if test="name != null and name != ''">
-				 u.u_name LIKE CONCAT('%',#{name},'%' ) OR u.u_account_name LIKE CONCAT('%',#{name},'%' )
+		  and u.u_dept_id in(select id from tb_dept where pids like '%${deptId},%' or id=#{deptId})
+		  <if test="name != null and name != ''">
+				 and u.u_name LIKE CONCAT('%',#{name},'%' ) OR u.u_account_name LIKE CONCAT('%',#{name},'%' )
 			</if>
+			and r.r_key!='administrator'
 		</where>
-		order by r.r_update_time desc,r.r_create_time desc
 	</select>
 	<select id="selectUserRole" resultMap="BaseResultMap" parameterType="map">
 		SELECT u.u_id,
@@ -67,6 +73,7 @@
 		u.u_creator_name,
 		u.u_create_time,
 		u.u_update_time,
+		u.u_dept_id,
 		r.r_id,
 		r.r_name,
 		r.r_key,

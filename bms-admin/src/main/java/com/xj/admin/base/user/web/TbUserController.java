@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.feilong.core.Validator;
 import com.feilong.core.bean.ConvertUtil;
+import com.xj.admin.base.dept.service.ITbDeptService;
 import com.xj.admin.base.index.web.BaseController;
-import com.xj.admin.base.role.entity.TbRole;
 import com.xj.admin.base.role.service.ITbRoleService;
 import com.xj.admin.base.user.entity.TbUser;
 import com.xj.admin.base.user.service.ITbUserService;
@@ -44,6 +44,8 @@ public class TbUserController extends BaseController{
 	private ITbUserService userService;
 	@Autowired
 	private ITbRoleService roleService;
+	@Autowired
+	private ITbDeptService deptService;
 	
 	@GetMapping("listUI")
     public String listUI() {
@@ -55,14 +57,20 @@ public class TbUserController extends BaseController{
     public Object list(String gridPager) {
 		Pager pager = JsonUtil.getObjectFromJson(gridPager, Pager.class);
 		Map<String, Object> parameters = null;
-		String name = "";
 		if(Validator.isNullOrEmpty(pager.getParameters())){
 			parameters = new HashMap<>();
 		}else{
 			parameters = pager.getParameters();
+		}
+		Integer deptId = getUserEntity().getDeptId();
+		String name = "";
+		if(Validator.isNotNullOrEmpty(parameters.get("deptId"))){
+			deptId = Integer.parseInt(parameters.get("deptId").toString());
+		}
+		if(Validator.isNotNullOrEmpty(parameters.get("name"))){
 			name = parameters.get("name").toString();
 		}
-		Page<TbUser> list = userService.selectUserList(new Page<TbUser>(pager.getNowPage(), pager.getPageSize()),name);
+		Page<TbUser> list = userService.selectUserList(new Page<TbUser>(pager.getNowPage(), pager.getPageSize()),name,deptId);
 		parameters.clear();
 		parameters.put("isSuccess", Boolean.TRUE);
 		parameters.put("nowPage", pager.getNowPage());
@@ -76,8 +84,7 @@ public class TbUserController extends BaseController{
 	
 	@GetMapping("form")
     public String form(Map<String,Object> map) {
-		List<TbRole> list = roleService.selectByMap(null);
-		map.put("roles", list);
+		makeCommon(map);
 		return "user/form";
     }
 	
@@ -130,9 +137,9 @@ public class TbUserController extends BaseController{
 	@GetMapping("{userId}/select")
     public String select(Map<String,Object> map,@PathVariable(required=true) Integer userId) {	
 		TbUser user = userService.selectUserRole(ConvertUtil.toMap("userId",(Object)userId));
-		List<TbRole> list = roleService.selectByMap(null);
-		map.put("roles", list);
-		map.put("user", user==null?new TbUser():user);
+		user.setDept(deptService.selectById(user.getDeptId()));
+		map.put("user", user);
+		makeCommon(map);
 		return "user/edit";
     }	
 	
@@ -156,5 +163,9 @@ public class TbUserController extends BaseController{
 			return fail(EnumSvrResult.ERROR);
 		}
 		return success();
+	}
+	
+	private void makeCommon(Map<String,Object> map){
+		map.put("roles", roleService.selectRoleList(getUserEntity().getDeptId()));
 	}
 }

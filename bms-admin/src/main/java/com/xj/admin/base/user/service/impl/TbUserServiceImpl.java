@@ -34,10 +34,11 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
 	private TbRoleUserMapper roleUserMapper;
 	
 	@Override
-	public Page<TbUser> selectUserList(Page<TbUser> page,String name) {
-		page.setRecords(userMapper.selectUserList(page,name));
+	public Page<TbUser> selectUserList(Page<TbUser> page,String name,Integer deptId) {
+		page.setRecords(userMapper.selectUserList(page,name,deptId));
 		return page;
 	}
+
 
 	@Override
 	@Transactional

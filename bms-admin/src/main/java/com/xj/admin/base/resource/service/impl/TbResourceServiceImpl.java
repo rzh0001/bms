@@ -41,7 +41,7 @@ public class TbResourceServiceImpl extends ServiceImpl<TbResourceMapper, TbResou
 	@Override
 	public List<TbResource> findResourcesMenuByUserId(int userId) {
 		List<TbResource> resources = resourceMapper.findResourcesMenuByUserId(userId);
-		List<TbResource> treeMenuList =new TreeUtil().treeMenuList(resources, null);
+		List<TbResource> treeMenuList =new TreeUtil().treeMenuList(resources, 0);
 		return treeMenuList;
 	}
 

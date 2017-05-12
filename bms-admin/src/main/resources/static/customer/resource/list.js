@@ -1,20 +1,8 @@
 var dtGridColumns = [{
-    id : 'id',
-    title : '编号',
-    type : 'number',
-    columnClass : 'text-center',
-    headerStyle : 'color:grey;'
-},{
     id : 'name',
     title : '资源名称',
     type : 'string',
-    columnClass : 'text-center',
-    headerStyle : 'color:grey;'
-},{
-    id : 'parentName',
-    title : '上级名称',
-    type : 'string',
-    columnClass : 'text-center',
+    columnClass : 'text-left',
     headerStyle : 'color:grey;'
 },{
     id : 'sourceKey',
@@ -53,10 +41,7 @@ var dtGridColumns = [{
     title : 'URL',
     type : 'string',
     columnClass : 'text-center',
-    headerStyle : 'color:grey;',
-    resolution:function(value){
-        return '<i class="'+value+'"></i>';
-    }
+    headerStyle : 'color:grey;'
 },{
     id : 'createTime',
     title : '创建时间',
@@ -95,6 +80,12 @@ var dtGridOption = {
     lang : 'zh-cn',
     ajaxLoad : true,
     checkWidth :'37px',
+    check : true,
+    isTreeGrid : true,
+    isLeafColumn : 'isLeaf',
+    iconColumn : 'name',
+    indexKey : 'id',//主键id 列名,默认值为id
+    parentId : 'parentId',//默认值为'parentId'
     loadURL : 'resource/list',
     columns : dtGridColumns,
     gridContainer : 'dtGridContainer',

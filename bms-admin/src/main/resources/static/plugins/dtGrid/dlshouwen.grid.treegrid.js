@@ -155,7 +155,7 @@
 									contentType: "application/x-www-form-urlencoded; charset=utf-8",
 									beforeSend: function(xhr) {xhr.setRequestHeader("__REQUEST_TYPE", "AJAX_REQUEST");},
 									success:function(datas){
-										datas = $.parseJSON(datas);
+										//datas = $.parseJSON(datas);
 										if(datas.status == "401")
 					            		{
 					            			$(".page-content").empty();//清除该节点子元素
@@ -260,7 +260,7 @@
                                     contentType: "application/x-www-form-urlencoded; charset=utf-8",
                                     beforeSend: function(xhr) {xhr.setRequestHeader("__REQUEST_TYPE", "AJAX_REQUEST");},
                                     success:function(datas){
-                                    	datas = $.parseJSON(datas);
+                                    	//datas = $.parseJSON(datas);
 										if(datas.status == "401")
 					            		{
 					            			$(".page-content").empty();//清除该节点子元素
@@ -366,7 +366,7 @@
                                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
                                 beforeSend: function(xhr) {xhr.setRequestHeader("__REQUEST_TYPE", "AJAX_REQUEST");},
                                 success:function(pager){
-                                    pager = $.parseJSON(pager);
+                                   // pager = $.parseJSON(pager);
 									if(pager.status == "401")
 				            		{
 				            			$(".page-content").empty();//清除该节点子元素
@@ -583,7 +583,7 @@
 						var dataNo = $(this).parent().parent().parent().attr('dataNo');
 						var indexKey = $(this).parent().parent().attr('indexKey');
 						var level = parseInt($(this).parent().parent().parent().attr("level"));
-						if($(this).hasClass('fa-caret-right')){
+						if($(this).hasClass('am-icon-caret-right')){
 							
 							//执行ajax方法请求数据
 							var url = gridReflectionObj.option.loadURL;
@@ -612,7 +612,7 @@
                                 beforeSend: function(xhr) {xhr.setRequestHeader("__REQUEST_TYPE", "AJAX_REQUEST");lay = layer.load();},
                                 success:function(datas){
                                 	layer.close(lay);
-                                	datas = $.parseJSON(datas);
+                                	//datas = $.parseJSON(datas);
 									if(datas.status == "401")
 				            		{
 				            			$(".page-content").empty();//清除该节点子元素
@@ -642,7 +642,7 @@
                                 }
                             });
                             $(this).removeClass($.fn.dlshouwen.grid.lang[gridReflectionObj.option.lang].extraColumn.carent_right_class).addClass($.fn.dlshouwen.grid.lang[gridReflectionObj.option.lang].extraColumn.carent_down_class);
-						}else if($(this).hasClass('fa-caret-down'))
+						}else if($(this).hasClass('am-icon-caret-down'))
 						{
 							//移除元素
 							var datanum = dataNo+"_"+(level+1)+"_";
@@ -1063,7 +1063,7 @@
 							var dataNo = $(this).parent().parent().parent().attr('dataNo');
 							var indexKey = $(this).parent().parent().attr('indexKey');
 							var level = parseInt($(this).parent().parent().parent().attr('level'));
-							if($(this).hasClass('fa-caret-right')){
+							if($(this).hasClass('am-icon-caret-right')){
 								
 								//执行ajax方法请求数据
 								var url = gridReflectionObj.option.loadURL;
@@ -1092,7 +1092,7 @@
 	                                beforeSend: function(xhr) {xhr.setRequestHeader("__REQUEST_TYPE", "AJAX_REQUEST");lay = layer.load();},
 	                                success:function(datas){
 	                                	layer.close(lay);
-	                                	datas = $.parseJSON(datas);
+	                                	//datas = $.parseJSON(datas);
 										if(datas.status == "401")
 					            		{
 					            			$(".page-content").empty();//清除该节点子元素
@@ -1122,7 +1122,7 @@
 	                                }
 	                            });
 	                            $(this).removeClass($.fn.dlshouwen.grid.lang[gridReflectionObj.option.lang].extraColumn.carent_right_class).addClass($.fn.dlshouwen.grid.lang[gridReflectionObj.option.lang].extraColumn.carent_down_class);
-							}else if($(this).hasClass('fa-caret-down'))
+							}else if($(this).hasClass('am-icon-caret-down'))
 							{
 								//移除元素
 								var datanum = dataNo+"_"+(level+1)+"_";
@@ -2030,7 +2030,7 @@
 								if(column.type=='date'){
 									content += '<div class="input-group">';
 									content += '	<input type="text" class="form-control" id="ge_'+column.id+'" name="ge_'+column.id+'" format="'+column.format+'" placeholder="'+$.fn.dlshouwen.grid.lang[gridReflectionObj.option.lang].fastQuery.selectStart+column.title+'" onclick="WdatePicker({dateFmt:\''+$.fn.dlshouwen.grid.tools.replaceAll(column.format, 'h', 'H')+'\'});" />';
-									content += '	<div class="input-group-addon"><i class="fa fa-calendar"></i></div>';
+									content += '	<div class="input-group-addon"><i class="am-icon-calendar"></i></div>';
 									content += '</div>';
 								}else{
 									content += '<input type="text" class="form-control" id="ge_'+column.id+'" name="ge_'+column.id+'" placeholder="'+$.fn.dlshouwen.grid.lang[gridReflectionObj.option.lang].fastQuery.inputStart+column.title+'" />';
@@ -2040,7 +2040,7 @@
 								if(column.type=='date'){
 									content += '<div class="input-group">';
 									content += '	<input type="text" class="form-control" id="le_'+column.id+'" name="le_'+column.id+'" format="'+column.format+'" placeholder="'+$.fn.dlshouwen.grid.lang[gridReflectionObj.option.lang].fastQuery.selectEnd+column.title+'" onclick="WdatePicker({dateFmt:\''+$.fn.dlshouwen.grid.tools.replaceAll(column.format, 'h', 'H')+'\'});" />';
-									content += '	<div class="input-group-addon"><i class="fa fa-calendar"></i></div>';
+									content += '	<div class="input-group-addon"><i class="am-icon-calendar"></i></div>';
 									content += '</div>';
 								}else{
 									content += '<input type="text" class="form-control" id="le_'+column.id+'" name="le_'+column.id+'" placeholder="'+$.fn.dlshouwen.grid.lang[gridReflectionObj.option.lang].fastQuery.inputEnd+column.title+'" />';
@@ -2064,7 +2064,7 @@
 										hoderName = $.fn.dlshouwen.grid.lang[gridReflectionObj.option.lang].fastQuery.selectEnd;
 									}
 									content += '	<input type="text" class="form-control" id="'+column.fastQueryType+'_'+column.id+'" name="'+column.fastQueryType+'_'+column.id+'" format="'+column.format+'" placeholder="'+hoderName+column.title+'" onclick="WdatePicker({dateFmt:\''+$.fn.dlshouwen.grid.tools.replaceAll(column.format, 'h', 'H')+'\'});" />';
-									content += '	<div class="input-group-addon"><i class="fa fa-calendar"></i></div>';
+									content += '	<div class="input-group-addon"><i class="am-icon-calendar"></i></div>';
 									content += '</div>';
 								}else{
 									content += '<input type="text" class="form-control" id="'+column.fastQueryType+'_'+column.id+'" name="'+column.fastQueryType+'_'+column.id+'" placeholder="'+$.fn.dlshouwen.grid.lang[gridReflectionObj.option.lang].fastQuery.input+column.title+'" />';
@@ -2823,7 +2823,7 @@
 						var content = '';
 						content += '<div class="input-group">';
 						content += '	<input id="value_'+gridReflectionObj.option.id+'_'+id+'" name="value_'+gridReflectionObj.option.id+'_'+id+'" class="form-control" onclick="WdatePicker({dateFmt:\''+$.fn.dlshouwen.grid.tools.replaceAll(column.format, 'h', 'H')+'\'})" />';
-						content += '	<div class="input-group-addon"><i class="fa fa-calendar"></i></div>';
+						content += '	<div class="input-group-addon"><i class="am-icon-calendar"></i></div>';
 						content += '</div>';
 						$('#valueTd_'+gridReflectionObj.option.id+'_'+id).html(content);
 						$('#format_'+gridReflectionObj.option.id+'_'+id).val(column.format);

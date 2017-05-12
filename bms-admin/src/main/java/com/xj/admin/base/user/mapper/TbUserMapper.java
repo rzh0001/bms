@@ -19,7 +19,7 @@ import com.xj.admin.base.user.entity.TbUser;
  */
 public interface TbUserMapper extends BaseMapper<TbUser> {
 	
-	public List<TbUser> selectUserList(Pagination page,@Param("name") String name);
+	public List<TbUser> selectUserList(Pagination page,@Param("name") String name,@Param("deptId") Integer deptId);
 	
 	public TbUser selectUserRole(Map<String, Object> parameter);
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.feilong.core.bean.ConvertUtil;
 import com.feilong.core.util.CollectionsUtil;
@@ -66,6 +67,17 @@ public class TbRoleServiceImpl extends ServiceImpl<TbRoleMapper, TbRole> impleme
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Page<TbRole> selectRoleList(Page<TbRole> page, Integer deptId) {
+		page.setRecords(roleMapper.selectRoleList(page,deptId));
+		return page;
+	}
+
+	@Override
+	public List<TbRole> selectRoleList(Integer deptId) {
+		return roleMapper.selectRoleList(deptId);
 	}
 	
 }

@@ -3,11 +3,9 @@ var $tab = $('#doc-tab');
 var $nav = $tab.find('.am-tabs-nav');
 var $bd = $tab.find('.am-tabs-bd');
 $(function() {
-	 $('.sidebar-nav').dropdown();
     // 读取body data-type 判断是哪个页面然后执行相应页面方法，方法在下面。
     var dataType = $('body').attr('data-type');
     autoLeftNav();
-    console.log(dataType);
     for (key in pageData) {
         if (key == dataType) {
             pageData[key]();
@@ -105,9 +103,22 @@ $('.sidebar-nav-sub-title').on('click', function() {
 
 
 function loadPage(url){
-	$(".tpl-content-wrapper").load(url,function(response,status,xhr){
+	$(".tpl-content-wrapper").load(url,function(data,status,xhr){
 		if(xhr.getResponseHeader('sessionstatus') == 'timeout'){
 			 window.location = "/";  
+		}
+		if(data.match("^\{(.+:.+,*){1,}\}$")){
+			$(".tpl-content-wrapper").empty();
+			data = JSON.parse(data);
+			if(data.status == "403"){
+			layer.confirm(data.message, {
+	            icon : 3,
+	            title : '提示',
+				btn: ['重新登录','取消'] //按钮
+	        }, function(index, layero) {
+	        	window.location = "/";  
+	        });
+			}
 		}
 	});
 }
@@ -270,3 +281,23 @@ function initUpFileOne(id,showId,label,initImg){
 	}); 
 }
 
+function initDeptTree(setting){
+	$.get("dept/listTree", function(r){
+		var zTree =  $.fn.zTree.init($(".ztree"), setting, r);
+		zTree.expandAll(true);
+	});
+}
+
+function openDeptTree(){
+	   $("#menuBtn").click(function(){
+	    	 iconLayer = layer.open({
+		            type : 2,
+		            scrollbar: false,
+		            content : 'dept/toSelectTree',
+		            area :  ['400px','500px'],
+		            maxmin : true,
+		            shift : 4,
+		            title : '<i class="am-icon-cogs"></i>&nbsp;选择部门'
+		        });
+	    });
+}

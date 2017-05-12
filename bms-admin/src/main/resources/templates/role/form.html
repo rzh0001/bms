@@ -10,6 +10,18 @@
 				</div>
 				<div class="widget-body am-fr">
 					<form class="am-form tpl-form-line-form" id="roleForm" method="post">
+					<div class="am-form-group"  id="parentDiv">
+							<label for="parentId" class="am-u-sm-2 am-form-label">所属部门</label>
+							<div class="am-u-sm-3" style="float:left">
+								 <div class="am-input-group">
+							     <input type="text"  class="am-form-field" placeholder="请选择部门" id="pname" name="deptName" readonly="readonly" /> 
+							     <span class="am-input-group-btn">
+							        <button class="am-btn am-btn-default" id="menuBtn" type="button"><span class="am-icon-search"></span> </button>
+							      </span>
+							    </div>
+								<input type="hidden"  id="pid" name="deptId" /> 
+							</div>
+						</div>
 						<div class="am-form-group">
 							<label for="account" class="am-u-sm-2 am-form-label">角色名称
 								<span class="tpl-form-line-small-title">RoleName</span>
@@ -57,6 +69,7 @@
 	<![CDATA[
 	//$('select').selected();
 	validateUserForm();
+	openDeptTree();
 	function validateUserForm(){    
 	    $('#roleForm').validate({
 	        errorElement : 'span',

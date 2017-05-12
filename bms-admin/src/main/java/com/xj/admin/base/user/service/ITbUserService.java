@@ -16,7 +16,7 @@ import com.xj.admin.base.user.entity.TbUser;
  */
 public interface ITbUserService extends IService<TbUser> {
 	
-	public Page<TbUser> selectUserList(Page<TbUser> page,String name);
+	public Page<TbUser> selectUserList(Page<TbUser> page,String name,Integer deptId);
 	
 	public TbUser selectUserRole(Map<String, Object> parameter);
 	

@@ -20,6 +20,7 @@ import com.baomidou.mybatisplus.MybatisXMLLanguageDriver;
 import com.baomidou.mybatisplus.entity.GlobalConfiguration;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.mapper.AutoSqlInjector;
+import com.baomidou.mybatisplus.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
 
@@ -41,6 +42,7 @@ public class MybatisPlusConfig {
 	@Autowired(required = false)
 	private DatabaseIdProvider databaseIdProvider;
 	
+	
 	/**
 	 *	 mybatis-plus分页插件
 	 */
@@ -49,6 +51,14 @@ public class MybatisPlusConfig {
 		PaginationInterceptor page = new PaginationInterceptor();
 		page.setDialectType("mysql");
 		return page;
+	}
+	
+	/**
+	 *	 mybatis-plus乐观锁插件
+	 */
+	@Bean
+	public OptimisticLockerInterceptor optimisticLockerInterceptor() {
+		return new OptimisticLockerInterceptor();
 	}
 	/**
 	 * 这里全部使用mybatis-autoconfigure 已经自动加载的资源。不手动指定

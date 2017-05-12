@@ -66,4 +66,5 @@
 ![用户编辑](http://git.oschina.net/uploads/images/2016/1230/150159_35cb953a_14904.jpeg "")
 ![新增新闻](http://git.oschina.net/uploads/images/2017/0110/122046_1e2829a1_14904.jpeg "")
 ![新闻列表](http://git.oschina.net/uploads/images/2017/0110/122111_4b376f17_14904.jpeg "")
-
+![api列表](https://git.oschina.net/uploads/images/2017/0421/111723_e10e8f71_14904.jpeg "")
+![无权限访问](https://git.oschina.net/uploads/images/2017/0421/111744_f5cd058e_14904.jpeg "")
