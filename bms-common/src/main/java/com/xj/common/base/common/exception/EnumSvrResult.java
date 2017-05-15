@@ -26,10 +26,9 @@ public enum EnumSvrResult {
 	
 	ERROR_UPLOAD_IMG("9","图片上传失败."),
 	
+	ERROR_DELETE_ROLE("10","删除失败，请检查该角色下是否有用户."),
 	
 	;
-	
-	
 	
 	private String val;
 	private String name;

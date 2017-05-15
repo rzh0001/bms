@@ -109,7 +109,7 @@ public class TbRoleController extends BaseController{
 	@ResponseBody
     public AbstractBean delete(@PathVariable(required=true) Integer roleId) {	
 		if(!roleService.deleteRoleResource(roleId)){
-			return fail(EnumSvrResult.ERROR);
+			return fail(EnumSvrResult.ERROR_DELETE_ROLE);
 		}
 		return success();
     }	

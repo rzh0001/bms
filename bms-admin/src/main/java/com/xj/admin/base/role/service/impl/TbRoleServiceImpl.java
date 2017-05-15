@@ -62,11 +62,7 @@ public class TbRoleServiceImpl extends ServiceImpl<TbRoleMapper, TbRole> impleme
 	@Override
 	@Transactional
 	public boolean deleteRoleResource(Integer roleId) {
-		resourceRoleMapper.deleteByMap(ConvertUtil.toMap("r_id",(Object)roleId));
-		if(roleMapper.deleteById(roleId)>0){
-			return true;
-		}
-		return false;
+		return resourceRoleMapper.deleteByMap(ConvertUtil.toMap("r_id",(Object)roleId))>0;
 	}
 
 	@Override
