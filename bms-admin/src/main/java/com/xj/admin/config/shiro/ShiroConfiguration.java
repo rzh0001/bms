@@ -139,8 +139,11 @@ public class ShiroConfiguration {
          return sessionManager;  
 	}
     
+    @Bean
     public SessionDAO sessionDAO(){
+    	//LocalSessionDAO sessionDao = new LocalSessionDAO();
     	EnterpriseCacheSessionDAO  sessionDao = new EnterpriseCacheSessionDAO();
+    	sessionDao.setCacheManager(ehCacheManager());
     	sessionDao.setActiveSessionsCacheName("shiro-activeSessionCache");
     	sessionDao.setSessionIdGenerator(new JavaUuidSessionIdGenerator());
     	return sessionDao;
