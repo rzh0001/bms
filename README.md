@@ -13,6 +13,7 @@
    - 1.2 角色管理 
    - 1.3 资源管理
    - 1.4 部门管理 
+   - 1.5 定时任务 
    
 2. 系统监控管理
    - 2.1 druid监控 
@@ -62,10 +63,14 @@
 
 ## 后台界面
 
-![登录](http://git.oschina.net/uploads/images/2016/1230/150126_2acd13ce_14904.jpeg "")
-![用户列表](http://git.oschina.net/uploads/images/2016/1230/150143_538119c6_14904.jpeg "")
-![用户编辑](http://git.oschina.net/uploads/images/2016/1230/150159_35cb953a_14904.jpeg "")
+![登录](http://git.oschina.net/uploads/images/2016/1230/150126_2acd13ce_14904.jpeg "登录")
+![用户管理](https://git.oschina.net/uploads/images/2017/0518/104840_a0bb1bb5_14904.jpeg "用户管理")
+![角色管理](https://git.oschina.net/uploads/images/2017/0518/104915_ccdcbf0c_14904.jpeg "角色管理")
+![资源管理](https://git.oschina.net/uploads/images/2017/0518/105001_6aa3d607_14904.jpeg "资源管理")
+![部门管理](https://git.oschina.net/uploads/images/2017/0518/105023_6855288d_14904.jpeg "部门管理")
+![定时任务](https://git.oschina.net/uploads/images/2017/0518/105048_91ea7a4a_14904.jpeg "定时任务")
 ![新增新闻](http://git.oschina.net/uploads/images/2017/0110/122046_1e2829a1_14904.jpeg "")
 ![新闻列表](http://git.oschina.net/uploads/images/2017/0110/122111_4b376f17_14904.jpeg "")
+![踢出用户](https://git.oschina.net/uploads/images/2017/0518/105225_fd5aeed6_14904.jpeg "踢出用户")
 ![api列表](https://git.oschina.net/uploads/images/2017/0421/111723_e10e8f71_14904.jpeg "")
 ![无权限访问](https://git.oschina.net/uploads/images/2017/0421/111744_f5cd058e_14904.jpeg "")
