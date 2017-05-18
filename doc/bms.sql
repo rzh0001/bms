@@ -518,3 +518,30 @@ INSERT INTO `tb_user` VALUES ('1', 'Administrator', 'administrator', '5043b4d12c
 INSERT INTO `tb_user` VALUES ('37', 'test', 'test', '85b6b52156eec9d365b7aad3fb19f631', '0', '0', '123123', '8d9a7ac5f7944ff91414cb66cb578848', 'administrator', '2017-04-07 17:49:22', '2017-05-11 11:14:07', '3');
 INSERT INTO `tb_user` VALUES ('38', '综合user1', 'zonghe1', '6d0c045423781687f7284edc0341be4a', '0', '0', '', 'bbfcca003d2957c67a829b9b273c7286', 'administrator', '2017-05-10 18:51:41', '2017-05-10 18:51:41', '17');
 INSERT INTO `tb_user` VALUES ('39', 'zonghe2', 'zonghe2', '333eb6bce67b7bf12a3ef52286b04032', '0', '0', '', '9655a76ca4a8d5bd67aa1ec9f5b3e17f', 'administrator', '2017-05-10 20:38:53', '2017-05-10 20:38:53', '6');
+
+
+-- ----------------------------
+-- Table structure for `tb_schedule`
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_schedule`;
+CREATE TABLE `tb_schedule` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `job_name` varchar(200) DEFAULT NULL COMMENT '任务名称',
+  `job_group` varchar(200) DEFAULT NULL COMMENT '任务分组',
+  `cron` varchar(200) DEFAULT NULL COMMENT 'cron表达式',
+  `bean_name` varchar(500) DEFAULT NULL COMMENT '任务执行时调用哪个BEAN',
+  `is_concurrent` char(1) DEFAULT NULL COMMENT '是否并发',
+  `method_name` varchar(200) DEFAULT NULL COMMENT '任务调用的方法名',
+  `create_user` varchar(50) DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_user` varchar(50) DEFAULT NULL COMMENT '修改者',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `remarks` varchar(200) DEFAULT NULL COMMENT '描述',
+  `status` char(1) DEFAULT NULL COMMENT '任务状态 0禁用 1启用',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='任务调度';
+
+-- ----------------------------
+-- Records of tb_schedule
+-- ----------------------------
+INSERT INTO `tb_schedule` VALUES ('1', '测试任务', '测试', '0/1 * * * * ?', 'taskTest', '2', 'run', '1', '2016-07-15 09:44:53', 'administrator', '2017-05-16 17:48:32', '每一秒执行一次123', '1');
