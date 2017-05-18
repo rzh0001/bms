@@ -157,7 +157,7 @@ function commit(formId, commitUrl, jumpUrl) {
         success : function(resultdata) {
         	console.log(resultdata);
             layer.close(index);
-            if (resultdata.status) {
+            if (resultdata.status=="0") {
                 layer.msg(resultdata.message, {
                     icon : 1
                 });
@@ -300,4 +300,30 @@ function openDeptTree(){
 		            title : '<i class="am-icon-cogs"></i>&nbsp;选择部门'
 		        });
 	    });
+}
+function get(nav,callback){
+        $.ajax({
+            type : "GET",
+            url :  nav,
+            dataType : "json",
+            success : function(resultdata) {
+                if (resultdata.status=="0") {
+                    layer.msg(resultdata.message, {
+                        icon : 1
+                    });
+                    if (callback) {
+                        callback();
+                    }
+                } else {
+                    layer.msg(resultdata.message, {
+                        icon : 0
+                    });
+                }
+            },
+            error : function(errorMsg) {
+                layer.msg('服务器未响应,请稍后再试', {
+                    icon : 3
+                });
+            }
+        });
 }

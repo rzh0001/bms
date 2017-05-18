@@ -96,6 +96,7 @@ public class MybatisPlusConfig {
 		//ID自增
 		GlobalConfiguration global = new GlobalConfiguration(new AutoSqlInjector());
 		global.setIdType(IdType.AUTO.getKey());
+		global.setDbColumnUnderline(true);
 		mybatisPlus.setGlobalConfig(global);
 		return mybatisPlus;
 	}

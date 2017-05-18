@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.feilong.core.Validator;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.xj.admin.base.dept.entity.TbDept;
 import com.xj.admin.base.dept.service.ITbDeptService;
 import com.xj.admin.base.index.web.BaseController;
@@ -90,27 +91,30 @@ public class TbDeptController extends BaseController {
 	@RequestMapping(value = "save", method = RequestMethod.POST)
 	@ResponseBody
 	public AbstractBean add(TbDept tbdept){
-		AbstractBean bean = new AbstractBean();
 		if(tbdept.getPid()!=0){
 			TbDept parentDept = deptService.selectById(tbdept.getPid());
 			tbdept.setPids(parentDept.getPids()+tbdept.getPid()+",");
 		}
 		if(!deptService.insertOrUpdate(tbdept)){
-			bean.setStatus(EnumSvrResult.ERROR.getVal());
-			bean.setMessage(EnumSvrResult.ERROR.getName());
+			return error();
 		}
-		return bean;
+		return success();
 	}
 	
 	@RequestMapping(value="{id}/delete",method=RequestMethod.DELETE)
 	@ResponseBody
     public AbstractBean delete(@PathVariable(required=true) Integer id) {	
-		AbstractBean bean = new AbstractBean();
-		if(!deptService.deleteById(id)){
-			bean.setStatus(EnumSvrResult.ERROR.getVal());
-			bean.setMessage(EnumSvrResult.ERROR.getName());
+		boolean result = false;
+		try {
+			result = deptService.deleteById(id);
+		} catch (Exception e) {
+			return fail(EnumSvrResult.ERROR_DELETE_DEPT);
 		}
-		return bean;
+		if(result){
+			return success();
+		}else{
+			return error();
+		}
     }	
 	
 	@RequestMapping(value="{id}/select",method=RequestMethod.GET)

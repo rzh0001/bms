@@ -90,7 +90,7 @@ public class IndexController {
 		// 此方法不处理登录成功,由shiro进行处理.
 		logger.info("{}登陆失败，error={}!",username,msg);
 		subject.getSession().setAttribute("msg", msg);
-		return "/login";
+		return "login";
 	}
 	
 	@RequestMapping(value = "logout", method = RequestMethod.GET)

@@ -35,7 +35,6 @@ import ${superControllerClassPackage};
  */
 @Controller
 @RequestMapping("/${package.ModuleName}/")
-
 public class ${table.controllerName} extends BaseController {
 
 	@Autowired
@@ -46,7 +45,7 @@ public class ${table.controllerName} extends BaseController {
 		return "${package.ModuleName}/list";
     }
 	
-	@RequestMapping("form")
+	@GetMapping("form")
     public String form(Map<String,Object> map) {
 		return "${package.ModuleName}/form";
     }
@@ -73,29 +72,25 @@ public class ${table.controllerName} extends BaseController {
 		return parameters;
     }
 	
-	@RequestMapping(value = "save", method = RequestMethod.POST)
+	@PostMapping("save")
 	@ResponseBody
 	public AbstractBean add(${entity} $entity.toLowerCase()){
-		AbstractBean bean = new AbstractBean();
 		if(!${package.ModuleName}Service.insertOrUpdate($entity.toLowerCase())){
-			bean.setStatus(EnumSvrResult.ERROR.getVal());
-			bean.setMessage(EnumSvrResult.ERROR.getName());
+			return error();
 		}
-		return bean;
+		return success();
 	}
 	
-	@RequestMapping(value="{id}/delete",method=RequestMethod.DELETE)
+	@DeleteMapping("{id}/delete")
 	@ResponseBody
     public AbstractBean delete(@PathVariable(required=true) Integer id) {	
-		AbstractBean bean = new AbstractBean();
 		if(!${package.ModuleName}Service.deleteById(id)){
-			bean.setStatus(EnumSvrResult.ERROR.getVal());
-			bean.setMessage(EnumSvrResult.ERROR.getName());
+			return error();
 		}
-		return bean;
+		return success();
     }	
 	
-	@RequestMapping(value="{id}/select",method=RequestMethod.GET)
+	@GetMapping("{id}/select")
     public String select(Map<String,Object> map,@PathVariable(required=true) Integer id) {	
 		${entity} $entity.toLowerCase() = ${package.ModuleName}Service.selectById(id);
 		map.put("record", $entity.toLowerCase());

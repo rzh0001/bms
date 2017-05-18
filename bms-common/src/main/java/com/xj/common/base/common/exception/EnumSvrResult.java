@@ -28,6 +28,10 @@ public enum EnumSvrResult {
 	
 	ERROR_DELETE_ROLE("10","删除失败，请检查该角色下是否有用户."),
 	
+	ERROR_DELETE_DEPT("11","删除失败，请检查该部门下是否有用户或角色."),
+	
+	ERROR_SCHEDULE_CRON("12","请输入正确的CRON表达式."),
+	
 	;
 	
 	private String val;
