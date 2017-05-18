@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-05-15 11:05:30
+Date: 2017-05-18 15:35:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -65,19 +65,13 @@ INSERT INTO `tb_dept` VALUES ('2', '1', '0,1,', '深圳', 'AA科技深圳办事�
 INSERT INTO `tb_dept` VALUES ('3', '2', '0,1,2,', '技服部1', '技术服务部', '', '2');
 INSERT INTO `tb_dept` VALUES ('4', '2', '0,1,2,', '客服部', '客户服务部', null, '1');
 INSERT INTO `tb_dept` VALUES ('5', '2', '0,1,2,', '销售部', '销售部', null, '1');
-INSERT INTO `tb_dept` VALUES ('6', '2', '0,1,2,', '综合管理部', '综合管理部', null, '1');
 INSERT INTO `tb_dept` VALUES ('7', '1', '0,1,', '香港', 'AA科技香港办事处', null, '2');
 INSERT INTO `tb_dept` VALUES ('8', '7', '0,1,7,', '产品部', '产品部', null, '1');
 INSERT INTO `tb_dept` VALUES ('9', '7', '0,1,7,', '研发部', '研发部', null, '1');
 INSERT INTO `tb_dept` VALUES ('10', '7', '0,1,7,', '项目部', '项目部', 'dsdddddd12aa', '4');
-INSERT INTO `tb_dept` VALUES ('11', '7', '0,1,7,', '运维部', '运维部', null, '1');
-INSERT INTO `tb_dept` VALUES ('12', '7', '0,1,7,', '销售部', '销售部', null, '1');
 INSERT INTO `tb_dept` VALUES ('13', '7', '0,1,7,', '行政部', '行政部', null, '1');
 INSERT INTO `tb_dept` VALUES ('14', '1', '0,1,', '北京', 'AA科技北京办事处', '', '1');
 INSERT INTO `tb_dept` VALUES ('15', '14', '0,1,14,', '产品部', '产品部门', '', '1');
-INSERT INTO `tb_dept` VALUES ('16', '15', '0,1,14,15,', '产品2部', '产品2部产品2部', '产品2部产品2部', null);
-INSERT INTO `tb_dept` VALUES ('17', '6', '0,1,2,6,', '综合1部', '综合1部综合1部', '综合1部综合1部综合1部综合1部1', null);
-INSERT INTO `tb_dept` VALUES ('18', '15', '0,1,14,15,', '产品1部', '产品1部产品1部', '', null);
 
 -- ----------------------------
 -- Table structure for `tb_login_info`
@@ -91,167 +85,43 @@ CREATE TABLE `tb_login_info` (
   `remark` varchar(100) DEFAULT NULL,
   `status` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=191 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tb_login_info
 -- ----------------------------
-INSERT INTO `tb_login_info` VALUES ('1', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-08 12:01:43', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('2', '234448626@qq.com', '0:0:0:0:0:0:0:1', '2017-05-08 14:36:52', '账户不存在！', '登录失败');
-INSERT INTO `tb_login_info` VALUES ('3', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-08 14:36:56', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('4', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-08 15:24:43', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('5', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-08 15:26:52', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('6', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-08 15:32:54', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('7', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-08 15:36:02', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('8', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-08 15:37:30', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('9', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-08 16:00:38', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('10', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-08 16:15:35', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('11', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-08 19:05:14', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('12', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-09 12:07:40', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('13', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-09 12:25:50', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('14', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-09 12:34:29', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('15', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-09 12:40:06', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('16', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-09 14:16:25', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('17', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-09 15:05:23', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('18', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-09 15:19:51', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('19', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-09 15:39:08', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('20', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-09 18:12:32', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('21', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-09 18:58:14', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('22', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 10:45:45', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('23', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 11:19:08', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('24', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 11:52:32', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('25', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 11:56:36', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('26', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 11:58:20', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('27', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 12:03:30', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('28', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 14:47:54', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('29', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 16:56:37', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('30', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 18:50:49', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('31', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 18:55:18', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('32', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 18:57:48', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('33', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 19:06:43', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('34', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 19:50:11', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('35', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 19:53:00', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('36', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 19:55:23', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('37', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 19:57:17', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('38', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 19:58:50', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('39', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 20:24:04', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('40', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 20:32:27', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('41', 'zonghe2', '0:0:0:0:0:0:0:1', '2017-05-10 20:39:01', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('42', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-10 20:44:54', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('43', 'zonghe2', '0:0:0:0:0:0:0:1', '2017-05-10 20:45:16', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('44', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 11:04:46', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('45', 'zonghe2', '0:0:0:0:0:0:0:1', '2017-05-11 11:04:59', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('46', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 11:10:52', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('47', 'test', '0:0:0:0:0:0:0:1', '2017-05-11 11:16:29', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('48', 'zonghe1', '0:0:0:0:0:0:0:1', '2017-05-11 11:16:55', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('49', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 11:17:42', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('50', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 12:07:15', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('51', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 12:07:33', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('52', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 12:11:25', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('53', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 12:11:34', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('54', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 12:50:39', '密码错误！', '登录失败');
-INSERT INTO `tb_login_info` VALUES ('55', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 12:50:43', '密码错误！', '登录失败');
-INSERT INTO `tb_login_info` VALUES ('56', 'zonghe1', '0:0:0:0:0:0:0:1', '2017-05-11 12:50:55', '密码错误！', '登录失败');
-INSERT INTO `tb_login_info` VALUES ('57', 'zonghe1', '0:0:0:0:0:0:0:1', '2017-05-11 14:55:14', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('58', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 14:55:21', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('59', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 14:55:33', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('60', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 14:56:36', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('61', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 15:07:20', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('62', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 15:07:26', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('63', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 15:24:53', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('64', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 15:25:02', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('65', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 15:37:37', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('66', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 15:37:44', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('67', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 15:51:39', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('68', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 15:51:48', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('69', 'zonghe2', '0:0:0:0:0:0:0:1', '2017-05-11 15:58:11', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('70', 'zonghe2', '0:0:0:0:0:0:0:1', '2017-05-11 15:58:53', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('71', 'zonghe2', '0:0:0:0:0:0:0:1', '2017-05-11 16:01:45', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('72', 'zonghe2', '0:0:0:0:0:0:0:1', '2017-05-11 16:02:04', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('73', 'zonghe2', '0:0:0:0:0:0:0:1', '2017-05-11 16:03:54', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('74', 'zonghe2', '0:0:0:0:0:0:0:1', '2017-05-11 16:04:55', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('75', 'zonghe2', '0:0:0:0:0:0:0:1', '2017-05-11 16:05:51', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('76', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 16:23:28', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('77', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 16:23:41', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('78', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 16:30:42', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('79', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 16:30:59', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('80', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 16:35:52', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('81', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 16:40:09', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('82', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 16:44:03', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('83', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 16:44:10', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('84', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 16:46:13', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('85', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 16:52:32', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('86', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 16:52:57', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('87', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 17:04:47', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('88', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 17:04:56', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('89', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:16:59', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('90', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:17:18', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('91', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:17:47', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('92', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:17:56', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('93', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:22:15', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('94', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:22:23', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('95', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:24:25', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('96', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:24:40', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('97', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:28:24', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('98', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:28:30', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('99', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:32:18', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('100', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:37:23', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('101', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:37:34', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('102', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:38:43', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('103', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:38:56', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('104', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:43:21', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('105', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:43:38', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('106', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:48:48', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('107', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:48:52', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('108', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:51:26', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('109', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 18:52:09', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('110', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:15:17', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('111', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:15:24', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('112', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:16:23', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('113', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:16:28', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('114', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:17:30', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('115', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:17:36', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('116', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:18:59', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('117', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:19:05', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('118', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:21:24', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('119', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:21:29', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('120', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:22:36', '密码错误！', '登录失败');
-INSERT INTO `tb_login_info` VALUES ('121', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:22:43', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('122', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:22:59', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('123', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:26:06', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('124', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:26:15', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('125', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:30:22', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('126', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:30:32', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('127', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:31:26', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('128', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:31:31', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('129', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:32:03', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('130', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:32:08', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('131', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:34:56', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('132', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:35:01', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('133', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:35:32', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('134', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:36:30', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('135', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:38:41', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('136', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-11 19:38:48', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('137', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 10:05:37', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('138', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 10:05:57', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('139', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 10:07:01', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('140', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 11:04:15', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('141', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 11:09:28', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('142', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 11:12:30', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('143', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 11:14:03', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('144', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 11:16:47', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('145', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 11:20:50', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('146', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 11:27:12', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('147', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 11:28:48', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('148', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 11:57:16', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('149', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 11:57:57', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('150', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 12:17:37', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('151', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 12:19:34', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('152', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 12:20:11', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('153', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 12:35:09', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('154', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 12:35:16', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('155', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 12:36:13', null, '登录成功');
-INSERT INTO `tb_login_info` VALUES ('156', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-12 12:42:39', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('159', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-15 15:42:17', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('160', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-15 15:49:07', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('161', '120381152@qq.com', '0:0:0:0:0:0:0:1', '2017-05-15 15:57:47', '账户不存在！', '登录失败');
+INSERT INTO `tb_login_info` VALUES ('162', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-15 15:57:51', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('163', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-15 16:01:01', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('164', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-15 16:01:46', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('165', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-15 16:54:42', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('166', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-15 16:57:04', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('167', '234448626@qq.com', '0:0:0:0:0:0:0:1', '2017-05-15 17:08:44', '账户不存在！', '登录失败');
+INSERT INTO `tb_login_info` VALUES ('168', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-15 17:08:50', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('169', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-15 17:29:40', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('170', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-15 18:07:37', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('171', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-16 10:39:26', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('172', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-16 10:52:40', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('173', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-16 12:40:50', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('174', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-16 14:33:10', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('175', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-16 14:40:39', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('176', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-16 14:44:40', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('177', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-16 15:16:30', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('178', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-16 15:19:50', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('179', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-16 15:22:58', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('180', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-16 15:26:58', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('181', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-16 15:30:38', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('182', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-16 15:33:46', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('183', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-16 17:32:36', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('184', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-16 17:47:12', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('185', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-16 17:53:22', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('186', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-16 18:07:08', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('187', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-18 10:29:48', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('188', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-18 10:37:21', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('189', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-18 10:44:52', null, '登录成功');
+INSERT INTO `tb_login_info` VALUES ('190', 'administrator', '0:0:0:0:0:0:0:1', '2017-05-18 10:51:38', null, '登录成功');
 
 -- ----------------------------
 -- Table structure for `tb_log_info`
@@ -351,7 +221,7 @@ CREATE TABLE `tb_resource` (
   `s_create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `s_update_time` datetime DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
   PRIMARY KEY (`s_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='资源表';
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COMMENT='资源表';
 
 -- ----------------------------
 -- Records of tb_resource
@@ -381,6 +251,7 @@ INSERT INTO `tb_resource` VALUES ('25', '1', '部门管理', 'dept', '1', 'dept/
 INSERT INTO `tb_resource` VALUES ('26', '25', '新增', 'dept:add', '2', '', '', '0', '', '2017-05-10 12:05:34', '2017-05-10 12:05:34');
 INSERT INTO `tb_resource` VALUES ('27', '25', '编辑', 'dept:edit', '2', '', '', '0', '', '2017-05-10 12:06:00', '2017-05-10 12:06:31');
 INSERT INTO `tb_resource` VALUES ('28', '25', '删除', 'dept:delete', '2', '', '', '0', '', '2017-05-10 12:06:15', '2017-05-10 12:06:48');
+INSERT INTO `tb_resource` VALUES ('29', '1', '定时任务', 'schedule', '1', 'schedule/listUI', '', '0', '', '2017-05-15 15:45:32', '2017-05-15 18:28:53');
 
 -- ----------------------------
 -- Table structure for `tb_resources_role`
@@ -396,7 +267,7 @@ CREATE TABLE `tb_resources_role` (
   KEY `FK_r_role_resource` (`r_id`),
   CONSTRAINT `tb_resources_role_ibfk_1` FOREIGN KEY (`s_id`) REFERENCES `tb_resource` (`s_id`),
   CONSTRAINT `tb_resources_role_ibfk_2` FOREIGN KEY (`r_id`) REFERENCES `tb_role` (`r_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COMMENT='角色权限映射表';
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COMMENT='角色权限映射表';
 
 -- ----------------------------
 -- Records of tb_resources_role
@@ -429,18 +300,11 @@ INSERT INTO `tb_resources_role` VALUES ('26', '21', '1', '2017-01-04 17:56:02');
 INSERT INTO `tb_resources_role` VALUES ('27', '22', '1', '2017-01-04 17:56:02');
 INSERT INTO `tb_resources_role` VALUES ('28', '23', '1', '2017-01-05 18:56:38');
 INSERT INTO `tb_resources_role` VALUES ('29', '24', '1', '2017-01-05 18:56:38');
-INSERT INTO `tb_resources_role` VALUES ('30', '1', '3', '2017-04-07 17:49:56');
-INSERT INTO `tb_resources_role` VALUES ('31', '2', '3', '2017-04-07 17:49:56');
-INSERT INTO `tb_resources_role` VALUES ('32', '7', '3', '2017-04-07 17:49:56');
 INSERT INTO `tb_resources_role` VALUES ('33', '25', '1', '2017-05-08 19:07:53');
 INSERT INTO `tb_resources_role` VALUES ('34', '26', '1', '2017-05-10 12:06:56');
 INSERT INTO `tb_resources_role` VALUES ('35', '27', '1', '2017-05-10 12:06:56');
 INSERT INTO `tb_resources_role` VALUES ('36', '28', '1', '2017-05-10 12:06:56');
-INSERT INTO `tb_resources_role` VALUES ('37', '1', '4', '2017-05-10 20:38:23');
-INSERT INTO `tb_resources_role` VALUES ('38', '3', '4', '2017-05-10 20:38:23');
-INSERT INTO `tb_resources_role` VALUES ('39', '11', '4', '2017-05-10 20:38:23');
-INSERT INTO `tb_resources_role` VALUES ('40', '2', '4', '2017-05-10 20:45:06');
-INSERT INTO `tb_resources_role` VALUES ('41', '7', '4', '2017-05-10 20:45:06');
+INSERT INTO `tb_resources_role` VALUES ('42', '29', '1', '2017-05-15 15:45:39');
 
 -- ----------------------------
 -- Table structure for `tb_role`
@@ -455,7 +319,9 @@ CREATE TABLE `tb_role` (
   `r_create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `r_update_time` datetime DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
   `r_dept_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`r_id`)
+  PRIMARY KEY (`r_id`),
+  KEY `r_dept_id_fk` (`r_dept_id`),
+  CONSTRAINT `r_dept_id_fk` FOREIGN KEY (`r_dept_id`) REFERENCES `tb_dept` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
@@ -464,7 +330,6 @@ CREATE TABLE `tb_role` (
 INSERT INTO `tb_role` VALUES ('1', '超级管理员', 'administrator', '0', '超级管理员', '2016-01-05 12:07:42', '2016-02-27 22:30:15', '1');
 INSERT INTO `tb_role` VALUES ('2', '管理员', 'admin', '0', '管理员', '2016-01-05 12:07:42', '2016-12-26 19:17:05', '1');
 INSERT INTO `tb_role` VALUES ('3', '普通用户', 'customer', '0', '普通用户', '2016-02-28 17:09:40', '2017-05-11 11:13:23', '3');
-INSERT INTO `tb_role` VALUES ('4', '深圳综合1角色', 'szzonghe1role', '0', '', '2017-05-10 20:37:27', '2017-05-10 20:37:27', '17');
 
 -- ----------------------------
 -- Table structure for `tb_role_user`
@@ -480,15 +345,40 @@ CREATE TABLE `tb_role_user` (
   KEY `FK_r_user_role` (`u_id`),
   CONSTRAINT `tb_role_user_ibfk_1` FOREIGN KEY (`r_id`) REFERENCES `tb_role` (`r_id`),
   CONSTRAINT `tb_role_user_ibfk_2` FOREIGN KEY (`u_id`) REFERENCES `tb_user` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='用户角色映射表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='用户角色映射表';
 
 -- ----------------------------
 -- Records of tb_role_user
 -- ----------------------------
 INSERT INTO `tb_role_user` VALUES ('1', '1', '1', '2017-05-01 11:25:56');
-INSERT INTO `tb_role_user` VALUES ('6', '3', '37', '2017-05-11 11:14:08');
-INSERT INTO `tb_role_user` VALUES ('7', '3', '38', '2017-05-10 18:51:41');
-INSERT INTO `tb_role_user` VALUES ('8', '4', '39', '2017-05-10 20:38:53');
+INSERT INTO `tb_role_user` VALUES ('9', '3', '40', '2017-05-15 16:55:37');
+
+-- ----------------------------
+-- Table structure for `tb_schedule`
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_schedule`;
+CREATE TABLE `tb_schedule` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `job_name` varchar(200) DEFAULT NULL COMMENT '任务名称',
+  `job_group` varchar(200) DEFAULT NULL COMMENT '任务分组',
+  `cron` varchar(200) DEFAULT NULL COMMENT 'cron表达式',
+  `bean_name` varchar(500) DEFAULT NULL COMMENT '任务执行时调用哪个BEAN',
+  `is_concurrent` char(1) DEFAULT NULL COMMENT '是否有状态',
+  `method_name` varchar(200) DEFAULT NULL COMMENT '任务调用的方法名',
+  `create_user` varchar(50) DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_user` varchar(50) DEFAULT NULL COMMENT '修改者',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `remarks` varchar(200) DEFAULT NULL COMMENT '描述',
+  `status` char(1) DEFAULT NULL COMMENT '任务状态 0禁用 1启用',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='任务调度';
+
+-- ----------------------------
+-- Records of tb_schedule
+-- ----------------------------
+INSERT INTO `tb_schedule` VALUES ('1', '测试任务', '测试', '0/1 * * * * ?', 'taskTest', '2', 'run', '1', '2016-07-15 09:44:53', 'administrator', '2017-05-16 17:48:32', '每一秒执行一次123', '0');
+INSERT INTO `tb_schedule` VALUES ('5', '测试', '123123', '0 0/5 * * * ?', '12312', '2', 'run', 'administrator', '2017-05-16 18:13:28', null, null, '', '0');
 
 -- ----------------------------
 -- Table structure for `tb_user`
@@ -508,40 +398,13 @@ CREATE TABLE `tb_user` (
   `u_update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `u_dept_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`u_id`),
-  UNIQUE KEY `u_account_name_unique` (`u_account_name`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COMMENT='用户账户表';
+  UNIQUE KEY `u_account_name_unique` (`u_account_name`) USING BTREE,
+  KEY `u_dept_id_fk` (`u_dept_id`),
+  CONSTRAINT `u_dept_id_fk` FOREIGN KEY (`u_dept_id`) REFERENCES `tb_dept` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COMMENT='用户账户表';
 
 -- ----------------------------
 -- Records of tb_user
 -- ----------------------------
 INSERT INTO `tb_user` VALUES ('1', 'Administrator', 'administrator', '5043b4d12c263931476370851cd86f5f', '0', '0', '2211', 'f0e2fb5537cbf46e7af9ca5ab5ab3629', 'admin', '2016-12-23 11:08:55', '2017-05-12 11:25:48', '1');
-INSERT INTO `tb_user` VALUES ('37', 'test', 'test', '85b6b52156eec9d365b7aad3fb19f631', '0', '0', '123123', '8d9a7ac5f7944ff91414cb66cb578848', 'administrator', '2017-04-07 17:49:22', '2017-05-11 11:14:07', '3');
-INSERT INTO `tb_user` VALUES ('38', '综合user1', 'zonghe1', '6d0c045423781687f7284edc0341be4a', '0', '0', '', 'bbfcca003d2957c67a829b9b273c7286', 'administrator', '2017-05-10 18:51:41', '2017-05-10 18:51:41', '17');
-INSERT INTO `tb_user` VALUES ('39', 'zonghe2', 'zonghe2', '333eb6bce67b7bf12a3ef52286b04032', '0', '0', '', '9655a76ca4a8d5bd67aa1ec9f5b3e17f', 'administrator', '2017-05-10 20:38:53', '2017-05-10 20:38:53', '6');
-
-
--- ----------------------------
--- Table structure for `tb_schedule`
--- ----------------------------
-DROP TABLE IF EXISTS `tb_schedule`;
-CREATE TABLE `tb_schedule` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `job_name` varchar(200) DEFAULT NULL COMMENT '任务名称',
-  `job_group` varchar(200) DEFAULT NULL COMMENT '任务分组',
-  `cron` varchar(200) DEFAULT NULL COMMENT 'cron表达式',
-  `bean_name` varchar(500) DEFAULT NULL COMMENT '任务执行时调用哪个BEAN',
-  `is_concurrent` char(1) DEFAULT NULL COMMENT '是否并发',
-  `method_name` varchar(200) DEFAULT NULL COMMENT '任务调用的方法名',
-  `create_user` varchar(50) DEFAULT NULL COMMENT '创建者',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_user` varchar(50) DEFAULT NULL COMMENT '修改者',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `remarks` varchar(200) DEFAULT NULL COMMENT '描述',
-  `status` char(1) DEFAULT NULL COMMENT '任务状态 0禁用 1启用',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='任务调度';
-
--- ----------------------------
--- Records of tb_schedule
--- ----------------------------
-INSERT INTO `tb_schedule` VALUES ('1', '测试任务', '测试', '0/1 * * * * ?', 'taskTest', '2', 'run', '1', '2016-07-15 09:44:53', 'administrator', '2017-05-16 17:48:32', '每一秒执行一次123', '1');
+INSERT INTO `tb_user` VALUES ('40', '技服1', 'jifu1', '8ec8acf3e3130cf22688ed3cc5c1b244', '0', '0', '', '49245faddc44fd752326484148ab8fa6', 'administrator', '2017-05-15 16:55:37', '2017-05-15 16:55:37', '3');
