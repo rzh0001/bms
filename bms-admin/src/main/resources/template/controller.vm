@@ -60,15 +60,8 @@ public class ${table.controllerName} extends BaseController {
 		}else{
 			parameters = pager.getParameters();
 		}
-		Page<${entity}> list = ${package.ModuleName}Service.selectPage(new Page<${entity}>(pager.getNowPage(), pager.getPageSize()), Condition.instance().allEq(parameters));
-		parameters.clear();
-		parameters.put("isSuccess", Boolean.TRUE);
-		parameters.put("nowPage", pager.getNowPage());
-		parameters.put("pageSize",pager.getPageSize());
-		parameters.put("pageCount", list.getPages());
-		parameters.put("recordCount", list.getTotal());
-		parameters.put("startRecord", list.getOffsetCurrent());
-		parameters.put("exhibitDatas",list.getRecords());
+		Page<${entity}> list = ${package.ModuleName}Service.selectPage(new Page<${entity}>(pager.getNowPage(), pager.getPageSize()), Condition.create().allEq(parameters));
+		makeGridResult(parameters, pager, list);
 		return parameters;
     }
 	

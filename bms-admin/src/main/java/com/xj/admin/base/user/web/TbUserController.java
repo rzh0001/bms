@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.feilong.core.Validator;
+import com.feilong.core.bean.BeanUtil;
 import com.feilong.core.bean.ConvertUtil;
 import com.xj.admin.base.dept.service.ITbDeptService;
 import com.xj.admin.base.index.web.BaseController;
@@ -71,14 +72,7 @@ public class TbUserController extends BaseController{
 			name = parameters.get("name").toString();
 		}
 		Page<TbUser> list = userService.selectUserList(new Page<TbUser>(pager.getNowPage(), pager.getPageSize()),name,deptId);
-		parameters.clear();
-		parameters.put("isSuccess", Boolean.TRUE);
-		parameters.put("nowPage", pager.getNowPage());
-		parameters.put("pageSize",pager.getPageSize());
-		parameters.put("pageCount", list.getPages());
-		parameters.put("recordCount", list.getTotal());
-		parameters.put("startRecord", list.getOffsetCurrent());
-		parameters.put("exhibitDatas",list.getRecords());
+		makeGridResult(parameters, pager, list);
 		return parameters;
     }
 	
@@ -143,6 +137,13 @@ public class TbUserController extends BaseController{
 		return "user/edit";
     }	
 	
+	@GetMapping("{userId}/info")
+    public String selectInfo(Map<String,Object> map,@PathVariable(required=true) Integer userId) {	
+		TbUser user = userService.selectById(userId);
+		map.put("user", user);
+		return "user/info";
+    }
+	
 	@GetMapping("{userId}/toRestPassword")
     public String restPassword(Map<String,Object> map,@PathVariable(required=true) Integer userId) {	
 		TbUser user = userService.selectById(userId);
@@ -164,6 +165,16 @@ public class TbUserController extends BaseController{
 		}
 		return success();
 	}
+	
+	@PostMapping("info")
+	@ResponseBody
+	public AbstractBean updateInfo(TbUser user){
+		TbUser userEntity = getUserEntity();
+		BeanUtil.copyProperties(userEntity, user, "img","userName","email","description");
+		userService.updateById(userEntity);
+		return success();
+	}
+	
 	
 	private void makeCommon(Map<String,Object> map){
 		map.put("roles", roleService.selectRoleList(getUserEntity().getDeptId()));

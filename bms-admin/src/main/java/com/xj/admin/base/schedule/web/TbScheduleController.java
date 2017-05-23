@@ -68,14 +68,7 @@ public class TbScheduleController extends BaseController {
 		}
 		@SuppressWarnings("unchecked")
 		Page<TbSchedule> list = scheduleService.selectPage(new Page<TbSchedule>(pager.getNowPage(), pager.getPageSize()), Condition.create().allEq(parameters));
-		parameters.clear();
-		parameters.put("isSuccess", Boolean.TRUE);
-		parameters.put("nowPage", pager.getNowPage());
-		parameters.put("pageSize",pager.getPageSize());
-		parameters.put("pageCount", list.getPages());
-		parameters.put("recordCount", list.getTotal());
-		parameters.put("startRecord", list.getOffsetCurrent());
-		parameters.put("exhibitDatas",list.getRecords());
+		makeGridResult(parameters, pager, list);
 		return parameters;
     }
 	

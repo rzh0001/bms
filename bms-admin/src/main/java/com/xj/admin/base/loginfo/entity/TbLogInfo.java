@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
 
 /**
  * <p>
@@ -13,53 +13,28 @@ import com.baomidou.mybatisplus.annotations.TableName;
  * </p>
  *
  * @author xj
- * @since 2017-01-03
+ * @since 2017-05-23
  */
-@TableName("tb_log_info")
 public class TbLogInfo extends Model<TbLogInfo> {
 
     private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
+	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
-	/**
-	 * 
-	 */
-	@TableField(value="user_id")
 	private Integer userId;
-	/**
-	 * 
-	 */
-	@TableField(value="account_name")
 	private String accountName;
-	/**
-	 * 
-	 */
+	private String requestUri;
+	private String userAgent;
 	private String method;
-	/**
-	 * 
-	 */
-	@TableField(value="method_args")
 	private String methodArgs;
-	/**
-	 * 
-	 */
 	private String remark;
-	/**
-	 * 
-	 */
 	private String status;
-	/**
-	 * 
-	 */
-	@TableField(value="operate_ip")
 	private String operateIp;
-	/**
-	 * 创建日期
-	 */
-	@TableField(value="operate_time")
+	private String times;
+	private String exception;
+    /**
+     * 创建日期
+     */
 	private Date operateTime;
 
 
@@ -85,6 +60,22 @@ public class TbLogInfo extends Model<TbLogInfo> {
 
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
+	}
+
+	public String getRequestUri() {
+		return requestUri;
+	}
+
+	public void setRequestUri(String requestUri) {
+		this.requestUri = requestUri;
+	}
+
+	public String getUserAgent() {
+		return userAgent;
+	}
+
+	public void setUserAgent(String userAgent) {
+		this.userAgent = userAgent;
 	}
 
 	public String getMethod() {
@@ -125,6 +116,22 @@ public class TbLogInfo extends Model<TbLogInfo> {
 
 	public void setOperateIp(String operateIp) {
 		this.operateIp = operateIp;
+	}
+
+	public String getTimes() {
+		return times;
+	}
+
+	public void setTimes(String times) {
+		this.times = times;
+	}
+
+	public String getException() {
+		return exception;
+	}
+
+	public void setException(String exception) {
+		this.exception = exception;
 	}
 
 	public Date getOperateTime() {

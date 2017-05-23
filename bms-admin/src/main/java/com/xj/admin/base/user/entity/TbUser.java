@@ -92,6 +92,12 @@ public class TbUser extends Model<TbUser> {
 	
 	@TableField(exist=false)
 	private TbDept dept;
+	
+	@TableField(value="u_email")
+	private String email;
+	
+	@TableField(value="u_img")
+	private String img;
 
 
 	public Integer getId() {
@@ -246,6 +252,26 @@ public class TbUser extends Model<TbUser> {
 	public TbUser() {
 		super();
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getImg() {
+		return img;
+	}
+
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
 
 	@Override
 	protected Serializable pkVal() {

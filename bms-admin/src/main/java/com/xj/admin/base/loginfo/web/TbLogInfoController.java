@@ -1,4 +1,4 @@
-package com.xj.admin.base.loginlog.web;
+package com.xj.admin.base.loginfo.web;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,12 +16,11 @@ import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.feilong.core.Validator;
 import com.xj.admin.base.index.web.BaseController;
-import com.xj.admin.base.loginlog.entity.TbLoginInfo;
-import com.xj.admin.base.loginlog.mapper.TbLoginInfoMapper;
-import com.xj.admin.base.loginlog.service.ITbLoginInfoService;
+import com.xj.admin.base.loginfo.entity.TbLogInfo;
+import com.xj.admin.base.loginfo.service.ITbLogInfoService;
+import com.xj.admin.util.JsonUtil;
 import com.xj.admin.util.dtgrid.model.Pager;
 import com.xj.common.base.common.bean.AbstractBean;
-import com.xj.common.base.common.util.JsonUtil;
 
 /**
  * <p>
@@ -27,25 +28,21 @@ import com.xj.common.base.common.util.JsonUtil;
  * </p>
  *
  * @author xj
- * @since 2017-01-04
+ * @since 2017-05-23
  */
 @Controller
-@RequestMapping("/loginlog/")
-
-public class TbLoginInfoController extends BaseController {
+@RequestMapping("/loginfo/")
+public class TbLogInfoController extends BaseController {
 
 	@Autowired
-	private ITbLoginInfoService loginlogService;
+	private ITbLogInfoService loginfoService;
 	
-	@Autowired
-	private TbLoginInfoMapper loginlogMapper;
-	
-	@RequestMapping("listUI")
+	@GetMapping("listUI")
     public String listUI() {
-		return "loginlog/list";
+		return "loginfo/list";
     }
 	
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
 	@PostMapping("list")
 	@ResponseBody
     public Object list(String gridPager) {
@@ -56,16 +53,22 @@ public class TbLoginInfoController extends BaseController {
 		}else{
 			parameters = pager.getParameters();
 		}
-		Page<TbLoginInfo> list = loginlogService.selectPage(new Page<TbLoginInfo>(pager.getNowPage(), pager.getPageSize()), Condition.create().allEq(parameters).orderBy("login_time", false));
+		Page<TbLogInfo> list = loginfoService.selectPage(new Page<TbLogInfo>(pager.getNowPage(), pager.getPageSize()), Condition.create().allEq(parameters).orderBy("operate_time", false));
 		makeGridResult(parameters, pager, list);
 		return parameters;
     }
 	
+	@GetMapping("{id}/select")
+    public String select(Map<String,Object> map,@PathVariable(required=true) Integer id) {	
+		TbLogInfo tbloginfo = loginfoService.selectById(id);
+		map.put("record", tbloginfo);
+		return "loginfo/edit";
+    }	
+	
 	@DeleteMapping("deleteBatch")
 	@ResponseBody
     public AbstractBean delete() {	
-		loginlogMapper.deleteByMap(null);
+		loginfoService.deleteByMap(null);
 		return success();
     }	
-
 }

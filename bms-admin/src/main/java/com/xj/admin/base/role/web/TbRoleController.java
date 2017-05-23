@@ -72,14 +72,7 @@ public class TbRoleController extends BaseController{
 			deptId = Integer.parseInt(parameters.get("deptId").toString());
 		}
 		Page<TbRole> list = roleService.selectRoleList(new Page<TbRole>(pager.getNowPage(), pager.getPageSize()),deptId);
-		parameters.clear();
-		parameters.put("isSuccess", Boolean.TRUE);
-		parameters.put("nowPage", pager.getNowPage());
-		parameters.put("pageSize",pager.getPageSize());
-		parameters.put("pageCount", list.getPages());
-		parameters.put("recordCount", list.getTotal());
-		parameters.put("startRecord", list.getOffsetCurrent());
-		parameters.put("exhibitDatas",list.getRecords());
+		makeGridResult(parameters, pager, list);
 		return parameters;
     }
 	

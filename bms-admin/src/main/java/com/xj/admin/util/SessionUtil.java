@@ -31,6 +31,17 @@ public class SessionUtil {
 	}
 	
 	/**
+	 * 获取登录用户
+	 * @return
+	 */
+	public static TbUser getloginUser()
+	{
+		Subject subject = SecurityUtils.getSubject();
+		return (TbUser)subject.getSession().getAttribute("userSession");
+	}
+	
+	
+	/**
 	 * 返回用户的IP地址
 	 * @param request
 	 * @return

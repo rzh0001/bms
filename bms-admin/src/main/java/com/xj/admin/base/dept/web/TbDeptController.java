@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.feilong.core.Validator;
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.xj.admin.base.dept.entity.TbDept;
 import com.xj.admin.base.dept.service.ITbDeptService;
 import com.xj.admin.base.index.web.BaseController;
@@ -67,14 +66,7 @@ public class TbDeptController extends BaseController {
 			deptId = Integer.parseInt(parameters.get("pid").toString());
 		}
 		Page<TbDept> list = deptService.selectDeptList(new Page<TbDept>(pager.getNowPage(), pager.getPageSize()), deptId);
-		parameters.clear();
-		parameters.put("isSuccess", Boolean.TRUE);
-		parameters.put("nowPage", pager.getNowPage());
-		parameters.put("pageSize",pager.getPageSize());
-		parameters.put("pageCount", list.getPages());
-		parameters.put("recordCount", list.getTotal());
-		parameters.put("startRecord", list.getOffsetCurrent());
-		parameters.put("exhibitDatas",list.getRecords());
+		makeGridResult(parameters, pager, list);
 		return parameters;
     }
     
@@ -82,9 +74,8 @@ public class TbDeptController extends BaseController {
 	@ResponseBody
     public Object listTree() {
     	TbUser user = getUserEntity();
-    	Condition cd = Condition.create();
-    	cd.like("pids", user.getDept().getPids()+user.getDeptId()).or("id={0}", user.getDeptId());
-		List<TbDept> list = deptService.selectList(cd);
+		@SuppressWarnings("unchecked")
+		List<TbDept> list = deptService.selectList(Condition.create().like("pids", user.getDept().getPids()+user.getDeptId()).or("id={0}", user.getDeptId()));
 		return list;
     }
 	

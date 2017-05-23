@@ -49,6 +49,7 @@ public class TbResourceController extends BaseController{
 		return "resource/list";
     }
 	
+	@SuppressWarnings("unchecked")
 	@PostMapping("list")
 	@ResponseBody
     public Object list(String gridPager) {
@@ -65,15 +66,8 @@ public class TbResourceController extends BaseController{
 			parameters.put("s_parent_id", 0);
 		}
 		parameters.remove("parentId");
-		Page<TbResource> list = resourceService.selectPage(new Page<TbResource>(pager.getNowPage(), pager.getPageSize()), Condition.instance().allEq(parameters));
-		parameters.clear();
-		parameters.put("isSuccess", Boolean.TRUE);
-		parameters.put("nowPage", pager.getNowPage());
-		parameters.put("pageSize",pager.getPageSize());
-		parameters.put("pageCount", list.getPages());
-		parameters.put("recordCount", list.getTotal());
-		parameters.put("startRecord", list.getOffsetCurrent());
-		parameters.put("exhibitDatas",list.getRecords());
+		Page<TbResource> list = resourceService.selectPage(new Page<TbResource>(pager.getNowPage(), pager.getPageSize()), Condition.create().allEq(parameters));
+		makeGridResult(parameters, pager, list);
 		return parameters;
     }
 	

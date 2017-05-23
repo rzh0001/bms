@@ -9,11 +9,11 @@ import com.xj.admin.base.loginfo.service.ITbLogInfoService;
 
 /**
  * <p>
- *   服务实现类
+ *  服务实现类
  * </p>
  *
  * @author xj
- * @since 2017-01-03
+ * @since 2017-05-23
  */
 @Service
 public class TbLogInfoServiceImpl extends ServiceImpl<TbLogInfoMapper, TbLogInfo> implements ITbLogInfoService {

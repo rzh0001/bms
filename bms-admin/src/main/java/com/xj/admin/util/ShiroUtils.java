@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.feilong.core.Validator;
+
 
 public class ShiroUtils {
 	
@@ -24,6 +26,21 @@ public class ShiroUtils {
 	 */
 	public static boolean isAjax(ServletRequest request){
 		return "XMLHttpRequest".equalsIgnoreCase(((HttpServletRequest) request).getHeader("X-Requested-With"));
+	}
+	
+	/**
+	 * 获得用户远程地址
+	 */
+	public static String getRemoteAddr(HttpServletRequest request) {
+		String remoteAddr = request.getHeader("X-Real-IP");
+		if (Validator.isNotNullOrEmpty(remoteAddr)) {
+			remoteAddr = request.getHeader("X-Forwarded-For");
+		} else if (Validator.isNotNullOrEmpty(remoteAddr)) {
+			remoteAddr = request.getHeader("Proxy-Client-IP");
+		} else if (Validator.isNotNullOrEmpty(remoteAddr)) {
+			remoteAddr = request.getHeader("WL-Proxy-Client-IP");
+		}
+		return remoteAddr != null ? remoteAddr : request.getRemoteAddr();
 	}
 	
 	/**

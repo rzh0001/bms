@@ -2,13 +2,16 @@ package com.xj.admin.base.index.web;
 
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xj.admin.base.user.entity.TbUser;
+import com.xj.admin.util.dtgrid.model.Pager;
 import com.xj.common.base.common.bean.AbstractBean;
 import com.xj.common.base.common.exception.EnumSvrResult;
 
@@ -79,6 +82,17 @@ public abstract class BaseController {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES , false);
 		return mapper.readValue(json,valueType);
+	}
+	
+	public void makeGridResult(Map<String, Object> parameters,Pager pager,Page<?> page){
+		parameters.clear();
+		parameters.put("isSuccess", Boolean.TRUE);
+		parameters.put("nowPage", pager.getNowPage());
+		parameters.put("pageSize",pager.getPageSize());
+		parameters.put("pageCount", page.getPages());
+		parameters.put("recordCount", page.getTotal());
+		parameters.put("startRecord", page.getOffsetCurrent());
+		parameters.put("exhibitDatas",page.getRecords());
 	}
     
     
