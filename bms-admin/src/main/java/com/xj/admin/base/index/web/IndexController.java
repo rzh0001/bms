@@ -26,6 +26,7 @@ import com.feilong.core.Validator;
 import com.xj.admin.base.resource.entity.TbResource;
 import com.xj.admin.base.resource.service.ITbResourceService;
 import com.xj.admin.base.user.entity.TbUser;
+import com.xj.admin.util.TreeUtil;
 
 /**
  * <p>
@@ -45,7 +46,12 @@ public class IndexController {
 	@RequestMapping({"/","/index" })
 	public String index(Map<String, Object> map) {
 		TbUser userEntity = (TbUser)SecurityUtils.getSubject().getPrincipal();
-		List<TbResource> treeMenuList = resourceService.findResourcesMenuByUserId(userEntity.getId());
+		List<TbResource> treeMenuList = null;
+		if(userEntity.getRole().getKey().equals("administrator")){
+			treeMenuList = new TreeUtil().treeMenuList(resourceService.selectByMap(null), 0);
+		}else{
+			treeMenuList = resourceService.findResourcesMenuByUserId(userEntity.getId());
+		}
 		map.put("menus", treeMenuList);
 		map.put("user", userEntity);
 		return "index";

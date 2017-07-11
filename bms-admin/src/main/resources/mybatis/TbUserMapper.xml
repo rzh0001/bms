@@ -56,7 +56,7 @@
 		  and u.u_dept_id in(select id from tb_dept where pids like '%${deptId},%' or id=#{deptId})
 		  <if test="name != null and name != ''">
 				 and u.u_name LIKE CONCAT('%',#{name},'%' ) OR u.u_account_name LIKE CONCAT('%',#{name},'%' )
-			</if>
+		  </if>
 			and r.r_key!='administrator'
 		</where>
 	</select>

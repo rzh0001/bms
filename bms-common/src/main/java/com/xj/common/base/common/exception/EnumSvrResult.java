@@ -32,6 +32,10 @@ public enum EnumSvrResult {
 	
 	ERROR_SCHEDULE_CRON("12","请输入正确的CRON表达式."),
 	
+	ERROR_UPDATE_RECORD_DEFIND("13","数据库中此数据不存在，可能数据已经被删除，请刷新数据后再操作."),
+	
+	ERROR_UPDATE_RECORD_VERSION("14","表单数据版本号和数据库数据版本号不一致，可能数据已经被其他人修改，请重新编辑."),
+	
 	;
 	
 	private String val;

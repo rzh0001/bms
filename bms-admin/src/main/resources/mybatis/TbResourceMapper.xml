@@ -17,6 +17,7 @@
 		<result column="s_update_time" property="updateTime" />
 		<result column="s_selected" property="selected" />
 		<result column="s_parent_name" property="parentName" />
+		<result column="last" property="last" />
 	</resultMap>
 
 	<select id="findResourcesByUserId" parameterType="int" resultMap="BaseResultMap" flushCache="true" useCache="true">
@@ -54,11 +55,11 @@
 			</if>
 		</where>
 	</select>
-	<select id="selectResourceList" parameterType="map" resultMap="BaseResultMap">
+
+	<select id="selectResourcePage" resultMap="BaseResultMap"> 
 		SELECT t1.s_id,
 			t1.s_parent_id,
 			t1.s_name,
-			t2.s_name AS s_parent_name,
 			t1.s_source_key,
 			t1.s_type,
 			t1.s_source_url,
@@ -66,20 +67,15 @@
 			t1.s_is_hide,
 			t1.s_description,
 			t1.s_create_time,
-			t1.s_update_time 
-		FROM tb_resource t1 LEFT JOIN tb_resource t2 ON t1.s_parent_id = t2.s_id
-		<where>
-			<if test="name != null and name != ''">
-				and t1.s_name=#{name}
-			</if>
-			<if test="isHide != null">
-				and t1.s_is_hide=${isHide}
-			</if>
-			<if test="type != null and type!=-1">
-				and t1.s_type=${type}
-			</if>
-		</where>
-		order by t1.s_id desc,  t1.s_update_time desc , t1.s_create_time desc
+			t1.s_update_time,
+		 CASE WHEN 
+		 	(SELECT count(s_id) FROM tb_resource t2 where t2.s_parent_id = t1.s_id)>0 
+		 THEN 
+		 	FALSE 
+		 ELSE 
+		 	TRUE 
+		 END AS last
+		 FROM tb_resource t1 ${ew.sqlSegment}
+		 
 	</select>
-	
 </mapper>

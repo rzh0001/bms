@@ -17,7 +17,7 @@
 		<result column="pname" property="pname" />
 	</resultMap>
 	
-	<select id="selectDeptsPage" resultMap="BaseResultMap">
+	<select id="selectDeptsPage" resultMap="BaseResultMap" >
 		select t.id,t.pid,t.pids,t.simplename,t.fullname,t.tips,p.simplename as pname
 		from tb_dept t left join tb_dept p on t.pid=p.id
 		${ew.sqlSegment}
@@ -29,7 +29,7 @@
 		where t.id = ${id}
 	</select>
 
-	<select id="selectDeptList" resultMap="BaseResultMap">
+	<select id="selectDeptList" resultMap="BaseResultMap" useCache="false">
 		select t.id,t.pid,t.pids,t.simplename,t.fullname,t.tips,p.simplename as pname
 		from tb_dept t left join tb_dept p on t.pid=p.id
 		<where>

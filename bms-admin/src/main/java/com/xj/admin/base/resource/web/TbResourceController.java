@@ -57,16 +57,16 @@ public class TbResourceController extends BaseController{
 		Map<String, Object> parameters = null;
 		if(Validator.isNullOrEmpty(pager.getParameters())){
 			parameters = new HashMap<>();
+			parameters.put("s_parent_id", 0);
 		}else{
 			parameters = pager.getParameters();
+			if(Validator.isNotNullOrEmpty(parameters.get("parentId"))){
+				parameters.put("s_parent_id", parameters.get("parentId"));
+			}
 		}
-		if(Validator.isNotNullOrEmpty(parameters.get("parentId"))){
-			parameters.put("s_parent_id", parameters.get("parentId"));
-		}else{
-			parameters.put("s_parent_id", 0);
-		}
+		
 		parameters.remove("parentId");
-		Page<TbResource> list = resourceService.selectPage(new Page<TbResource>(pager.getNowPage(), pager.getPageSize()), Condition.create().allEq(parameters));
+		Page<TbResource> list = resourceService.selectResourcePage(new Page<TbResource>(pager.getNowPage(), pager.getPageSize()), Condition.create().allEq(parameters));
 		makeGridResult(parameters, pager, list);
 		return parameters;
     }

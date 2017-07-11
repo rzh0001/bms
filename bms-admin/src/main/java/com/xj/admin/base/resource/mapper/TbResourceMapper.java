@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import com.xj.admin.base.resource.entity.TbResource;
 
@@ -25,5 +26,5 @@ public interface TbResourceMapper extends BaseMapper<TbResource> {
 	
     public List<TbResource> queryResourceList(Map<String, Object> parameter);
     
-    public List<TbResource> selectResourceList(Pagination page,Map<String, Object> parameter);
+    public List<TbResource> selectResourcePage(Pagination page,@Param("ew") Wrapper<TbResource> wrapper);
 }

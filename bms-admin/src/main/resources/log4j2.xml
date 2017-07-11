@@ -40,7 +40,7 @@
 	<!--然后定义logger，只有定义了logger并引入的appender，appender才会生效 -->
 	<Loggers>
 		<!--建立一个默认的root的logger，记录大于level高于TRACE的信息，如果这里的level高于Appenders中的，则Appenders中也是以此等级为起点，比如，这里level="fatal"，则Appenders中只出现fatal信息 -->
-		<Root level="TRACE">
+		<Root level="ERROR">
 			<!-- 输出器,可选上面定义的任何项组合，或全选，做到可随意定制 -->
 			<AppenderRef ref="ConsoleLog" />
 			<!-- <AppenderRef ref="FileLog" /> -->

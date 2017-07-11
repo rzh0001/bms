@@ -97,7 +97,7 @@ public class WebLogAspect {
 	private void updateWebLog(Long id, String status, String remark,String times) {
 		TbLogInfo logInfo = new TbLogInfo();
 		logInfo.setId(id);
-		logInfo.setRemark(remark);
+		logInfo.setException(remark);
 		logInfo.setStatus(status);
 		logInfo.setOperateTime(new Date());
 		logInfo.setTimes(times);

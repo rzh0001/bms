@@ -245,7 +245,6 @@ function getCheckAll(data){
      });
      return checkIds;
 }
-
 function initUpFileOne(id,showId,label,initImg){
 	$('#'+id+'').fileinput({
 		 showUpload : true,
@@ -284,7 +283,7 @@ function initUpFileOne(id,showId,label,initImg){
 function initDeptTree(setting){
 	$.get("dept/listTree", function(r){
 		var zTree =  $.fn.zTree.init($(".ztree"), setting, r);
-		zTree.expandAll(true);
+		//zTree.expandAll(true);
 	});
 }
 
@@ -326,4 +325,26 @@ function get(nav,callback){
                 });
             }
         });
+}
+function dict(codes){
+	 var result = 0;
+	 $.ajax({
+         type : "GET",
+         url :  "dict/",
+         data : {'codes':codes},
+         dataType : "json",
+         async:false,
+         success : function(resultdata) {
+             if (resultdata.status=="0") {
+            	 result = resultdata.data;
+             }
+         },
+         error : function(errorMsg) {
+             layer.msg('服务器未响应,请稍后再试', {
+                 icon : 3
+             });
+         }
+        
+     });
+	 return result;
 }

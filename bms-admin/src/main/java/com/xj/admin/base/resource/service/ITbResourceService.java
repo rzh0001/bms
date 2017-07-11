@@ -3,6 +3,7 @@ package com.xj.admin.base.resource.service;
 import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.xj.admin.base.resource.entity.TbResource;
@@ -23,7 +24,7 @@ public interface ITbResourceService extends IService<TbResource> {
 	
     public List<TbResource> queryResourceList(Map<String, Object> parameter);
     
-	public Page<TbResource> selectResourceList(Page<TbResource> page,Map<String, Object> parameter);
+	public Page<TbResource> selectResourcePage(Page<TbResource> page, Wrapper<TbResource> wrapper);
 	
 	public void deleteRoleResource(int resourceId);
 }

@@ -131,13 +131,16 @@ public class ShiroConfiguration {
     @Bean
 	public DefaultWebSessionManager sessionManager() {
     	 DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();  
-       /*  sessionManager.setGlobalSessionTimeout(1800000);  
-         sessionManager.setDeleteInvalidSessions(true);  
-         sessionManager.setSessionValidationSchedulerEnabled(true);  
-         sessionManager.setDeleteInvalidSessions(true);  
-         sessionManager.setSessionDAO(sessionDAO());*/
+         sessionManager.setSessionDAO(sessionDAO());
+         sessionManager.setSessionIdCookieEnabled(true);
+         sessionManager.setSessionIdCookie(sessionIdCookie());
          return sessionManager;  
 	}
+    
+    public SimpleCookie sessionIdCookie(){
+    	return new SimpleCookie("bms.session.id");
+    }
+    
     
     @Bean
     public SessionDAO sessionDAO(){

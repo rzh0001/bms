@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.feilong.core.bean.ConvertUtil;
@@ -51,16 +52,16 @@ public class TbResourceServiceImpl extends ServiceImpl<TbResourceMapper, TbResou
 	}
 
 	@Override
-	public Page<TbResource> selectResourceList(Page<TbResource> page, Map<String, Object> parameter) {
-		page.setRecords(resourceMapper.selectResourceList(page,parameter));
-		return page;
-	}
-
-	@Override
 	@Transactional
 	public void deleteRoleResource(int resourceId) {
 		resourceRoleMapper.deleteByMap(ConvertUtil.toMap("s_id",(Object)resourceId));
 		resourceMapper.deleteById(resourceId);
 		
+	}
+
+	@Override
+	public Page<TbResource> selectResourcePage(Page<TbResource> page, Wrapper<TbResource> wrapper) {
+		page.setRecords(resourceMapper.selectResourcePage(page, wrapper));
+		return page;
 	}
 }

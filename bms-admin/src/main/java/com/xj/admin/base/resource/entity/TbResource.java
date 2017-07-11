@@ -87,6 +87,9 @@ public class TbResource extends Model<TbResource> {
 	private String parentName;
 	
 	@TableField(exist=false)
+	private boolean last;
+	
+	@TableField(exist=false)
 	private List<TbResource> children = new ArrayList<>();
 	
 
@@ -220,6 +223,14 @@ public class TbResource extends Model<TbResource> {
 	
 	public void setParentName(String parentName) {
 		this.parentName = parentName;
+	}
+
+	public boolean isLast() {
+		return last;
+	}
+
+	public void setLast(boolean last) {
+		this.last = last;
 	}
 
 	@Override

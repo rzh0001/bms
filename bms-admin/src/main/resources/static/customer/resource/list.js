@@ -82,7 +82,7 @@ var dtGridOption = {
     checkWidth :'37px',
     check : true,
     isTreeGrid : true,
-    isLeafColumn : 'isLeaf',
+    isLeafColumn : 'last',
     iconColumn : 'name',
     indexKey : 'id',//主键id 列名,默认值为id
     parentId : 'parentId',//默认值为'parentId'
