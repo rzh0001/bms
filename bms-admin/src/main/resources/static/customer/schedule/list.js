@@ -1,6 +1,6 @@
 var dict;
 $(function() {
-	dict = dict('scheduleStatus');
+	dict = getDicts('scheduleStatus');
 	var dtGridColumns = [{
 	    id : 'id',
 	    title : '编号',

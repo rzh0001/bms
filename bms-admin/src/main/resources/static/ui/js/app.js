@@ -326,7 +326,7 @@ function get(nav,callback){
             }
         });
 }
-function dict(codes){
+function getDicts(codes){
 	 var result = 0;
 	 $.ajax({
          type : "GET",

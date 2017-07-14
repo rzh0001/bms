@@ -34,7 +34,7 @@ public class TreeUtil {
 			jstree.setIcon(StringUtils.isBlank(resource.getIcon()) ? "am-icon-cog" : resource.getIcon());
 			JSTreeEntity.State state = new JSTreeEntity().new State();
 			state.setDisabled(false);
-			state.setSelected(resource.isSelected());
+			state.setSelected(resource.isChecked());
 			state.setOpened(true);
 			jstree.setState(state);
 			jstreeList.add(jstree);

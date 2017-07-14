@@ -81,7 +81,7 @@ public class TbResource extends Model<TbResource> {
 	private Date updateTime;
 	
 	@TableField(exist=false)
-	private boolean selected;
+	private boolean checked;
 	
 	@TableField(exist=false)
 	private String parentName;
@@ -208,14 +208,16 @@ public class TbResource extends Model<TbResource> {
 	public void setChildren(List<TbResource> children) {
 		this.children = children;
 	}
-	
-	public boolean isSelected() {
-		return selected;
+
+	public boolean isChecked() {
+		return checked;
 	}
 
-	public void setSelected(boolean selected) {
-		this.selected = selected;
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
+
 
 	public String getParentName() {
 		return parentName;

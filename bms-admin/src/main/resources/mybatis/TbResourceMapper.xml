@@ -15,7 +15,7 @@
 		<result column="s_description" property="description" />
 		<result column="s_create_time" property="createTime" />
 		<result column="s_update_time" property="updateTime" />
-		<result column="s_selected" property="selected" />
+		<result column="checked" property="checked" />
 		<result column="s_parent_name" property="parentName" />
 		<result column="last" property="last" />
 	</resultMap>
@@ -38,12 +38,11 @@
 			t1.s_source_key,
 			t1.s_type,
 			t1.s_source_url,
-			t1.s_icon,
 			t1.s_is_hide,
 			t1.s_description,
 			t1.s_create_time,
 			t1.s_update_time,
-		CASE WHEN t3.s_id IS NULL THEN FALSE ELSE TRUE END AS s_selected
+		CASE WHEN t3.s_id IS NULL THEN FALSE ELSE TRUE END AS checked
 		FROM tb_resource t1 LEFT JOIN tb_resource t2 ON t1.s_parent_id = t2.s_id 
 		LEFT JOIN tb_resources_role t3 on t1.s_id = t3.s_id and t3.r_id=${roleId}
 		<where>

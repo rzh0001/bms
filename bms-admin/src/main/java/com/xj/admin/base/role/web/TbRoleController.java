@@ -129,8 +129,8 @@ public class TbRoleController extends BaseController{
 	@ResponseBody
     public Object getPermission(@PathVariable(required=true) Integer roleId) {	
 		List<TbResource> resources = resourceService.queryResourceList(ConvertUtil.toMap("isHide",(Object)0,"roleId",(Object)roleId));
-		List<JSTreeEntity> jstreeList = new TreeUtil().generateJSTree(resources);
-		return jstreeList;
+		//List<JSTreeEntity> jstreeList = new TreeUtil().generateJSTree(resources);
+		return resources;
     }	
 	
 	@PostMapping("savePermission")
