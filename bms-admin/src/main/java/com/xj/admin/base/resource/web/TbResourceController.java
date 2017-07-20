@@ -83,7 +83,7 @@ public class TbResourceController extends BaseController{
 	@PostMapping("save")
 	@ResponseBody
 	public AbstractBean add(TbResource resource){
-		resource.setParentId(resource.getParentId()==0?null:resource.getParentId());
+		resource.setParentId(Validator.isNullOrEmpty(resource.getParentId())?0:resource.getParentId());
 		if(resource.getId()==null){
 			resource.setCreateTime(new Date(System.currentTimeMillis()));
 			resource.setUpdateTime(new Date(System.currentTimeMillis()));
