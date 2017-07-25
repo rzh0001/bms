@@ -17,6 +17,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.feilong.core.Validator;
 import com.xj.admin.base.index.web.BaseController;
 import com.xj.admin.base.loginfo.entity.TbLogInfo;
+import com.xj.admin.base.loginfo.mapper.TbLogInfoMapper;
 import com.xj.admin.base.loginfo.service.ITbLogInfoService;
 import com.xj.admin.util.JsonUtil;
 import com.xj.admin.util.dtgrid.model.Pager;
@@ -36,6 +37,9 @@ public class TbLogInfoController extends BaseController {
 
 	@Autowired
 	private ITbLogInfoService loginfoService;
+	
+	@Autowired
+	private TbLogInfoMapper loginfoMapper;
 	
 	@GetMapping("listUI")
     public String listUI() {
@@ -68,7 +72,7 @@ public class TbLogInfoController extends BaseController {
 	@DeleteMapping("deleteBatch")
 	@ResponseBody
     public AbstractBean delete() {	
-		loginfoService.deleteByMap(null);
+		loginfoMapper.deleteByMap(null);
 		return success();
     }	
 }

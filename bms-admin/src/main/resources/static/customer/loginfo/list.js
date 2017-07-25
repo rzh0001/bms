@@ -86,7 +86,7 @@ function search(){
 }
 
 function delteAll(){
-	del("loginlog/deleteBatch",search);
+	del("loginfo/deleteBatch",search);
 }
 
 
