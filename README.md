@@ -1,3 +1,7 @@
+----
+这个项目从 [eric.xu / BMS](http://git.oschina.net/eric.xu/BMS) 迁移过来的
+----
+
 #BMS基础权限开发平台
 	CodeGenerator自动生成Entity、Mapper、Service、Controller让开发更简单
 	

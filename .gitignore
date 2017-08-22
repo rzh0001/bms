@@ -1,1 +1,6 @@
 /target/
+.idea/
+bms-admin/bms-admin.iml
+bms-api/bms-api.iml
+bms-common/bms-common.iml
+bms.iml
